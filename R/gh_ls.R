@@ -14,31 +14,60 @@
 #' gh_ls("forestgeo/fgeo/tests/testhat")
 #' gh_ls("forestgeo/fgeo/tests/bad-dir")
 gh_ls <- function(path) {
-  n <- length(split_url(path))
-  if (n == 1L) {
-    out <- ls_owner(owner = owner(path))
-  } else if (n == 2L) {
-    out <- ls_repo(repo = owner_repo(path))
-  } else if (n >= 3L) {
-    out <- ls_content(repo = owner_repo(path), subdir = subdir(path))
-  } else {
-    stop("Bad request", call. = FALSE)
-  }
-  out
+  end <- purrr::map_chr(gh::gh(gh_call(path)), "name")
+  out <- glue::glue("path/{end}")
+  names(out) <- out
+  new_gh_path(out)
 }
 
-# gh_ls <- function(path) {
-#   n <- length(split_url(path))
-#   dplyr::case_when(
-#     n == 1 ~ ls_owner(owner = owner(path)),
-#     n == 2 ~ ls_repo(repo = owner_repo(path)),
-#     n >= 3 ~ ls_content(repo = owner_repo(path), subdir = subdir(path)),
-#     TRUE   ~ stop("Bad request", call. = FALSE)
-#   )
-# }
+new_gh_path <- function(path, ...) {
+  stopifnot(is.character(path))
+  structure(path, class = c("gh_path", class(path)))
+}
 
-split_url <- function(x) {
-  strsplit(x, "/")[[1]]
+#' Create a request for GitHub contents that gh::gh() understands.
+#'
+#' @param path A string formatted as "owner/repo/subdir_1/subdir_2/subdir_n".
+#'
+#' @return A character vector.
+#' @export
+#'
+#' @examples
+#' gh_call("owner")
+#' gh_call("owner/repo")
+#' gh_call("owner/repo/subdir")
+#' gh_call("owner/repo/subdir_1/subdir_2/subdir_3")
+#' gh_call("O/R/S1/S2/S3")
+gh_call <- function(path) {
+  out <- piece_apply(path, request_owner, request_repo, request_subdir)
+  tolower(out)
+}
+
+piece_apply <- function(path, f1, f2, f3) {
+  n_pieces <- as.character(length(split_url(path)))
+  switch(
+    n_pieces,
+    "1" = f1(path),
+    "2" = f2(path),
+    f3(path)
+  )
+}
+
+request_owner <- function(path) {
+  glue::glue("/users/{path}/repos")
+}
+request_repo <- function(path) {
+  owner_repo <- owner_repo(path)
+  glue::glue("/users/{owner_repo}/repos")
+}
+request_subdir <- function(path) {
+  owner_repo <- owner_repo(path)
+  subdir <- subdir(path)
+  glue::glue("/repos/{owner_repo}/contents/{subdir}")
+}
+
+owner_repo <- function(x) {
+  paste0(owner(x), "/", repo(x))
 }
 
 owner <- function(x) {
@@ -49,28 +78,11 @@ repo <- function(x) {
   split_url(x)[[2]]
 }
 
-owner_repo <- function(x) {
-  paste0(owner(x), "/", repo(x))
+split_url <- function(x) {
+  strsplit(x, "/")[[1]]
 }
 
 subdir <- function(x) {
   stopifnot(length(split_url(x)) >= 3)
   paste0(split_url(x)[c(-1, -2)], collapse = "/")
 }
-
-ls_owner <- function(owner) {
-  ls_request(glue::glue("/users/{owner}/repos"))
-}
-
-ls_repo <- function(repo) {
-  ls_request(glue::glue("/repos/{repo}/contents/"))
-}
-
-ls_content <- function(repo, subdir = NULL) {
-  ls_request(glue::glue("/repos/{repo}/contents/{subdir}"))
-}
-
-ls_request <- function(request) {
-  purrr::map_chr(gh::gh(request), "name")
-}
-
