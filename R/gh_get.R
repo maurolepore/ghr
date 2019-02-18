@@ -1,13 +1,3 @@
-gh_get_impl <- function(path, ref = "master") {
-  branch <- ref
-  pieces <- strsplit(path, "@")[[1]]
-  if (length(pieces) > 1) {
-    path <- pieces[[1]]
-    branch <- pieces[[2]]
-  }
-  gh::gh(gh_path(path), ref = branch)
-}
-
 #' Get a response from the GitHub API.
 #'
 #' @param path A string formatted as "owner/repo/subdir_1/subdir_2/subdir_n".
@@ -17,7 +7,6 @@ gh_get_impl <- function(path, ref = "master") {
 #' @seealso ghr_fields
 #'
 #' @return A list.
-#' @export
 #'
 #' @examples
 #' gh_get("r-lib/usethis")
@@ -31,6 +20,19 @@ gh_get_impl <- function(path, ref = "master") {
 #' # Same
 #' ghr_path(gh_get("r-lib/usethis@gh-pages"))
 #' ghr_path(gh_get("r-lib/usethis/news@gh-pages"))
+#' @name gh_get
+NULL
+gh_get_impl <- function(path, ref = "master") {
+  branch <- ref
+  pieces <- strsplit(path, "@")[[1]]
+  if (length(pieces) > 1) {
+    path <- pieces[[1]]
+    branch <- pieces[[2]]
+  }
+  gh::gh(gh_path(path), ref = branch)
+}
+#' @rdname gh_get
+#' @export
 gh_get <- memoise::memoise(gh_get_impl)
 
 #' Get the name of all branches of a GitHub repository.
@@ -66,13 +68,7 @@ gh_branches <- function(path) {
 #' @noRd
 #' @keywords internal
 gh_path <- function(path) {
-  n_pieces <- as.character(length(split_url(path)))
-  switch(
-    n_pieces,
-    "1" = request_owner(path),
-    "2" = request_repo(path),
-    request_subdir(path)
-  )
+  piece_apply(path, request_owner, request_repo, request_subdir)
 }
 
 request_owner <- function(path) {
@@ -107,4 +103,14 @@ split_url <- function(x) {
 subdir <- function(x) {
   stopifnot(length(split_url(x)) >= 3)
   paste0(split_url(x)[c(-1, -2)], collapse = "/")
+}
+
+piece_apply <- function(path, f1, f2, f3) {
+  n_pieces <- as.character(length(split_url(path)))
+  switch(
+    n_pieces,
+    "1" = f1(path),
+    "2" = f2(path),
+    f3(path)
+  )
 }

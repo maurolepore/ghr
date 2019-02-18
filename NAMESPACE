@@ -2,4 +2,8 @@
 
 export(gh_branches)
 export(gh_get)
+export(ghr_download_url)
 export(ghr_fields)
+export(ghr_html_url)
+export(ghr_path)
+export(ghr_pull)
