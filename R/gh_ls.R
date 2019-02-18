@@ -1,3 +1,9 @@
+gh_branches <- function(path) {
+  owner_repo <- owner_repo(path)
+  purrr::map_chr(gh::gh(glue::glue("/repos/{owner_repo}/branches")), "name")
+}
+
+
 #' Convert a path such as owner/repo/subdir into an `endpoint` for `gh::gh()`.
 #'
 #' @param path
