@@ -1,6 +1,8 @@
 #' Show and pull available fields of a GitHub response.
 #'
 #' @param gh_response A list object of class "gh_response".
+#' @param field Character string giving the name of the the element to
+#'   extract from the github-response list.
 #'
 #' @family functions to work with github responses
 #' @seealso gh_get gh_branches

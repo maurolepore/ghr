@@ -20,6 +20,9 @@ ghr_download_url(gh_response)
 }
 \arguments{
 \item{gh_response}{A list object of class "gh_response".}
+
+\item{field}{Character string giving the name of the the element to
+extract from the github-response list.}
 }
 \value{
 A character string.
