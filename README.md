@@ -11,6 +11,8 @@ coverage](https://coveralls.io/repos/github/maurolepore/ghr/badge.svg)](https://
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/ghr)](https://cran.r-project.org/package=ghr)
+[![Travis build
+status](https://travis-ci.org/maurolepore/ghr.svg?branch=master)](https://travis-ci.org/maurolepore/ghr)
 <!-- badges: end -->
 
 The goal of ghr is to get and manipulate a GitHub API response.
@@ -32,6 +34,6 @@ library(ghr)
 
 ## Acknowledgements
 
-Thanks to GÃƒÂ¡bor CsÃƒÂ¡rdi et. al for the [gh
+Thanks to GÃƒÆ’Ã‚Â¡bor CsÃƒÆ’Ã‚Â¡rdi et. al for the [gh
 package](https://github.com/r-lib/gh) and to Francois Michonneau, James
 Balamuta, Noam Ross and Bryce Mecum for sharing their ideas and code.
