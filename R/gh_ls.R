@@ -1,11 +1,3 @@
-gh_attributes <- function(path) {
-  names(gh::gh(gh_path("r-lib/gh/tests/testthat"))[[1]])
-}
-
-gh_pull <- function(path, attribute) {
-  purrr::map_chr(gh::gh(gh_path(path)), attribute)
-}
-
 #' Convert a path such as owner/repo/subdir into an `endpoint` for `gh::gh()`.
 #'
 #' @param path
@@ -91,4 +83,49 @@ split_url <- function(x) {
 subdir <- function(x) {
   stopifnot(length(split_url(x)) >= 3)
   paste0(split_url(x)[c(-1, -2)], collapse = "/")
+}
+
+
+
+
+
+
+
+#' @examples
+#' gh_response <- gh_get("hadley/babynames/data-raw")
+#' ghr_fields(gh_response)
+#'
+#' ghr_pull(gh_response, "name")
+#' # Shortcuts
+#' ghr_path(gh_response)
+#' ghr_html_url(gh_response)
+#' ghr_download_url(gh_response)
+gh_get_ <- function(path, ref = "master") {
+  gh::gh(gh_path(path), ref = ref)
+}
+gh_get <- memoise::memoise(gh_get_)
+
+ghr_fields <- function(gh_response) {
+  stopifnot(inherits(gh_response, "gh_response"))
+  names(gh_response[[1]])
+}
+
+ghr_pull <- function(gh_response, field) {
+  stopifnot(inherits(gh_response, "gh_response"))
+  purrr::map_chr(gh_response, field)
+}
+
+with_field <- function(field) {
+  function(gh_response)
+  ghr_pull(gh_response, field = field)
+}
+ghr_path <- with_field("path")
+ghr_html_url <- with_field("html_url")
+ghr_download_url <- with_field("download_url")
+
+
+
+gh_branches <- function(path) {
+  path_ <- gh_path(path)
+  gh::gh(glue::glue("{path_}/branches"))
 }
