@@ -1,11 +1,25 @@
 gh_get_impl <- function(path, ref = "master") {
   branch <- ref
   pieces <- strsplit(path, "@")[[1]]
-  if (length(pieces) > 1) {
+  uses_at <- length(pieces) > 1
+  stop_invalid_ref(path, ref, uses_at)
+  if (uses_at) {
     path <- pieces[[1]]
     branch <- pieces[[2]]
   }
+
   gh::gh(gh_path(path), ref = branch)
+}
+
+stop_invalid_ref <- function(path, ref, uses_at) {
+  uses_ref <- uses_at || ref != "master"
+  if (uses_ref && length(split_url(path)) == 1L) {
+    stop(
+      "`ref` makes no sense for a `path` at the 'owner' level.\n",
+      "Did you forget to specify the 'repo' component of the `path`?",
+      call. = FALSE
+    )
+  }
 }
 
 #' Get a response from the GitHub API.
