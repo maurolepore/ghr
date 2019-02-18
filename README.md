@@ -37,15 +37,15 @@ library(magrittr)
 library(ghr)
 ```
 
-Use `gh_get()` to get a GitHub-API response. Notice that the call is
+Use `ghr_get()` to get a GitHub-API response. Notice that the call is
 memoised.
 
 ``` r
-system.time(gh_get("r-lib/gh"))
+system.time(ghr_get("r-lib/gh"))
 #>    user  system elapsed 
-#>    0.08    0.02    0.31
+#>    0.09    0.03    0.36
 # Takes no time because the first call is memoised
-system.time(gh_get("r-lib/gh"))
+system.time(ghr_get("r-lib/gh"))
 #>    user  system elapsed 
 #>       0       0       0
 ```
@@ -53,7 +53,7 @@ system.time(gh_get("r-lib/gh"))
 Use `ghr_fields()` to see what fields are available for a given `path`.
 
 ``` r
-gh_response <- gh_get(path = "r-lib/usethis/tests")
+gh_response <- ghr_get(path = "r-lib/usethis/tests")
 class(gh_response)
 #> [1] "gh_response" "list"
 
@@ -71,18 +71,18 @@ ghr_pull(gh_response, "name")
 #> [1] "manual"     "spelling.R" "testthat.R" "testthat"
 ```
 
-The `path` argument to `gh_get()` understands a syntax as
+The `path` argument to `ghr_get()` understands a syntax as
 `owner/repo/path@branch`
 
 ``` r
-gh_branches("r-lib/usethis")
+ghr_branches("r-lib/usethis")
 #>  [1] "clang-format"         "f-479-proj-path-prep" "gh-pages"            
 #>  [4] "logo"                 "master-clean-start"   "master"              
 #>  [7] "moar-version-menu"    "pkgdown-travis"       "pr-flow-upgrades"    
 #> [10] "pr-pull-upstream"     "release-type"         "tidy-travis-matrix"
 
 "r-lib/usethis/reference@gh-pages" %>% 
-  gh_get() %>% 
+  ghr_get() %>% 
   ghr_pull("name")
 #>  [1] "badges.html"                 "browse-this.html"           
 #>  [3] "browse_github_pat.html"      "ci.html"                    
@@ -118,7 +118,7 @@ There are some shortcuts to `ghr_pull()`:
 
 ``` r
 "maurolepore/tor/inst/extdata/csv" %>% 
-  gh_get() %>% 
+  ghr_get() %>% 
   ghr_download_url() %>%
   lapply(read.csv, stringsAsFactors = FALSE)
 #> [[1]]
@@ -134,7 +134,7 @@ There are some shortcuts to `ghr_pull()`:
 
 ``` r
 html_urls <- "maurolepore/tor/inst/extdata/csv" %>% 
-  gh_get() %>% 
+  ghr_get() %>% 
   ghr_html_url()
 html_urls
 #> [1] "https://github.com/maurolepore/tor/blob/master/inst/extdata/csv/csv1.csv"

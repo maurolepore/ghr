@@ -5,13 +5,13 @@
 #'   extract from the github-response list.
 #'
 #' @family functions to work with github responses
-#' @seealso gh_get gh_branches
+#' @seealso ghr_get gh_branches
 #'
 #' @return A character string.
 #' @export
 #'
 #' @examples
-#' gh_response <- gh_get("hadley/babynames/data-raw")
+#' gh_response <- ghr_get("hadley/babynames/data-raw")
 #' ghr_fields(gh_response)
 #'
 #' ghr_pull(gh_response, "name")
@@ -21,10 +21,10 @@
 #' ghr_download_url(gh_response)
 #'
 #' # Working with non-default branches
-#' ghr_path(gh_get("r-lib/usethis", ref = "gh-pages"))
+#' ghr_path(ghr_get("r-lib/usethis", ref = "gh-pages"))
 #' # Same
-#' ghr_path(gh_get("r-lib/usethis@gh-pages"))
-#' ghr_path(gh_get("r-lib/usethis/news@gh-pages"))
+#' ghr_path(ghr_get("r-lib/usethis@gh-pages"))
+#' ghr_path(ghr_get("r-lib/usethis/news@gh-pages"))
 ghr_fields <- function(gh_response) {
   stopifnot(inherits(gh_response, "gh_response"))
   names(gh_response[[1]])

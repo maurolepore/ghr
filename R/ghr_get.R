@@ -1,4 +1,4 @@
-gh_get_impl <- function(path, ref = "master") {
+ghr_get_impl <- function(path, ref = "master") {
   branch <- ref
   pieces <- strsplit(path, "@")[[1]]
   uses_at <- length(pieces) > 1
@@ -34,22 +34,22 @@ stop_invalid_ref <- function(path, ref, uses_at) {
 #' @export
 #'
 #' @examples
-#' gh_get("r-lib/usethis")
+#' ghr_get("r-lib/usethis")
 #'
-#' # The request to GitHub happens only the first time you call gh_get()
-#' system.time(gh_get("r-lib/usethis/R"))
+#' # The request to GitHub happens only the first time you call ghr_get()
+#' system.time(ghr_get("r-lib/usethis/R"))
 #' # Later calls take no time because the first call is memoised
-#' system.time(gh_get("r-lib/usethis/R"))
+#' system.time(ghr_get("r-lib/usethis/R"))
 #'
-#' ghr_path(gh_get("r-lib/usethis", ref = "gh-pages"))
+#' ghr_path(ghr_get("r-lib/usethis", ref = "gh-pages"))
 #' # Same
-#' ghr_path(gh_get("r-lib/usethis@gh-pages"))
-#' ghr_path(gh_get("r-lib/usethis/news@gh-pages"))
-gh_get <- memoise::memoise(gh_get_impl)
+#' ghr_path(ghr_get("r-lib/usethis@gh-pages"))
+#' ghr_path(ghr_get("r-lib/usethis/news@gh-pages"))
+ghr_get <- memoise::memoise(ghr_get_impl)
 
 #' Get the name of all branches of a GitHub repository.
 #'
-#' @inheritParams gh_get
+#' @inheritParams ghr_get
 #'
 #' @family functions to get github responses
 #' @seealso ghr_fields
@@ -58,8 +58,8 @@ gh_get <- memoise::memoise(gh_get_impl)
 #' @export
 #'
 #' @examples
-#' gh_branches("r-lib/usethis")
-gh_branches <- function(path) {
+#' ghr_branches("r-lib/usethis")
+ghr_branches <- function(path) {
   owner_repo <- owner_repo(path)
   purrr::map_chr(gh::gh(glue::glue("/repos/{owner_repo}/branches")), "name")
 }
@@ -68,7 +68,7 @@ gh_branches <- function(path) {
 
 #' Convert a path such as owner/repo/subdir into an `endpoint` for `gh::gh()`.
 #'
-#' @inheritParams gh_get
+#' @inheritParams ghr_get
 #'
 #' @return A character string.
 #'
