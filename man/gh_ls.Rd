@@ -2,20 +2,28 @@
 % Please edit documentation in R/gh_ls.R
 \name{gh_ls}
 \alias{gh_ls}
-\title{List files on GitHub.}
+\title{List files on GitHub and their html URLs.}
 \usage{
 gh_ls(path)
 }
 \arguments{
-\item{x}{}
+\item{path}{A string formatted as "owner/repo/subdir_1/subdir_2/subdir_n".}
+}
+\value{
+* `gh_ls()` returns a character vector giving the in a GitHub directory.
+  * `gh_html()` returns the html URLs of the files in a GitHub directory.
 }
 \description{
-This function works on GitHub as [fs::dir_ls()] on a the file system.
+List files on GitHub and their html URLs.
 }
 \examples{
-gh_ls("forestgeo")
-gh_ls("forestgeo/fgeo")
-gh_ls("forestgeo/fgeo/tests")
-gh_ls("forestgeo/fgeo/tests/testhat")
-gh_ls("forestgeo/fgeo/tests/bad-dir")
+gh_ls("r-lib")
+gh_ls("r-lib/gh")
+gh_ls("r-lib/gh/tests")
+gh_ls("r-lib/gh/tests/testthat")
+
+gh_html("r-lib")
+gh_html("r-lib/gh")
+gh_html("r-lib/gh/tests")
+gh_html("r-lib/gh/tests/testthat")
 }

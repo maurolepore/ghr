@@ -1,39 +1,50 @@
-#' List files on GitHub.
+#' Convert a path such as owner/repo/subdir into an `endpoint` for `gh::gh()`.
 #'
-#' This function works on GitHub as [fs::dir_ls()] on a the file system.
+#' @param path
 #'
-#' @param x
-#'
-#' @return
+#' @return A character string.
 #' @export
 #'
 #' @examples
-#' gh_ls("forestgeo")
-#' gh_ls("forestgeo/fgeo")
-#' gh_ls("forestgeo/fgeo/tests")
-#' gh_ls("forestgeo/fgeo/tests/testhat")
-#' gh_ls("forestgeo/fgeo/tests/bad-dir")
-gh_ls <- function(path) {
-  end <- purrr::map_chr(gh::gh(gh_path(path)), "name")
-  glue::glue("{path}/{end}")
-}
-
-#' Create a request for GitHub contents that gh::gh() understands.
-#'
-#' @param path A string formatted as "owner/repo/subdir_1/subdir_2/subdir_n".
-#'
-#' @return A character vector.
-#' @export
-#'
-#' @examples
-#' gh_path("owner")
-#' gh_path("owner/repo")
-#' gh_path("owner/repo/subdir")
-#' gh_path("owner/repo/subdir_1/subdir_2/subdir_3")
-#' gh_path("O/R/S1/S2/S3")
+#' gh_path("r-lib")
+#' gh_path("r-lib/gh")
+#' gh_path("r-lib/gh/tests")
+#' gh_path("r-lib/gh/tests/testthat")
 gh_path <- function(path) {
   piece_apply(path, request_owner, request_repo, request_subdir)
 }
+
+
+
+#' List files on GitHub and their html URLs.
+#'
+#' @param path A string formatted as "owner/repo/subdir_1/subdir_2/subdir_n".
+#'
+#' @return
+#'   * `gh_ls()` returns a character vector giving the in a GitHub directory.
+#'   * `gh_html()` returns the html URLs of the files in a GitHub directory.
+#' @export
+#'
+#' @examples
+#' gh_ls("r-lib")
+#' gh_ls("r-lib/gh")
+#' gh_ls("r-lib/gh/tests")
+#' gh_ls("r-lib/gh/tests/testthat")
+#'
+#' gh_html("r-lib")
+#' gh_html("r-lib/gh")
+#' gh_html("r-lib/gh/tests")
+#' gh_html("r-lib/gh/tests/testthat")
+gh_ls <- function(path) {
+  purrr::map_chr(gh::gh(gh_path(path)), "name")
+}
+
+gh_html <- function(path) {
+  purrr::map_chr(gh::gh(gh_path(path)), "html_url")
+}
+
+
+
 
 piece_apply <- function(path, f1, f2, f3) {
   n_pieces <- as.character(length(split_url(path)))

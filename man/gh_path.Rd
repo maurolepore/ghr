@@ -2,23 +2,22 @@
 % Please edit documentation in R/gh_ls.R
 \name{gh_path}
 \alias{gh_path}
-\title{Create a request for GitHub contents that gh::gh() understands.}
+\title{Convert a path such as owner/repo/subdir into an `endpoint` for `gh::gh()`.}
 \usage{
 gh_path(path)
 }
 \arguments{
-\item{path}{A string formatted as "owner/repo/subdir_1/subdir_2/subdir_n".}
+\item{path}{}
 }
 \value{
-A character vector.
+A character string.
 }
 \description{
-Create a request for GitHub contents that gh::gh() understands.
+Convert a path such as owner/repo/subdir into an `endpoint` for `gh::gh()`.
 }
 \examples{
-gh_path("owner")
-gh_path("owner/repo")
-gh_path("owner/repo/subdir")
-gh_path("owner/repo/subdir_1/subdir_2/subdir_3")
-gh_path("O/R/S1/S2/S3")
+gh_path("r-lib")
+gh_path("r-lib/gh")
+gh_path("r-lib/gh/tests")
+gh_path("r-lib/gh/tests/testthat")
 }

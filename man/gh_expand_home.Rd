@@ -7,6 +7,8 @@
 gh_expand_home(path, branch = "master")
 }
 \arguments{
+\item{path}{A string formatted as "owner/repo/subdir_1/subdir_2/subdir_n".}
+
 \item{branch}{Character vector giving the branch name of a GitHub repo.}
 }
 \value{
