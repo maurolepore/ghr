@@ -25,3 +25,5 @@ Imports:
     gh,
     memoise
 Roxygen: list(markdown = TRUE)
+URL: https://github.com/maurolepore/ghls
+BugReports: https://github.com/maurolepore/ghls/issues
