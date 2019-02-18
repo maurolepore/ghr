@@ -9,3 +9,13 @@ test_that("gh_expand_home works with paths of 1, 2, 3, and 4 pieces", {
     "https://github.com/x/y/blob/dev/z"
   )
 })
+
+test_that("gh_expand_home is vectorized", {
+  expect_equal(
+    gh_expand_home(blobize(c("x/z", "x/y/z"))),
+    c(
+      "https://github.com/x/z",
+      "https://github.com/x/y/blob/master/blob/master/z"
+    )
+  )
+})

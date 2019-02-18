@@ -7,12 +7,24 @@
 #' @export
 #'
 #' @examples
+#' gh_expand_home("tidyverse")
+#' gh_expand_home("tidyverse/dplyr")
+#' gh_expand_home("tidyverse/dplyr/R")
 gh_expand_home <- function(path, branch = "master") {
   blob <- blobize(path, branch = branch)
   glue::glue("https://github.com/{blob}")
 }
 
 blobize <- function(path, branch = "master") {
+  vapply(
+    path,
+    blobize_one,
+    FUN.VALUE = character(1),
+    branch = branch
+  )
+}
+
+blobize_one <- function(path, branch = "master") {
   piece_apply(
     path,
     f1 = owner,

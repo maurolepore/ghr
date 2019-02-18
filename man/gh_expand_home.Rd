@@ -9,6 +9,14 @@ gh_expand_home(path, branch = "master")
 \arguments{
 \item{branch}{Character vector giving the branch name of a GitHub repo.}
 }
+\value{
+Character vector.
+}
 \description{
 Expand GitHub paths.
+}
+\examples{
+gh_expand_home("tidyverse")
+gh_expand_home("tidyverse/dplyr")
+gh_expand_home("tidyverse/dplyr/R")
 }

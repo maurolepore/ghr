@@ -14,7 +14,7 @@
 #' gh_ls("forestgeo/fgeo/tests/testhat")
 #' gh_ls("forestgeo/fgeo/tests/bad-dir")
 gh_ls <- function(path) {
-  end <- purrr::map_chr(gh::gh(gh_call(path)), "name")
+  end <- purrr::map_chr(gh::gh(gh_path(path)), "name")
   out <- glue::glue("path/{end}")
   names(out) <- out
   new_gh_path(out)
@@ -33,14 +33,13 @@ new_gh_path <- function(path, ...) {
 #' @export
 #'
 #' @examples
-#' gh_call("owner")
-#' gh_call("owner/repo")
-#' gh_call("owner/repo/subdir")
-#' gh_call("owner/repo/subdir_1/subdir_2/subdir_3")
-#' gh_call("O/R/S1/S2/S3")
-gh_call <- function(path) {
-  out <- piece_apply(path, request_owner, request_repo, request_subdir)
-  tolower(out)
+#' gh_path("owner")
+#' gh_path("owner/repo")
+#' gh_path("owner/repo/subdir")
+#' gh_path("owner/repo/subdir_1/subdir_2/subdir_3")
+#' gh_path("O/R/S1/S2/S3")
+gh_path <- function(path) {
+  piece_apply(path, request_owner, request_repo, request_subdir)
 }
 
 piece_apply <- function(path, f1, f2, f3) {
@@ -58,7 +57,7 @@ request_owner <- function(path) {
 }
 request_repo <- function(path) {
   owner_repo <- owner_repo(path)
-  glue::glue("/users/{owner_repo}/repos")
+  glue::glue("/repos/{owner_repo}/contents")
 }
 request_subdir <- function(path) {
   owner_repo <- owner_repo(path)
