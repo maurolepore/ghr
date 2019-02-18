@@ -34,6 +34,6 @@ library(ghr)
 
 ## Acknowledgements
 
-Thanks to GÃƒÆ’Ã‚Â¡bor CsÃƒÆ’Ã‚Â¡rdi et. al for the [gh
+Thanks to Gábor Csárdi et. al for the [gh
 package](https://github.com/r-lib/gh) and to Francois Michonneau, James
 Balamuta, Noam Ross and Bryce Mecum for sharing their ideas and code.
