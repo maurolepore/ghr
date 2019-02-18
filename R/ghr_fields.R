@@ -18,7 +18,7 @@
 #' ghr_html_url(gh_response)
 #' ghr_download_url(gh_response)
 #'
-#' # Branches
+#' # Working with non-default branches
 #' ghr_path(gh_get("r-lib/usethis", ref = "gh-pages"))
 #' # Same
 #' ghr_path(gh_get("r-lib/usethis@gh-pages"))
