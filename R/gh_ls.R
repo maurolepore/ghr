@@ -15,14 +15,7 @@
 #' gh_ls("forestgeo/fgeo/tests/bad-dir")
 gh_ls <- function(path) {
   end <- purrr::map_chr(gh::gh(gh_path(path)), "name")
-  out <- glue::glue("path/{end}")
-  names(out) <- out
-  new_gh_path(out)
-}
-
-new_gh_path <- function(path, ...) {
-  stopifnot(is.character(path))
-  structure(path, class = c("gh_path", class(path)))
+  glue::glue("{path}/{end}")
 }
 
 #' Create a request for GitHub contents that gh::gh() understands.
