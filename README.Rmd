@@ -1,5 +1,7 @@
 ---
 output: github_document
+editor_options: 
+  chunk_output_type: console
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -15,13 +17,13 @@ knitr::opts_chunk$set(
 # ghr
 
 <!-- badges: start -->
+[![Travis build status](https://travis-ci.org/maurolepore/ghr.svg?branch=master)](https://travis-ci.org/maurolepore/ghr)
 [![Coveralls test coverage](https://coveralls.io/repos/github/maurolepore/ghr/badge.svg)](https://coveralls.io/r/maurolepore/ghr?branch=master)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![CRAN status](https://www.r-pkg.org/badges/version/ghr)](https://cran.r-project.org/package=ghr)
-[![Travis build status](https://travis-ci.org/maurolepore/ghr.svg?branch=master)](https://travis-ci.org/maurolepore/ghr)
 <!-- badges: end -->
 
-The goal of ghr is to get and manipulate a GitHub API response.
+ghr helps you to get a GitHub-API response and to do common tasks. The syntax for specfying a GitHb path is similar to that used in `remotes::install_github()` and friends. For example, this is a valid path `r-lib/usethis@master`. Also this one: `r-lib/usethis/news@gh-pages`.
 
 ## Installation
 
@@ -35,7 +37,62 @@ devtools::install_github("maurolepore/ghr")
 This is a basic example which shows you how to solve a common problem:
 
 ```{r example}
+library(magrittr)
 library(ghr)
+```
+
+Use `gh_get()` to get a GitHub-API response. Notice that the call is memoised.
+
+```{r}
+system.time(gh_get("r-lib/gh"))
+# Takes no time because the first call is memoised
+system.time(gh_get("r-lib/gh"))
+```
+
+Use `ghr_fields()` to see what fields are available for a given `path`.
+
+```{r}
+gh_response <- gh_get(path = "r-lib/usethis/tests")
+class(gh_response)
+
+ghr_fields(gh_response)
+```
+
+Use `ghr_pull()` and its shortcuts to access specific fields of the GitHub response.
+
+```{r}
+ghr_pull(gh_response, "name")
+```
+
+The `path` argument to `gh_get()` understands a syntax as `owner/repo/path@branch`
+
+```{r}
+gh_branches("r-lib/usethis")
+
+"r-lib/usethis/reference@gh-pages" %>% 
+  gh_get() %>% 
+  ghr_pull("name")
+```
+
+There are some shortcuts to `ghr_pull()`:
+
+```{r}
+"maurolepore/tor/inst/extdata/csv" %>% 
+  gh_get() %>% 
+  ghr_download_url() %>%
+  lapply(read.csv, stringsAsFactors = FALSE)
+```
+
+```{r}
+html_urls <- "maurolepore/tor/inst/extdata/csv" %>% 
+  gh_get() %>% 
+  ghr_html_url()
+html_urls
+
+if (interactive()) {
+  html_urls %>% 
+    lapply(utils::browseURL)
+}
 ```
 
 ## Acknowledgements

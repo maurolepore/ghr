@@ -18,6 +18,7 @@ Imports:
     purrr (>= 0.3.0)
 Suggests: 
     covr (>= 3.2.1),
+    magrittr (>= 1.5),
     spelling (>= 2.0),
     testthat (>= 2.0.1)
 Encoding: UTF-8
