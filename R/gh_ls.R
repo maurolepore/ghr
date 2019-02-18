@@ -100,8 +100,21 @@ subdir <- function(x) {
 #' ghr_path(gh_response)
 #' ghr_html_url(gh_response)
 #' ghr_download_url(gh_response)
+#'
+#' # Branches
+#' ghr_path(gh_get("r-lib/usethis", ref = "gh-pages"))
+#' # Same
+#' ghr_path(gh_get("r-lib/usethis@gh-pages"))
+#' ghr_path(gh_get("r-lib/usethis/news@gh-pages"))
 gh_get_ <- function(path, ref = "master") {
-  gh::gh(gh_path(path), ref = ref)
+  branch <- ref
+  pieces <- strsplit(path, "@")[[1]]
+  if (length(pieces) > 1) {
+    path <- pieces[[1]]
+    branch <- pieces[[2]]
+  }
+
+  gh::gh(gh_path(path), ref = branch)
 }
 gh_get <- memoise::memoise(gh_get_)
 
