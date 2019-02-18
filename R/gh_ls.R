@@ -49,8 +49,15 @@ subdir <- function(x) {
   paste0(split_url(x)[c(-1, -2)], collapse = "/")
 }
 
-
-
+piece_apply <- function(path, f1, f2, f3) {
+  n_pieces <- as.character(length(split_url(path)))
+  switch(
+    n_pieces,
+    "1" = f1(path),
+    "2" = f2(path),
+    f3(path)
+  )
+}
 
 
 
@@ -67,39 +74,33 @@ subdir <- function(x) {
 #' @seealso ghr_fields
 #'
 #' @return A list.
-#' @export
 #'
 #' @examples
 #' gh_get("r-lib/usethis")
+#'
+#' # The request to GitHub happens only the first time you call gh_get()
+#' system.time(gh_get("r-lib/usethis/R"))
+#' # Later calls take no time because the first call is memoised
+#' system.time(gh_get("r-lib/usethis/R"))
+#'
 #' ghr_path(gh_get("r-lib/usethis", ref = "gh-pages"))
 #' # Same
 #' ghr_path(gh_get("r-lib/usethis@gh-pages"))
 #' ghr_path(gh_get("r-lib/usethis/news@gh-pages"))
-gh_get <- function(path, ref = "master") {
-  gh_get_ <- function() {
-    branch <- ref
-    pieces <- strsplit(path, "@")[[1]]
-    if (length(pieces) > 1) {
-      path <- pieces[[1]]
-      branch <- pieces[[2]]
-    }
-    gh::gh(gh_path(path), ref = branch)
+#' @name gh_get
+NULL
+gh_get_impl <- function(path, ref = "master") {
+  branch <- ref
+  pieces <- strsplit(path, "@")[[1]]
+  if (length(pieces) > 1) {
+    path <- pieces[[1]]
+    branch <- pieces[[2]]
   }
-  memoise::memoise(gh_get_)
+  gh::gh(gh_path(path), ref = branch)
 }
-
-# gh_get_ <- function(path, ref = "master") {
-#   branch <- ref
-#   pieces <- strsplit(path, "@")[[1]]
-#   if (length(pieces) > 1) {
-#     path <- pieces[[1]]
-#     branch <- pieces[[2]]
-#   }
-#
-#   gh::gh(gh_path(path), ref = branch)
-# }
-# gh_get <- memoise::memoise(gh_get_)
-
+#' @rdname gh_get
+#' @export
+gh_get <- memoise::memoise(gh_get_impl)
 
 #' Get the name of all branches of a GitHub repository.
 #'

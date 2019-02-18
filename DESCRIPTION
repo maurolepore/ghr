@@ -22,5 +22,6 @@ Language: en-US
 Imports: 
     glue,
     purrr,
-    gh
+    gh,
+    memoise
 Roxygen: list(markdown = TRUE)

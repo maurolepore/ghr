@@ -19,6 +19,12 @@ Get a response from the GitHub API.
 }
 \examples{
 gh_get("r-lib/usethis")
+
+# The request to GitHub happens only the first time you call gh_get()
+system.time(gh_get("r-lib/usethis/R"))
+# Later calls take no time because the first call is memoised
+system.time(gh_get("r-lib/usethis/R"))
+
 ghr_path(gh_get("r-lib/usethis", ref = "gh-pages"))
 # Same
 ghr_path(gh_get("r-lib/usethis@gh-pages"))
