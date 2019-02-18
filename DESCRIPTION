@@ -2,26 +2,26 @@ Package: ghr
 Title: Get and Manipulate a GitHub API Response
 Version: 0.0.0.9000
 Authors@R: 
-    c(person(given = "Mauro",
-             family = "Lepore",
-             role = c("aut", "cre"),
-             email = "maurolepore@gmail.com",
-             comment = c(ORCID = "0000-0002-1986-7988")))
+    person(given = "Mauro",
+           family = "Lepore",
+           role = c("aut", "cre"),
+           email = "maurolepore@gmail.com",
+           comment = c(ORCID = "0000-0002-1986-7988"))
 Description: Get and manipulate a GitHub API response.
 License: GPL-3
-Encoding: UTF-8
-LazyData: true
-Suggests: 
-    testthat,
-    spelling,
-    covr
-RoxygenNote: 6.1.1
-Language: en-US
-Imports: 
-    glue,
-    purrr,
-    gh,
-    memoise
-Roxygen: list(markdown = TRUE)
 URL: https://github.com/maurolepore/ghr
 BugReports: https://github.com/maurolepore/ghr/issues
+Imports: 
+    gh (>= 1.0.1),
+    glue (>= 1.3.0),
+    memoise (>= 1.1.0),
+    purrr (>= 0.3.0)
+Suggests: 
+    covr (>= 3.2.1),
+    spelling (>= 2.0),
+    testthat (>= 2.0.1)
+Encoding: UTF-8
+Language: en-US
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.1.1
