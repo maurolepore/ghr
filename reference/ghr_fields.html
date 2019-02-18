@@ -140,11 +140,11 @@ extract from the github-response list.</p></td>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>gh_get gh_branches</p></div>
+    <div class='dont-index'><p>ghr_get gh_branches</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>gh_response</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='gh_get.html'>gh_get</a></span>(<span class='st'>"hadley/babynames/data-raw"</span>)
+    <pre class="examples"><div class='input'><span class='no'>gh_response</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ghr_get.html'>ghr_get</a></span>(<span class='st'>"hadley/babynames/data-raw"</span>)
 <span class='fu'>ghr_fields</span>(<span class='no'>gh_response</span>)</div><div class='output co'>#&gt;  [1] "name"         "path"         "sha"          "size"         "url"         
 #&gt;  [6] "html_url"     "git_url"      "download_url" "type"         "_links"      </div><div class='input'>
 <span class='fu'>ghr_pull</span>(<span class='no'>gh_response</span>, <span class='st'>"name"</span>)</div><div class='output co'>#&gt; [1] ".gitignore"            "applicants.R"          "applicants.csv"       
@@ -172,20 +172,20 @@ extract from the github-response list.</p></td>
 #&gt; [8] "https://raw.githubusercontent.com/hadley/babynames/master/data-raw/lifetables_sample.csv"
 #&gt; [9] "https://raw.githubusercontent.com/hadley/babynames/master/data-raw/names.R"              </div><div class='input'>
 <span class='co'># Working with non-default branches</span>
-<span class='fu'>ghr_path</span>(<span class='fu'><a href='gh_get.html'>gh_get</a></span>(<span class='st'>"r-lib/usethis"</span>, <span class='kw'>ref</span> <span class='kw'>=</span> <span class='st'>"gh-pages"</span>))</div><div class='output co'>#&gt;  [1] "CNAME"                "CODE_OF_CONDUCT.html" "CONTRIBUTING.html"   
+<span class='fu'>ghr_path</span>(<span class='fu'><a href='ghr_get.html'>ghr_get</a></span>(<span class='st'>"r-lib/usethis"</span>, <span class='kw'>ref</span> <span class='kw'>=</span> <span class='st'>"gh-pages"</span>))</div><div class='output co'>#&gt;  [1] "CNAME"                "CODE_OF_CONDUCT.html" "CONTRIBUTING.html"   
 #&gt;  [4] "ISSUE_TEMPLATE.html"  "LICENSE.html"         "SUPPORT.html"        
 #&gt;  [7] "articles"             "authors.html"         "dev"                 
 #&gt; [10] "docsearch.css"        "docsearch.js"         "index.html"          
 #&gt; [13] "link.svg"             "news"                 "pkgdown.css"         
 #&gt; [16] "pkgdown.js"           "pkgdown.yml"          "principles.html"     
 #&gt; [19] "reference"            "sitemap.xml"         </div><div class='input'><span class='co'># Same</span>
-<span class='fu'>ghr_path</span>(<span class='fu'><a href='gh_get.html'>gh_get</a></span>(<span class='st'>"r-lib/usethis@gh-pages"</span>))</div><div class='output co'>#&gt;  [1] "CNAME"                "CODE_OF_CONDUCT.html" "CONTRIBUTING.html"   
+<span class='fu'>ghr_path</span>(<span class='fu'><a href='ghr_get.html'>ghr_get</a></span>(<span class='st'>"r-lib/usethis@gh-pages"</span>))</div><div class='output co'>#&gt;  [1] "CNAME"                "CODE_OF_CONDUCT.html" "CONTRIBUTING.html"   
 #&gt;  [4] "ISSUE_TEMPLATE.html"  "LICENSE.html"         "SUPPORT.html"        
 #&gt;  [7] "articles"             "authors.html"         "dev"                 
 #&gt; [10] "docsearch.css"        "docsearch.js"         "index.html"          
 #&gt; [13] "link.svg"             "news"                 "pkgdown.css"         
 #&gt; [16] "pkgdown.js"           "pkgdown.yml"          "principles.html"     
-#&gt; [19] "reference"            "sitemap.xml"         </div><div class='input'><span class='fu'>ghr_path</span>(<span class='fu'><a href='gh_get.html'>gh_get</a></span>(<span class='st'>"r-lib/usethis/news@gh-pages"</span>))</div><div class='output co'>#&gt; [1] "news/index.html"</div></pre>
+#&gt; [19] "reference"            "sitemap.xml"         </div><div class='input'><span class='fu'>ghr_path</span>(<span class='fu'><a href='ghr_get.html'>ghr_get</a></span>(<span class='st'>"r-lib/usethis/news@gh-pages"</span>))</div><div class='output co'>#&gt; [1] "news/index.html"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
