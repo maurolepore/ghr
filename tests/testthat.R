@@ -1,4 +1,4 @@
 library(testthat)
-library(ghls)
+library(ghr)
 
-test_check("ghls")
+test_check("ghr")

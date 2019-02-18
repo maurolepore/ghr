@@ -1,16 +1,13 @@
-Package: ghls
-Title: What the Package Does (One Line, Title Case)
+Package: ghr
+Title: Get and Manipulate a GitHub API Response
 Version: 0.0.0.9000
 Authors@R: 
     c(person(given = "Mauro",
              family = "Lepore",
-             role = c("aut", "ctr", "cre"),
-             email = "leporem@si.edu",
-             comment = c(ORCID = "0000-0002-1986-7988")),
-      person(given = "CTFS-ForestGEO",
-             role = "cph",
-             email = "ForestGEO@si.edu"))
-Description: What the package does (one paragraph).
+             role = c("aut", "cre"),
+             email = "maurolepore@gmail.com",
+             comment = c(ORCID = "0000-0002-1986-7988")))
+Description: Get and manipulate a GitHub API response.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
@@ -25,5 +22,5 @@ Imports:
     gh,
     memoise
 Roxygen: list(markdown = TRUE)
-URL: https://github.com/maurolepore/ghls
-BugReports: https://github.com/maurolepore/ghls/issues
+URL: https://github.com/maurolepore/ghr
+BugReports: https://github.com/maurolepore/ghr/issues
