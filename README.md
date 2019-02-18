@@ -15,10 +15,9 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 status](https://www.r-pkg.org/badges/version/ghr)](https://cran.r-project.org/package=ghr)
 <!-- badges: end -->
 
-ghr helps you to get a GitHub-API response and to do common tasks. The
-syntax for specfying a GitHb path is similar to that used in
-`remotes::install_github()` and friends. For example, this is a valid
-path `r-lib/usethis@master`. Also this one:
+The ghr package helps you to request information to the GitHub-API using
+an intuitive syntax, similar to that of `remotes::install_github()`. For
+example, this is a valid path `r-lib/usethis@master`. Also this one:
 `r-lib/usethis/news@gh-pages`.
 
 ## Installation
@@ -41,7 +40,7 @@ memoised.
 ``` r
 system.time(ghr_get("r-lib/gh"))
 #>    user  system elapsed 
-#>    0.11    0.01    0.36
+#>    0.10    0.01    0.37
 # Takes no time because the first call is memoised
 system.time(ghr_get("r-lib/gh"))
 #>    user  system elapsed 
@@ -51,11 +50,11 @@ system.time(ghr_get("r-lib/gh"))
 Use `ghr_fields()` to see what fields are available for a given `path`.
 
 ``` r
-gh_response <- ghr_get(path = "r-lib/usethis/tests")
-class(gh_response)
+response <- ghr_get(path = "r-lib/usethis/tests")
+class(response)
 #> [1] "gh_response" "list"
 
-ghr_fields(gh_response)
+ghr_fields(response)
 #>  [1] "name"         "path"         "sha"          "size"        
 #>  [5] "url"          "html_url"     "git_url"      "download_url"
 #>  [9] "type"         "_links"
@@ -65,7 +64,7 @@ Use `ghr_pull()` and its shortcuts to access specific fields of the
 GitHub response.
 
 ``` r
-ghr_pull(gh_response, "name")
+ghr_pull(response, "name")
 #> [1] "manual"     "spelling.R" "testthat.R" "testthat"
 ```
 

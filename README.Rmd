@@ -23,7 +23,7 @@ knitr::opts_chunk$set(
 [![CRAN status](https://www.r-pkg.org/badges/version/ghr)](https://cran.r-project.org/package=ghr)
 <!-- badges: end -->
 
-ghr helps you to get a GitHub-API response and to do common tasks. The syntax for specfying a GitHb path is similar to that used in `remotes::install_github()` and friends. For example, this is a valid path `r-lib/usethis@master`. Also this one: `r-lib/usethis/news@gh-pages`.
+The ghr package helps you to request information to the GitHub-API using an intuitive syntax, similar to that of `remotes::install_github()`. For example, this is a valid path `r-lib/usethis@master`. Also this one: `r-lib/usethis/news@gh-pages`.
 
 ## Installation
 
@@ -50,16 +50,16 @@ system.time(ghr_get("r-lib/gh"))
 Use `ghr_fields()` to see what fields are available for a given `path`.
 
 ```{r}
-gh_response <- ghr_get(path = "r-lib/usethis/tests")
-class(gh_response)
+response <- ghr_get(path = "r-lib/usethis/tests")
+class(response)
 
-ghr_fields(gh_response)
+ghr_fields(response)
 ```
 
 Use `ghr_pull()` and its shortcuts to access specific fields of the GitHub response.
 
 ```{r}
-ghr_pull(gh_response, "name")
+ghr_pull(response, "name")
 ```
 
 The `path` argument to `ghr_get()` understands a syntax as `owner/repo/path@branch`
