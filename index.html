@@ -74,7 +74,7 @@
 <a href="#ghr" class="anchor"></a>ghr</h1></div>
 <!-- badges: start -->
 
-<p>ghr helps you to get a GitHub-API response and to do common tasks. The syntax for specfying a GitHb path is similar to that used in <code><a href="https://www.rdocumentation.org/packages/remotes/topics/install_github">remotes::install_github()</a></code> and friends. For example, this is a valid path <code>r-lib/usethis@master</code>. Also this one: <code>r-lib/usethis/news@gh-pages</code>.</p>
+<p>The ghr package helps you to request information to the GitHub-API using an intuitive syntax, similar to that of <code><a href="https://www.rdocumentation.org/packages/remotes/topics/install_github">remotes::install_github()</a></code>. For example, this is a valid path <code>r-lib/usethis@master</code>. Also this one: <code>r-lib/usethis/news@gh-pages</code>.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
@@ -89,22 +89,22 @@
 <p>Use <code><a href="reference/ghr_get.html">ghr_get()</a></code> to get a GitHub-API response. Notice that the call is memoised.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.time">system.time</a></span>(<span class="kw"><a href="reference/ghr_get.html">ghr_get</a></span>(<span class="st">"r-lib/gh"</span>))</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="co">#&gt;    user  system elapsed </span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt;   0.096   0.008   0.719</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt;   0.100   0.000   0.272</span></a>
 <a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co"># Takes no time because the first call is memoised</span></a>
 <a class="sourceLine" id="cb3-5" data-line-number="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.time">system.time</a></span>(<span class="kw"><a href="reference/ghr_get.html">ghr_get</a></span>(<span class="st">"r-lib/gh"</span>))</a>
 <a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt;    user  system elapsed </span></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt;   0.000   0.000   0.001</span></a></code></pre></div>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt;   0.004   0.000   0.000</span></a></code></pre></div>
 <p>Use <code><a href="reference/ghr_fields.html">ghr_fields()</a></code> to see what fields are available for a given <code>path</code>.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">gh_response &lt;-<span class="st"> </span><span class="kw"><a href="reference/ghr_get.html">ghr_get</a></span>(<span class="dt">path =</span> <span class="st">"r-lib/usethis/tests"</span>)</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/class">class</a></span>(gh_response)</a>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">response &lt;-<span class="st"> </span><span class="kw"><a href="reference/ghr_get.html">ghr_get</a></span>(<span class="dt">path =</span> <span class="st">"r-lib/usethis/tests"</span>)</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/class">class</a></span>(response)</a>
 <a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co">#&gt; [1] "gh_response" "list"</span></a>
 <a class="sourceLine" id="cb4-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="kw"><a href="reference/ghr_fields.html">ghr_fields</a></span>(gh_response)</a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="kw"><a href="reference/ghr_fields.html">ghr_fields</a></span>(response)</a>
 <a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt;  [1] "name"         "path"         "sha"          "size"        </span></a>
 <a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt;  [5] "url"          "html_url"     "git_url"      "download_url"</span></a>
 <a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt;  [9] "type"         "_links"</span></a></code></pre></div>
 <p>Use <code><a href="reference/ghr_fields.html">ghr_pull()</a></code> and its shortcuts to access specific fields of the GitHub response.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="reference/ghr_fields.html">ghr_pull</a></span>(gh_response, <span class="st">"name"</span>)</a>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="reference/ghr_fields.html">ghr_pull</a></span>(response, <span class="st">"name"</span>)</a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">#&gt; [1] "manual"     "spelling.R" "testthat.R" "testthat"</span></a></code></pre></div>
 <p>The <code>path</code> argument to <code><a href="reference/ghr_get.html">ghr_get()</a></code> understands a syntax as <code>owner/repo/path@branch</code></p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="reference/ghr_branches.html">ghr_branches</a></span>(<span class="st">"r-lib/usethis"</span>)</a>
