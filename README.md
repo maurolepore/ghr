@@ -30,8 +30,6 @@ devtools::install_github("maurolepore/ghr")
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
-
 ``` r
 library(magrittr)
 library(ghr)
@@ -43,7 +41,7 @@ memoised.
 ``` r
 system.time(ghr_get("r-lib/gh"))
 #>    user  system elapsed 
-#>    0.09    0.03    0.36
+#>    0.11    0.01    0.36
 # Takes no time because the first call is memoised
 system.time(ghr_get("r-lib/gh"))
 #>    user  system elapsed 

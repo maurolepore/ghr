@@ -34,8 +34,6 @@ devtools::install_github("maurolepore/ghr")
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
-
 ```{r example}
 library(magrittr)
 library(ghr)
