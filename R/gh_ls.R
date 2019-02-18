@@ -14,8 +14,6 @@ gh_path <- function(path) {
   piece_apply(path, request_owner, request_repo, request_subdir)
 }
 
-
-
 #' List files on GitHub and their html URLs.
 #'
 #' @param path A string formatted as "owner/repo/subdir_1/subdir_2/subdir_n".
@@ -42,9 +40,6 @@ gh_ls <- function(path) {
 gh_html <- function(path) {
   purrr::map_chr(gh::gh(gh_path(path)), "html_url")
 }
-
-
-
 
 piece_apply <- function(path, f1, f2, f3) {
   n_pieces <- as.character(length(split_url(path)))

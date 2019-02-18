@@ -19,3 +19,7 @@ Suggests:
     spelling
 RoxygenNote: 6.1.1
 Language: en-US
+Imports: 
+    glue,
+    purrr,
+    gh
