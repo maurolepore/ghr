@@ -524,9 +524,9 @@
 #&gt; ] </div><div class='input'>
 <span class='co'># The request to GitHub happens only the first time you call ghr_get()</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.time'>system.time</a></span>(<span class='fu'>ghr_get</span>(<span class='st'>"r-lib/usethis/R"</span>))</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.020   0.000   0.156 </div><div class='input'><span class='co'># Later calls take no time because the first call is memoised</span>
+#&gt;   0.024   0.000   0.112 </div><div class='input'><span class='co'># Later calls take no time because the first call is memoised</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.time'>system.time</a></span>(<span class='fu'>ghr_get</span>(<span class='st'>"r-lib/usethis/R"</span>))</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.000   0.000   0.001 </div><div class='input'>
+#&gt;       0       0       0 </div><div class='input'>
 <span class='fu'><a href='ghr_fields.html'>ghr_path</a></span>(<span class='fu'>ghr_get</span>(<span class='st'>"r-lib/usethis"</span>, <span class='kw'>ref</span> <span class='kw'>=</span> <span class='st'>"gh-pages"</span>))</div><div class='output co'>#&gt;  [1] "CNAME"                "CODE_OF_CONDUCT.html" "CONTRIBUTING.html"   
 #&gt;  [4] "ISSUE_TEMPLATE.html"  "LICENSE.html"         "SUPPORT.html"        
 #&gt;  [7] "articles"             "authors.html"         "dev"                 
