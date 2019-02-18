@@ -1,3 +1,11 @@
+gh_attributes <- function(path) {
+  names(gh::gh(gh_path("r-lib/gh/tests/testthat"))[[1]])
+}
+
+gh_pull <- function(path, attribute) {
+  purrr::map_chr(gh::gh(gh_path(path)), attribute)
+}
+
 #' Convert a path such as owner/repo/subdir into an `endpoint` for `gh::gh()`.
 #'
 #' @param path
