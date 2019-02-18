@@ -37,6 +37,7 @@ test_that("gh_get works with syntax owner/repo@branch", {
 })
 
 test_that("gh_get with bad `ref` (branch) errs with informative message", {
+  skip_if_net_down()
   expect_error(gh_get("r-lib/usethis@badbranch"), "404 Not Found")
   expect_error(
     gh_get("r-lib@badbranch"), "`ref`.*makes no sense.* forget.*repo"

@@ -49,4 +49,11 @@ ghr_path <- with_field("path")
 ghr_html_url <- with_field("html_url")
 #' @rdname ghr_fields
 #' @export
-ghr_download_url <- with_field("download_url")
+ghr_download_url <- function(gh_response) {
+  tryCatch(
+    ghr_pull(gh_response, field = "download_url"),
+    error = function(e)  {
+      stop("This `gh_response` has nothing to download.", call. = FALSE)
+    }
+  )
+}
