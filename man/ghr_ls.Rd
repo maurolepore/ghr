@@ -10,6 +10,9 @@ ghr_ls(path, regexp = NULL, ignore.case = FALSE, invert = FALSE)
 \item{path}{A string formatted as "owner/repo/subdir" or
 "owner/repo/subdir@branch", e.g.: "maurolepore/ghr/reference@gh-pages".}
 
+\item{regexp}{A regular expression (e.g. \link{.}csv$) passed on to grep() to
+filter paths.}
+
 \item{ignore.case}{if \code{FALSE}, the pattern matching is \emph{case
       sensitive} and if \code{TRUE}, case is ignored during matching.}
 

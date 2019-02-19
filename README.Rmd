@@ -63,6 +63,12 @@ Use `ghr_pull()` to access specific fields of the GitHub response.
 ghr_pull(response, "name")
 ```
 
+Use `ghr_ls()` as a shortcut for `ghr_pull(ghr_get(path), field = "path"). It offers an interface similar to `fs::dir_ls()`.
+
+```{r}
+ghr_ls("maurolepore/ghr/reference@gh-pages")
+```
+
 The `path` argument to `ghr_get()` understands a syntax as `owner/repo/path@branch`
 
 ```{r}

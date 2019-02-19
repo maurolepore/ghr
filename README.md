@@ -40,7 +40,7 @@ memoised.
 ``` r
 system.time(ghr_get("maurolepore/ghr"))
 #>    user  system elapsed 
-#>    0.11    0.03    0.43
+#>    0.07    0.04    0.36
 # Takes no time because the first call is memoised
 system.time(ghr_get("maurolepore/ghr"))
 #>    user  system elapsed 
@@ -66,6 +66,18 @@ Use `ghr_pull()` to access specific fields of the GitHub response.
 ``` r
 ghr_pull(response, "name")
 #> [1] "spelling.R" "testthat.R" "testthat"
+```
+
+Use `ghr_ls()` as a shortcut for `ghr_pull(ghr_get(path), field =
+"path"). It offers an interface similar to`fs::dir\_ls()\`.
+
+``` r
+ghr_ls("maurolepore/ghr/reference@gh-pages")
+#> [1] "reference/gh_branches.html"       "reference/gh_get.html"           
+#> [3] "reference/ghr-package.html"       "reference/ghr_branches.html"     
+#> [5] "reference/ghr_fields.html"        "reference/ghr_get.html"          
+#> [7] "reference/ghr_show_branches.html" "reference/ghr_show_fields.html"  
+#> [9] "reference/index.html"
 ```
 
 The `path` argument to `ghr_get()` understands a syntax as

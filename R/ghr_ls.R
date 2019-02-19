@@ -2,6 +2,8 @@
 #'
 #' @inheritParams ghr_get
 #' @inheritParams base::grep
+#' @param regexp A regular expression (e.g. [.]csv$) passed on to grep() to
+#'   filter paths.
 #'
 #' @return A character string.
 #' @export
