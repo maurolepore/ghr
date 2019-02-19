@@ -158,9 +158,9 @@
 #&gt;   ..$ html: chr "https://github.com/maurolepore/ghr/blob/master/.Rbuildignore"</div><div class='input'>
 <span class='co'># The request to GitHub happens only the first time you call ghr_get()</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.time'>system.time</a></span>(<span class='fu'>ghr_get</span>(<span class='st'>"maurolepore/ghr/R"</span>))</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.032   0.000   0.112 </div><div class='input'><span class='co'># Later calls take no time because the first call is memoised</span>
+#&gt;   0.036   0.000   0.110 </div><div class='input'><span class='co'># Later calls take no time because the first call is memoised</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.time'>system.time</a></span>(<span class='fu'>ghr_get</span>(<span class='st'>"maurolepore/ghr/R"</span>))</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.000   0.000   0.001 </div><div class='input'>
+#&gt;   0.000   0.004   0.001 </div><div class='input'>
 <span class='fu'><a href='ghr_show_fields.html'>ghr_pull</a></span>(<span class='fu'>ghr_get</span>(<span class='st'>"maurolepore/ghr"</span>, <span class='kw'>ref</span> <span class='kw'>=</span> <span class='st'>"gh-pages"</span>), <span class='st'>"path"</span>)</div><div class='output co'>#&gt;  [1] "LICENSE.html"  "authors.html"  "docsearch.css" "docsearch.js" 
 #&gt;  [5] "index.html"    "link.svg"      "pkgdown.css"   "pkgdown.js"   
 #&gt;  [9] "pkgdown.yml"   "reference"    </div><div class='input'><span class='co'># Same</span>
