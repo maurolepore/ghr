@@ -23,13 +23,16 @@ Show and pull available fields of a GitHub response.
 }
 \examples{
 gh_response <- ghr_get("maurolepore/ghr/R")
+
 ghr_show_fields(gh_response)
+
 ghr_pull(gh_response, "name")
 
 # Working with non-default branches
 ghr_pull(ghr_get("maurolepore/ghr", ref = "gh-pages"), "path")
 # Same
 ghr_pull(ghr_get("maurolepore/ghr@gh-pages"), "path")
+
 ghr_pull(ghr_get("maurolepore/ghr/reference@gh-pages"), "path")
 }
 \seealso{
