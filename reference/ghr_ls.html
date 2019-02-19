@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Show and pull available fields of a GitHub response. — ghr_show_fields • ghr</title>
+<title>List files in a GitHub 'directory'. — ghr_ls • ghr</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Show and pull available fields of a GitHub response. — ghr_show_fields" />
+<meta property="og:title" content="List files in a GitHub 'directory'. — ghr_ls" />
 
-<meta property="og:description" content="Show and pull available fields of a GitHub response." />
+<meta property="og:description" content="List files in a GitHub 'directory'." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -99,32 +99,41 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Show and pull available fields of a GitHub response.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/maurolepore/ghr/blob/master/R/ghr_show_fields.R'><code>R/ghr_show_fields.R</code></a></small>
-    <div class="hidden name"><code>ghr_show_fields.Rd</code></div>
+    <h1>List files in a GitHub 'directory'.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/maurolepore/ghr/blob/master/R/ghr_ls.R'><code>R/ghr_ls.R</code></a></small>
+    <div class="hidden name"><code>ghr_ls.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Show and pull available fields of a GitHub response.</p>
+    <p>List files in a GitHub 'directory'.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>ghr_show_fields</span>(<span class='no'>gh_response</span>)
-
-<span class='fu'>ghr_pull</span>(<span class='no'>gh_response</span>, <span class='no'>field</span>)</pre>
+    <pre class="usage"><span class='fu'>ghr_ls</span>(<span class='no'>path</span>, <span class='kw'>regexp</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ignore.case</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>invert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>gh_response</th>
-      <td><p>A list object of class "gh_response".</p></td>
+      <th>path</th>
+      <td><p>A string formatted as "owner/repo/subdir" or
+"owner/repo/subdir@branch", e.g.: "maurolepore/ghr/reference@gh-pages".</p></td>
     </tr>
     <tr>
-      <th>field</th>
-      <td><p>Character string giving the name of the the element to
-extract from the github-response list.</p></td>
+      <th>regexp</th>
+      <td><p>A regular expression (e.g. <code>[.]csv$</code>) passed on to grep() to
+filter paths.</p></td>
+    </tr>
+    <tr>
+      <th>ignore.case</th>
+      <td><p>if <code>FALSE</code>, the pattern matching is <em>case
+      sensitive</em> and if <code>TRUE</code>, case is ignored during matching.</p></td>
+    </tr>
+    <tr>
+      <th>invert</th>
+      <td><p>logical.  If <code>TRUE</code> return indices or values for
+    elements that do <em>not</em> match.</p></td>
     </tr>
     </table>
     
@@ -132,30 +141,22 @@ extract from the github-response list.</p></td>
 
     <p>A character string.</p>
     
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p>ghr_get gh_branches</p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>gh_response</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ghr_get.html'>ghr_get</a></span>(<span class='st'>"maurolepore/ghr/R"</span>)
+    <pre class="examples"><div class='input'><span class='no'>path</span> <span class='kw'>&lt;-</span> <span class='st'>"maurolepore/tor/inst/extdata/mixed"</span>
 
-<span class='fu'>ghr_show_fields</span>(<span class='no'>gh_response</span>)</div><div class='output co'>#&gt;  [1] "name"         "path"         "sha"          "size"         "url"         
-#&gt;  [6] "html_url"     "git_url"      "download_url" "type"         "_links"      </div><div class='input'>
-<span class='fu'>ghr_pull</span>(<span class='no'>gh_response</span>, <span class='st'>"name"</span>)</div><div class='output co'>#&gt; [1] "ghr-package.R"     "ghr_get.R"         "ghr_ls.R"         
-#&gt; [4] "ghr_show_fields.R"</div><div class='input'>
-<span class='co'># Working with non-default branches</span>
-<span class='fu'>ghr_pull</span>(<span class='fu'><a href='ghr_get.html'>ghr_get</a></span>(<span class='st'>"maurolepore/ghr"</span>, <span class='kw'>ref</span> <span class='kw'>=</span> <span class='st'>"gh-pages"</span>), <span class='st'>"path"</span>)</div><div class='output co'>#&gt;  [1] "LICENSE.html"  "authors.html"  "docsearch.css" "docsearch.js" 
-#&gt;  [5] "index.html"    "link.svg"      "pkgdown.css"   "pkgdown.js"   
-#&gt;  [9] "pkgdown.yml"   "reference"    </div><div class='input'><span class='co'># Same</span>
-<span class='fu'>ghr_pull</span>(<span class='fu'><a href='ghr_get.html'>ghr_get</a></span>(<span class='st'>"maurolepore/ghr@gh-pages"</span>), <span class='st'>"path"</span>)</div><div class='output co'>#&gt;  [1] "LICENSE.html"  "authors.html"  "docsearch.css" "docsearch.js" 
-#&gt;  [5] "index.html"    "link.svg"      "pkgdown.css"   "pkgdown.js"   
-#&gt;  [9] "pkgdown.yml"   "reference"    </div><div class='input'>
-<span class='fu'>ghr_pull</span>(<span class='fu'><a href='ghr_get.html'>ghr_get</a></span>(<span class='st'>"maurolepore/ghr/reference@gh-pages"</span>), <span class='st'>"path"</span>)</div><div class='output co'>#&gt; [1] "reference/gh_branches.html"       "reference/gh_get.html"           
-#&gt; [3] "reference/ghr-package.html"       "reference/ghr_branches.html"     
-#&gt; [5] "reference/ghr_fields.html"        "reference/ghr_get.html"          
-#&gt; [7] "reference/ghr_show_branches.html" "reference/ghr_show_fields.html"  
-#&gt; [9] "reference/index.html"            </div></pre>
+<span class='co'># The first call make the request</span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.time'>system.time</a></span>(<span class='fu'>ghr_ls</span>(<span class='no'>path</span>))</div><div class='output co'>#&gt;    user  system elapsed 
+#&gt;   0.024   0.000   0.086 </div><div class='input'><span class='co'># Takes no time because the first call is memoised</span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.time'>system.time</a></span>(<span class='fu'>ghr_ls</span>(<span class='no'>path</span>))</div><div class='output co'>#&gt;    user  system elapsed 
+#&gt;   0.000   0.000   0.001 </div><div class='input'>
+<span class='fu'>ghr_ls</span>(<span class='no'>path</span>, <span class='kw'>regexp</span> <span class='kw'>=</span> <span class='st'>"[.]csv$"</span>)</div><div class='output co'>#&gt; [1] "inst/extdata/mixed/csv.csv"</div><div class='input'><span class='fu'>ghr_ls</span>(<span class='no'>path</span>, <span class='kw'>regexp</span> <span class='kw'>=</span> <span class='st'>"[.]csv$"</span>, <span class='kw'>invert</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] "inst/extdata/mixed/lower_rdata.rdata"
+#&gt; [2] "inst/extdata/mixed/rda.rda"          
+#&gt; [3] "inst/extdata/mixed/upper_rdata.RData"</div><div class='input'>
+<span class='fu'>ghr_ls</span>(<span class='no'>path</span>, <span class='kw'>regexp</span> <span class='kw'>=</span> <span class='st'>"[.]RDATA$"</span>, <span class='kw'>invert</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>ignore.case</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [1] "inst/extdata/mixed/csv.csv"          
+#&gt; [2] "inst/extdata/mixed/lower_rdata.rdata"
+#&gt; [3] "inst/extdata/mixed/rda.rda"          
+#&gt; [4] "inst/extdata/mixed/upper_rdata.RData"</div><div class='input'><span class='fu'>ghr_ls</span>(<span class='no'>path</span>, <span class='kw'>regexp</span> <span class='kw'>=</span> <span class='st'>"[.]RDATA$"</span>, <span class='kw'>invert</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>ignore.case</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] "inst/extdata/mixed/csv.csv" "inst/extdata/mixed/rda.rda"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -163,8 +164,6 @@ extract from the github-response list.</p></td>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-
-      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
