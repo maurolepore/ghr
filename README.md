@@ -41,7 +41,7 @@ memoised.
 ``` r
 system.time(ghr_get("maurolepore/ghr"))
 #>    user  system elapsed 
-#>    0.15    0.01    0.40
+#>    0.11    0.00    0.44
 # Takes no time because the first call is memoised
 system.time(ghr_get("maurolepore/ghr"))
 #>    user  system elapsed 
@@ -69,9 +69,9 @@ ghr_pull(response, "name")
 #> [1] "spelling.R" "testthat.R" "testthat"
 ```
 
-Use `ghr_ls()` as a shortcut for
-`ghr_pull(ghr_get(owner/repo/subdir@branch), field = "path")`. It offers
-an interface similar to `fs::dir_ls()`.
+Use `ghr_ls()` as shortcut for
+`ghr_pull(ghr_get("owner/repo/subdir@branch"), field = "path")`. It
+offers an interface similar to `fs::dir_ls()`.
 
 ``` r
 path <- "maurolepore/tor/inst/extdata/mixed"
@@ -79,7 +79,7 @@ path <- "maurolepore/tor/inst/extdata/mixed"
 # The first call make the request
 system.time(ghr_ls(path))
 #>    user  system elapsed 
-#>    0.01    0.00    0.11
+#>    0.00    0.00    0.11
 # Takes no time because the first call is memoised
 system.time(ghr_ls(path))
 #>    user  system elapsed 

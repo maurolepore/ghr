@@ -63,7 +63,7 @@ Use `ghr_pull()` to access specific fields of the GitHub response.
 ghr_pull(response, "name")
 ```
 
-Use `ghr_ls()` as a shortcut for `ghr_pull(ghr_get(owner/repo/subdir@branch), field = "path")`. It offers an interface similar to `fs::dir_ls()`.
+Use `ghr_ls()` as shortcut for `ghr_pull(ghr_get("owner/repo/subdir@branch"), field = "path")`. It offers an interface similar to `fs::dir_ls()`.
 
 ```{r}
 path <- "maurolepore/tor/inst/extdata/mixed"
