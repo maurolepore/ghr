@@ -1,0 +1,103 @@
+---
+title: "scbi-data"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Introduction
+
+This article shows how the ghr (GitHub-R) package can help you explore and gather data scattered across multiple GitHub organizations and repositories.
+
+## Motivation
+
+As an open, productive, and collaborative researcher, you may have datasets scattered across multiple GitHub organizations and repositories. How can you and your collaborators easily find interesting datasets when you need them?
+
+The ghr package helps you to easily overview data (or any other file) stored on GitHub, using an intuitive syntax to express its location.
+
+## Example
+
+The example data come from the Smithsonian Conservation Biology Institute (SCBI) ForestGEO plot. They present their data at <https://scbi-forestgeo.github.io/SCBI-ForestGEO-Data/>:
+
+> This is the public data portal for the SCBI ForestGEO plot, which points to archive locations for our various data products (some in this repository, many elsewhere).
+
+As the introduction states, SCBI data is scattered across multiple organizations and repositories. Let's use ghr to explore those data:
+
+```{r}
+library(readr)
+library(purrr)
+library(fs)
+library(ghr)
+```
+
+### Biophysical environment
+
+#### Climate data
+
+SCBI has two directories with climate data:
+
+```{r}
+ghr_ls("forestgeo/Climate/Met_Station_Data/SCBI")
+```
+
+Each directory contains multiple files, including datasets stored as .csv files. `ghr_ls()` allows you to see all files or a those that match a specific pattern.
+
+```{r}
+weather <- "forestgeo/Climate/Met_Station_Data/SCBI/Front Royal weather station"
+ghr_ls(weather)
+```
+
+```{r}
+met <- "forestgeo/Climate/Met_Station_Data/SCBI/ForestGEO_met_station-SCBI"
+ghr_ls(met, regexp = "[.]csv$")
+
+ghr_ls(met, regexp = "[.]csv$", invert = TRUE)
+```
+
+### Species list
+
+Species list data is stored in a different organization. There are multiple directories.
+
+```{r}
+species_lists <- "SCBI-ForestGEO/SCBI-ForestGEO-Data/species_lists"
+subdirs <- path_file(ghr_ls(species_lists))
+subdirs
+```
+
+Let's explore the .csv files in each directory, as those are likely datasets that we may want to show. To reduce duplication we first create a vector giving the path to all of the directories we want to explore. Then we apply `ghr_ls()` to each path and focus on .csv files only.
+
+```{r}
+(paths <- path(species_lists, subdirs))
+
+paths %>% 
+  map(ghr_ls, regexp = "[.]csv$") %>% 
+  set_names(subdirs)
+```
+
+Instead of just showing the file names we could show the first few rows of each file. This is a little more challenging because we need not the name but the "download_url" of each file.
+
+```{r}
+download_urls <- paths %>% 
+  map(ghr_get) %>% 
+  map(ghr_pull, "download_url")
+```
+
+Now we can focus on .csv files only. Lets first extract file that end in .csv, then read those files and keep only the head of each:
+
+```{r}
+csv_url <- download_urls %>% 
+  unlist() %>% 
+  keep(~ grepl("[.]csv$", .x))
+csv_url
+
+csv_url %>% 
+  map(~ head(read_csv(.x)))
+```
+
+## Sacling up
+
+The examples above show that you can combine the ghr package with general purpose tools such as `purrr::map()` (or `base::lapply()`) and show in a single place datasets across any number of organizations and repositories.
