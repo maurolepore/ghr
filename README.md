@@ -41,7 +41,7 @@ memoised.
 ``` r
 system.time(ghr_get("maurolepore/ghr"))
 #>    user  system elapsed 
-#>    0.05    0.08    1.25
+#>    0.06    0.03    0.34
 # Takes no time because the first call is memoised
 system.time(ghr_get("maurolepore/ghr"))
 #>    user  system elapsed 
@@ -74,26 +74,31 @@ Use `ghr_ls()` as a shortcut for
 an interface similar to `fs::dir_ls()`.
 
 ``` r
-system.time(ghr_ls("maurolepore/ghr/reference@gh-pages"))
+path <- "maurolepore/tor/inst/extdata/mixed"
+
+# The first call make the request
+system.time(ghr_ls(path))
 #>    user  system elapsed 
-#>    0.00    0.00    3.33
-# Memoised
-system.time(ghr_ls("maurolepore/ghr/reference@gh-pages"))
+#>    0.01    0.00    0.11
+# Takes no time because the first call is memoised
+system.time(ghr_ls(path))
 #>    user  system elapsed 
 #>       0       0       0
 
-ghr_ls("maurolepore/ghr/reference@gh-pages", regexp = "show")
-#> [1] "reference/ghr_show_branches.html" "reference/ghr_show_fields.html"
-ghr_ls("maurolepore/ghr/reference@gh-pages", regexp = "show", invert = TRUE)
-#> [1] "reference/gh_branches.html"  "reference/gh_get.html"      
-#> [3] "reference/ghr-package.html"  "reference/ghr_branches.html"
-#> [5] "reference/ghr_fields.html"   "reference/ghr_get.html"     
-#> [7] "reference/index.html"
+ghr_ls(path, regexp = "[.]csv$")
+#> [1] "inst/extdata/mixed/csv.csv"
+ghr_ls(path, regexp = "[.]csv$", invert = TRUE)
+#> [1] "inst/extdata/mixed/lower_rdata.rdata"
+#> [2] "inst/extdata/mixed/rda.rda"          
+#> [3] "inst/extdata/mixed/upper_rdata.RData"
 
-ghr_ls("maurolepore/ghr/reference@gh-pages", regexp = "SHOW", ignore.case = FALSE)
-#> character(0)
-ghr_ls("maurolepore/ghr/reference@gh-pages", regexp = "SHOW", ignore.case = TRUE)
-#> [1] "reference/ghr_show_branches.html" "reference/ghr_show_fields.html"
+ghr_ls(path, regexp = "[.]RDATA$", invert = TRUE, ignore.case = FALSE)
+#> [1] "inst/extdata/mixed/csv.csv"          
+#> [2] "inst/extdata/mixed/lower_rdata.rdata"
+#> [3] "inst/extdata/mixed/rda.rda"          
+#> [4] "inst/extdata/mixed/upper_rdata.RData"
+ghr_ls(path, regexp = "[.]RDATA$", invert = TRUE, ignore.case = TRUE)
+#> [1] "inst/extdata/mixed/csv.csv" "inst/extdata/mixed/rda.rda"
 ```
 
 The `path` argument to `ghr_get()` understands a syntax as

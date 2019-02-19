@@ -2,27 +2,29 @@
 #'
 #' @inheritParams ghr_get
 #' @inheritParams base::grep
-#' @param regexp A regular expression (e.g. [.]csv$) passed on to grep() to
+#' @param regexp A regular expression (e.g. `[.]csv$`) passed on to grep() to
 #'   filter paths.
 #'
 #' @return A character string.
 #' @export
 #'
 #' @examples
-#' # The first call make the request
-#' system.time(ghr_ls("maurolepore/ghr/R"))
-#' # Takes no time because the first call is memoised
-#' system.time(ghr_ls("maurolepore/ghr/R"))
+#' path <- "maurolepore/tor/inst/extdata/mixed"
 #'
-#' ghr_ls("maurolepore/ghr/R")
-#' ghr_ls("maurolepore/ghr/R", regexp = "get")
-#' ghr_ls("maurolepore/ghr/R", regexp = "get", invert = TRUE)
-#' ghr_ls("maurolepore/ghr/R", regexp = "GET")
-#' ghr_ls("maurolepore/ghr/R", regexp = "GET", ignore.case = TRUE)
+#' # The first call make the request
+#' system.time(ghr_ls(path))
+#' # Takes no time because the first call is memoised
+#' system.time(ghr_ls(path))
+#'
+#' ghr_ls(path, regexp = "[.]csv$")
+#' ghr_ls(path, regexp = "[.]csv$", invert = TRUE)
+#'
+#' ghr_ls(path, regexp = "[.]RDATA$", invert = TRUE, ignore.case = FALSE)
+#' ghr_ls(path, regexp = "[.]RDATA$", invert = TRUE, ignore.case = TRUE)
 ghr_ls <- function(path,
-  regexp = NULL,
-  ignore.case = FALSE,
-  invert = FALSE) {
+                   regexp = NULL,
+                   ignore.case = FALSE,
+                   invert = FALSE) {
   paths <- ghr_pull(ghr_get(path), "path")
   pick <- seq_along(paths)
   if (!is.null(regexp)) {

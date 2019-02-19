@@ -10,7 +10,7 @@ ghr_ls(path, regexp = NULL, ignore.case = FALSE, invert = FALSE)
 \item{path}{A string formatted as "owner/repo/subdir" or
 "owner/repo/subdir@branch", e.g.: "maurolepore/ghr/reference@gh-pages".}
 
-\item{regexp}{A regular expression (e.g. \link{.}csv$) passed on to grep() to
+\item{regexp}{A regular expression (e.g. \code{[.]csv$}) passed on to grep() to
 filter paths.}
 
 \item{ignore.case}{if \code{FALSE}, the pattern matching is \emph{case
@@ -26,14 +26,16 @@ A character string.
 List files in a GitHub 'directory'.
 }
 \examples{
-# The first call make the request
-system.time(ghr_ls("maurolepore/ghr/R"))
-# Takes no time because the first call is memoised
-system.time(ghr_ls("maurolepore/ghr/R"))
+path <- "maurolepore/tor/inst/extdata/mixed"
 
-ghr_ls("maurolepore/ghr/R")
-ghr_ls("maurolepore/ghr/R", regexp = "get")
-ghr_ls("maurolepore/ghr/R", regexp = "get", invert = TRUE)
-ghr_ls("maurolepore/ghr/R", regexp = "GET")
-ghr_ls("maurolepore/ghr/R", regexp = "GET", ignore.case = TRUE)
+# The first call make the request
+system.time(ghr_ls(path))
+# Takes no time because the first call is memoised
+system.time(ghr_ls(path))
+
+ghr_ls(path, regexp = "[.]csv$")
+ghr_ls(path, regexp = "[.]csv$", invert = TRUE)
+
+ghr_ls(path, regexp = "[.]RDATA$", invert = TRUE, ignore.case = FALSE)
+ghr_ls(path, regexp = "[.]RDATA$", invert = TRUE, ignore.case = TRUE)
 }
