@@ -7,7 +7,8 @@
 ghr_show_branches(path)
 }
 \arguments{
-\item{path}{A string formatted as "owner/repo/subdir_1/subdir_2/subdir_n".}
+\item{path}{A string formatted as "owner/repo/subdir" or
+"owner/repo/subdir@branch", e.g.: "maurolepore/ghr/reference@gh-pages".}
 }
 \value{
 A character string.

@@ -24,7 +24,8 @@ stop_invalid_ref <- function(path, ref, uses_at) {
 
 #' Get a response from the GitHub API.
 #'
-#' @param path A string formatted as "owner/repo/subdir_1/subdir_2/subdir_n".
+#' @param path A string formatted as "owner/repo/subdir" or
+#'   "owner/repo/subdir\@branch", e.g.: "maurolepore/ghr/reference@gh-pages".
 #' @param ref Branch name.
 #'
 #' @family functions to get github responses
