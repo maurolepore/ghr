@@ -76,8 +76,8 @@ system.time(ghr_ls(path))
 ghr_ls(path, regexp = "[.]csv$")
 ghr_ls(path, regexp = "[.]csv$", invert = TRUE)
 
-ghr_ls(path, regexp = "[.]RDATA$", invert = TRUE, ignore.case = FALSE)
-ghr_ls(path, regexp = "[.]RDATA$", invert = TRUE, ignore.case = TRUE)
+ghr_ls(path, regexp = "[.]RDATA$", ignore.case = FALSE)
+ghr_ls(path, regexp = "[.]RDATA$", ignore.case = TRUE)
 ```
 
 The `path` argument to `ghr_get()` understands a syntax as `owner/repo/path@branch`

@@ -41,7 +41,7 @@ memoised.
 ``` r
 system.time(ghr_get("maurolepore/ghr"))
 #>    user  system elapsed 
-#>    0.09    0.02    0.38
+#>    0.15    0.01    0.40
 # Takes no time because the first call is memoised
 system.time(ghr_get("maurolepore/ghr"))
 #>    user  system elapsed 
@@ -79,7 +79,7 @@ path <- "maurolepore/tor/inst/extdata/mixed"
 # The first call make the request
 system.time(ghr_ls(path))
 #>    user  system elapsed 
-#>    0.00    0.00    2.75
+#>    0.01    0.00    0.11
 # Takes no time because the first call is memoised
 system.time(ghr_ls(path))
 #>    user  system elapsed 
@@ -92,13 +92,11 @@ ghr_ls(path, regexp = "[.]csv$", invert = TRUE)
 #> [2] "inst/extdata/mixed/rda.rda"          
 #> [3] "inst/extdata/mixed/upper_rdata.RData"
 
-ghr_ls(path, regexp = "[.]RDATA$", invert = TRUE, ignore.case = FALSE)
-#> [1] "inst/extdata/mixed/csv.csv"          
-#> [2] "inst/extdata/mixed/lower_rdata.rdata"
-#> [3] "inst/extdata/mixed/rda.rda"          
-#> [4] "inst/extdata/mixed/upper_rdata.RData"
-ghr_ls(path, regexp = "[.]RDATA$", invert = TRUE, ignore.case = TRUE)
-#> [1] "inst/extdata/mixed/csv.csv" "inst/extdata/mixed/rda.rda"
+ghr_ls(path, regexp = "[.]RDATA$", ignore.case = FALSE)
+#> character(0)
+ghr_ls(path, regexp = "[.]RDATA$", ignore.case = TRUE)
+#> [1] "inst/extdata/mixed/lower_rdata.rdata"
+#> [2] "inst/extdata/mixed/upper_rdata.RData"
 ```
 
 The `path` argument to `ghr_get()` understands a syntax as
