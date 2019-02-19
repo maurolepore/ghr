@@ -30,5 +30,25 @@ ghr_ls <- function(path,
   if (!is.null(regexp)) {
     pick <- grep(regexp, paths, ignore.case = ignore.case, invert = invert)
   }
-  paths[pick]
+
+  new_ghr_path_ls(paths[pick], path)
+}
+
+new_ghr_path_ls <- function(x, path) {
+  if (inherits(x, "ghr_path_ls")) {
+    return(x)
+  }
+
+  structure(x, class = c("ghr_path_ls", class(x)), path = path)
+}
+
+#' @keywords internal
+#' @export
+#' @noRd
+print.ghr_path_ls <- function(x, ...) {
+  x_ <- unclass(x)
+  attr(x_, "path") <- NULL
+  print(x_)
+
+  invisible(x)
 }
