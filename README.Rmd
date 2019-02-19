@@ -85,7 +85,7 @@ The `path` argument to `ghr_get()` understands a syntax as `owner/repo/path@bran
 ```{r}
 ghr_show_branches("maurolepore/ghr")
 
-"maurolepore/ghr/reference@gh-pages" %>% 
+"maurolepore/ghr@gh-pages" %>% 
   ghr_get() %>% 
   ghr_pull("name")
 ```

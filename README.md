@@ -41,7 +41,7 @@ memoised.
 ``` r
 system.time(ghr_get("maurolepore/ghr"))
 #>    user  system elapsed 
-#>    0.06    0.03    0.34
+#>    0.09    0.02    0.38
 # Takes no time because the first call is memoised
 system.time(ghr_get("maurolepore/ghr"))
 #>    user  system elapsed 
@@ -79,7 +79,7 @@ path <- "maurolepore/tor/inst/extdata/mixed"
 # The first call make the request
 system.time(ghr_ls(path))
 #>    user  system elapsed 
-#>    0.01    0.00    0.11
+#>    0.00    0.00    2.75
 # Takes no time because the first call is memoised
 system.time(ghr_ls(path))
 #>    user  system elapsed 
@@ -108,14 +108,12 @@ The `path` argument to `ghr_get()` understands a syntax as
 ghr_show_branches("maurolepore/ghr")
 #> [1] "gh-pages" "master"
 
-"maurolepore/ghr/reference@gh-pages" %>% 
+"maurolepore/ghr@gh-pages" %>% 
   ghr_get() %>% 
   ghr_pull("name")
-#> [1] "gh_branches.html"       "gh_get.html"           
-#> [3] "ghr-package.html"       "ghr_branches.html"     
-#> [5] "ghr_fields.html"        "ghr_get.html"          
-#> [7] "ghr_show_branches.html" "ghr_show_fields.html"  
-#> [9] "index.html"
+#>  [1] "LICENSE.html"  "authors.html"  "docsearch.css" "docsearch.js" 
+#>  [5] "index.html"    "link.svg"      "pkgdown.css"   "pkgdown.js"   
+#>  [9] "pkgdown.yml"   "reference"
 ```
 
 You can pull the URLs to read or browse multiple files at once.
