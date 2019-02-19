@@ -45,6 +45,18 @@
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="articles/scbi-data.html">scbi-data</a>
+    </li>
+  </ul>
+</li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
@@ -89,7 +101,7 @@
 <p>Use <code><a href="reference/ghr_get.html">ghr_get()</a></code> to get a GitHub-API response. Notice that the call is memoised.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.time">system.time</a></span>(<span class="kw"><a href="reference/ghr_get.html">ghr_get</a></span>(<span class="st">"maurolepore/ghr"</span>))</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="co">#&gt;    user  system elapsed </span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt;   0.084   0.024   0.269</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt;   0.096   0.012   0.275</span></a>
 <a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co"># Takes no time because the first call is memoised</span></a>
 <a class="sourceLine" id="cb3-5" data-line-number="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.time">system.time</a></span>(<span class="kw"><a href="reference/ghr_get.html">ghr_get</a></span>(<span class="st">"maurolepore/ghr"</span>))</a>
 <a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt;    user  system elapsed </span></a>
@@ -112,7 +124,7 @@
 <a class="sourceLine" id="cb6-3" data-line-number="3"><span class="co"># The first call make the request</span></a>
 <a class="sourceLine" id="cb6-4" data-line-number="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.time">system.time</a></span>(<span class="kw"><a href="reference/ghr_ls.html">ghr_ls</a></span>(path))</a>
 <a class="sourceLine" id="cb6-5" data-line-number="5"><span class="co">#&gt;    user  system elapsed </span></a>
-<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="co">#&gt;   0.020   0.000   0.094</span></a>
+<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="co">#&gt;   0.024   0.000   0.082</span></a>
 <a class="sourceLine" id="cb6-7" data-line-number="7"><span class="co"># Takes no time because the first call is memoised</span></a>
 <a class="sourceLine" id="cb6-8" data-line-number="8"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.time">system.time</a></span>(<span class="kw"><a href="reference/ghr_ls.html">ghr_ls</a></span>(path))</a>
 <a class="sourceLine" id="cb6-9" data-line-number="9"><span class="co">#&gt;    user  system elapsed </span></a>
