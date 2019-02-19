@@ -8,7 +8,7 @@ ghr_get_impl <- function(path, ref = "master") {
     branch <- pieces[[2]]
   }
 
-  gh::gh(gh_path(path), ref = branch)
+  gh::gh(ghr_path(path), ref = branch)
 }
 
 stop_invalid_ref <- function(path, ref, uses_at) {
@@ -35,18 +35,21 @@ stop_invalid_ref <- function(path, ref, uses_at) {
 #' @export
 #'
 #' @examples
-#' ghr_get("r-lib/usethis")
+#' gh_response <- ghr_get("maurolepore/ghr")
+#' class(gh_response)
+#' length(gh_response)
+#' str(gh_response[[1]])
 #'
 #' # The request to GitHub happens only the first time you call ghr_get()
-#' system.time(ghr_get("r-lib/usethis/R"))
+#' system.time(ghr_get("maurolepore/ghr/R"))
 #' # Later calls take no time because the first call is memoised
-#' system.time(ghr_get("r-lib/usethis/R"))
+#' system.time(ghr_get("maurolepore/ghr/R"))
 #'
-#' ghr_pull(ghr_get("r-lib/usethis", ref = "gh-pages"), "path")
+#' ghr_pull(ghr_get("maurolepore/ghr", ref = "gh-pages"), "path")
 #' # Same
-#' ghr_pull(ghr_get("r-lib/usethis@gh-pages"), "path")
+#' ghr_pull(ghr_get("maurolepore/ghr@gh-pages"), "path")
 #'
-#' ghr_pull(ghr_get("r-lib/usethis/news@gh-pages"), "path")
+#' ghr_pull(ghr_get("maurolepore/ghr/reference@gh-pages"), "path")
 ghr_get <- memoise::memoise(ghr_get_impl)
 
 #' Get the name of all branches of a GitHub repository.
@@ -60,7 +63,7 @@ ghr_get <- memoise::memoise(ghr_get_impl)
 #' @export
 #'
 #' @examples
-#' ghr_show_branches("r-lib/usethis")
+#' ghr_show_branches("maurolepore/ghr")
 ghr_show_branches <- function(path) {
   owner_repo <- owner_repo(path)
   purrr::map_chr(gh::gh(glue::glue("/repos/{owner_repo}/branches")), "name")
@@ -75,13 +78,9 @@ ghr_show_branches <- function(path) {
 #' @return A character string.
 #'
 #' @examples
-#' gh_path("r-lib")
-#' gh_path("r-lib/gh")
-#' gh_path("r-lib/gh/tests")
-#' gh_path("r-lib/gh/tests/testthat")
+#' ghr_path("maurolepore/ghr/tests/testthat")
 #' @noRd
-#' @keywords internal
-gh_path <- function(path) {
+ghr_path <- function(path) {
   n_pieces <- as.character(length(split_url(path)))
   switch(
     n_pieces,

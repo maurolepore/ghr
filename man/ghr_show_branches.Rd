@@ -17,7 +17,7 @@ A character string.
 Get the name of all branches of a GitHub repository.
 }
 \examples{
-ghr_show_branches("r-lib/usethis")
+ghr_show_branches("maurolepore/ghr")
 }
 \seealso{
 ghr_fields
