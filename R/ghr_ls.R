@@ -4,6 +4,7 @@
 #' @inheritParams base::grep
 #' @param regexp A regular expression (e.g. `[.]csv$`) passed on to grep() to
 #'   filter paths.
+#' @param ... Arguments passed to [gh::gh()] via [ghr_get()].
 #'
 #' @return A character string.
 #' @export
@@ -24,8 +25,14 @@
 ghr_ls <- function(path,
                    regexp = NULL,
                    ignore.case = FALSE,
-                   invert = FALSE) {
-  paths <- ghr_pull(ghr_get(path), "path")
+                   invert = FALSE,
+                   ...) {
+  if (identical(length(split_url(path)), 1L)) {
+    paths <- ghr_pull(ghr_get(path, ...), "name")
+  } else {
+    paths <- ghr_pull(ghr_get(path, ...), "path")
+  }
+
   pick <- seq_along(paths)
   if (!is.null(regexp)) {
     pick <- grep(regexp, paths, ignore.case = ignore.case, invert = invert)

@@ -80,6 +80,15 @@ ghr_ls(path, regexp = "[.]RDATA$", ignore.case = FALSE)
 ghr_ls(path, regexp = "[.]RDATA$", ignore.case = TRUE)
 ```
 
+You can pass additional arguments to `gh::gh()` via `...`, for example, if you need more items than fit in the default `.limit` per page.
+
+```{r}
+# Default number of items per page is 30
+length(ghr_ls("maurolepore"))
+# All repos in of the user maurolepore
+length(ghr_ls("maurolepore", .limit = Inf))
+```
+
 The `path` argument to `ghr_get()` understands a syntax as `owner/repo/path@branch`
 
 ```{r}

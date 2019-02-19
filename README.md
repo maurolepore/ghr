@@ -41,7 +41,7 @@ memoised.
 ``` r
 system.time(ghr_get("maurolepore/ghr"))
 #>    user  system elapsed 
-#>    0.11    0.00    0.44
+#>    0.08    0.02    0.54
 # Takes no time because the first call is memoised
 system.time(ghr_get("maurolepore/ghr"))
 #>    user  system elapsed 
@@ -79,7 +79,7 @@ path <- "maurolepore/tor/inst/extdata/mixed"
 # The first call make the request
 system.time(ghr_ls(path))
 #>    user  system elapsed 
-#>    0.00    0.00    0.11
+#>    0.02    0.00    0.21
 # Takes no time because the first call is memoised
 system.time(ghr_ls(path))
 #>    user  system elapsed 
@@ -97,6 +97,18 @@ ghr_ls(path, regexp = "[.]RDATA$", ignore.case = FALSE)
 ghr_ls(path, regexp = "[.]RDATA$", ignore.case = TRUE)
 #> [1] "inst/extdata/mixed/lower_rdata.rdata"
 #> [2] "inst/extdata/mixed/upper_rdata.RData"
+```
+
+You can pass additional arguments to `gh::gh()` via `...`, for example,
+if you need more items than fit in the default `.limit` per page.
+
+``` r
+# Default number of items per page is 30
+length(ghr_ls("maurolepore"))
+#> [1] 30
+# All repos in of the user maurolepore
+length(ghr_ls("maurolepore", .limit = Inf))
+#> [1] 101
 ```
 
 The `path` argument to `ghr_get()` understands a syntax as

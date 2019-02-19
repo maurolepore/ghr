@@ -4,7 +4,7 @@
 \alias{ghr_ls}
 \title{List files in a GitHub 'directory'.}
 \usage{
-ghr_ls(path, regexp = NULL, ignore.case = FALSE, invert = FALSE)
+ghr_ls(path, regexp = NULL, ignore.case = FALSE, invert = FALSE, ...)
 }
 \arguments{
 \item{path}{A string formatted as "owner/repo/subdir" or
@@ -18,6 +18,8 @@ filter paths.}
 
 \item{invert}{logical.  If \code{TRUE} return indices or values for
     elements that do \emph{not} match.}
+
+\item{...}{Arguments passed to \code{\link[gh:gh]{gh::gh()}} via \code{\link[=ghr_get]{ghr_get()}}.}
 }
 \value{
 A character string.

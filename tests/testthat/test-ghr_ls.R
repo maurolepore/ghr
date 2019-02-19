@@ -20,3 +20,7 @@ test_that("ghr_ls is sensitive to all arguments", {
     "R/ghr_ls.R" %in% ghr_ls("maurolepore/ghr/R", "GHR_LS", ignore.case = TRUE)
   )
 })
+
+test_that("ghr_ls finds a value in a page after the first one", {
+  expect_true("ghr" %in% ghr_ls("maurolepore", .limit = 100))
+})

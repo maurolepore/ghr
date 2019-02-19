@@ -1,4 +1,4 @@
-ghr_get_impl <- function(path, ref = "master") {
+ghr_get_impl <- function(path, ref = "master", ...) {
   branch <- ref
   pieces <- strsplit(path, "@")[[1]]
   uses_at <- length(pieces) > 1
@@ -8,7 +8,7 @@ ghr_get_impl <- function(path, ref = "master") {
     branch <- pieces[[2]]
   }
 
-  gh::gh(ghr_path(path), ref = branch)
+  gh::gh(ghr_path(path), ref = branch, ...)
 }
 
 stop_invalid_ref <- function(path, ref, uses_at) {
@@ -27,6 +27,7 @@ stop_invalid_ref <- function(path, ref, uses_at) {
 #' @param path A string formatted as "owner/repo/subdir" or
 #'   "owner/repo/subdir\@branch", e.g.: "maurolepore/ghr/reference@gh-pages".
 #' @param ref Branch name.
+#' @param ... Arguments passed to [gh::gh()].
 #'
 #' @family functions to get github responses
 #' @seealso ghr_fields

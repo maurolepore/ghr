@@ -4,13 +4,15 @@
 \alias{ghr_get}
 \title{Get a response from the GitHub API.}
 \usage{
-ghr_get(path, ref = "master")
+ghr_get(path, ref = "master", ...)
 }
 \arguments{
 \item{path}{A string formatted as "owner/repo/subdir" or
 "owner/repo/subdir@branch", e.g.: "maurolepore/ghr/reference@gh-pages".}
 
 \item{ref}{Branch name.}
+
+\item{...}{Arguments passed to \code{\link[gh:gh]{gh::gh()}}.}
 }
 \value{
 A list.
