@@ -40,7 +40,7 @@ memoised.
 ``` r
 system.time(ghr_get("r-lib/gh"))
 #>    user  system elapsed 
-#>    0.05    0.05    0.36
+#>    0.06    0.03    0.43
 # Takes no time because the first call is memoised
 system.time(ghr_get("r-lib/gh"))
 #>    user  system elapsed 
@@ -61,8 +61,7 @@ ghr_show_fields(response)
 #>  [9] "type"         "_links"
 ```
 
-Use `ghr_pull()` and its shortcuts to access specific fields of the
-GitHub response.
+Use `ghr_pull()` to access specific fields of the GitHub response.
 
 ``` r
 ghr_pull(response, "name")
@@ -112,7 +111,7 @@ ghr_show_branches("r-lib/usethis")
 #> [55] "usethis-package.html"        "write-this.html"
 ```
 
-There are some shortcuts to `ghr_pull()`:
+You can pull the URLs to read or browse multiple files at once.
 
 ``` r
 "maurolepore/tor/inst/extdata/csv" %>% 
@@ -146,7 +145,7 @@ if (interactive()) {
 
 -----
 
-## Acknowledgements
+## Thanks
 
 Thanks to Gábor Csárdi et. al for the [gh
 package](https://github.com/r-lib/gh) and to Francois Michonneau, James

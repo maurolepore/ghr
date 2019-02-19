@@ -57,7 +57,7 @@ class(response)
 ghr_show_fields(response)
 ```
 
-Use `ghr_pull()` and its shortcuts to access specific fields of the GitHub response.
+Use `ghr_pull()` to access specific fields of the GitHub response.
 
 ```{r}
 ghr_pull(response, "name")
@@ -73,7 +73,7 @@ ghr_show_branches("r-lib/usethis")
   ghr_pull("name")
 ```
 
-There are some shortcuts to `ghr_pull()`:
+You can pull the URLs to read or browse multiple files at once.
 
 ```{r}
 "maurolepore/tor/inst/extdata/csv" %>% 
