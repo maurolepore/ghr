@@ -15,9 +15,10 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 status](https://www.r-pkg.org/badges/version/ghr)](https://cran.r-project.org/package=ghr)
 <!-- badges: end -->
 
-The ghr package helps you to request information to the GitHub-API using
-an intuitive syntax, similar to that of `remotes::install_github()`. For
-example, this is a valid path `maurolepore/ghr@master`. Also this one:
+The ghr (GitHub-R) package helps you to request information to the
+GitHub-API using an intuitive syntax, similar to that of
+`remotes::install_github()`. For example, this is a valid path
+`maurolepore/ghr@master`. Also this one:
 `maurolepore/ghr/reference@gh-pages`.
 
 ## Installation
@@ -40,7 +41,7 @@ memoised.
 ``` r
 system.time(ghr_get("maurolepore/ghr"))
 #>    user  system elapsed 
-#>    0.07    0.04    0.36
+#>    0.05    0.08    1.25
 # Takes no time because the first call is memoised
 system.time(ghr_get("maurolepore/ghr"))
 #>    user  system elapsed 
@@ -68,16 +69,31 @@ ghr_pull(response, "name")
 #> [1] "spelling.R" "testthat.R" "testthat"
 ```
 
-Use `ghr_ls()` as a shortcut for `ghr_pull(ghr_get(path), field =
-"path"). It offers an interface similar to`fs::dir\_ls()\`.
+Use `ghr_ls()` as a shortcut for
+`ghr_pull(ghr_get(owner/repo/subdir@branch), field = "path")`. It offers
+an interface similar to `fs::dir_ls()`.
 
 ``` r
-ghr_ls("maurolepore/ghr/reference@gh-pages")
-#> [1] "reference/gh_branches.html"       "reference/gh_get.html"           
-#> [3] "reference/ghr-package.html"       "reference/ghr_branches.html"     
-#> [5] "reference/ghr_fields.html"        "reference/ghr_get.html"          
-#> [7] "reference/ghr_show_branches.html" "reference/ghr_show_fields.html"  
-#> [9] "reference/index.html"
+system.time(ghr_ls("maurolepore/ghr/reference@gh-pages"))
+#>    user  system elapsed 
+#>    0.00    0.00    3.33
+# Memoised
+system.time(ghr_ls("maurolepore/ghr/reference@gh-pages"))
+#>    user  system elapsed 
+#>       0       0       0
+
+ghr_ls("maurolepore/ghr/reference@gh-pages", regexp = "show")
+#> [1] "reference/ghr_show_branches.html" "reference/ghr_show_fields.html"
+ghr_ls("maurolepore/ghr/reference@gh-pages", regexp = "show", invert = TRUE)
+#> [1] "reference/gh_branches.html"  "reference/gh_get.html"      
+#> [3] "reference/ghr-package.html"  "reference/ghr_branches.html"
+#> [5] "reference/ghr_fields.html"   "reference/ghr_get.html"     
+#> [7] "reference/index.html"
+
+ghr_ls("maurolepore/ghr/reference@gh-pages", regexp = "SHOW", ignore.case = FALSE)
+#> character(0)
+ghr_ls("maurolepore/ghr/reference@gh-pages", regexp = "SHOW", ignore.case = TRUE)
+#> [1] "reference/ghr_show_branches.html" "reference/ghr_show_fields.html"
 ```
 
 The `path` argument to `ghr_get()` understands a syntax as

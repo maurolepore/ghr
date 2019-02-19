@@ -24,7 +24,7 @@ knitr::opts_chunk$set(
 [![CRAN status](https://www.r-pkg.org/badges/version/ghr)](https://cran.r-project.org/package=ghr)
 <!-- badges: end -->
 
-The ghr package helps you to request information to the GitHub-API using an intuitive syntax, similar to that of `remotes::install_github()`. For example, this is a valid path `maurolepore/ghr@master`. Also this one: `maurolepore/ghr/reference@gh-pages`.
+The ghr (GitHub-R) package helps you to request information to the GitHub-API using an intuitive syntax, similar to that of `remotes::install_github()`. For example, this is a valid path `maurolepore/ghr@master`. Also this one: `maurolepore/ghr/reference@gh-pages`.
 
 ## Installation
 
@@ -63,10 +63,18 @@ Use `ghr_pull()` to access specific fields of the GitHub response.
 ghr_pull(response, "name")
 ```
 
-Use `ghr_ls()` as a shortcut for `ghr_pull(ghr_get(path), field = "path"). It offers an interface similar to `fs::dir_ls()`.
+Use `ghr_ls()` as a shortcut for `ghr_pull(ghr_get(owner/repo/subdir@branch), field = "path")`. It offers an interface similar to `fs::dir_ls()`.
 
 ```{r}
-ghr_ls("maurolepore/ghr/reference@gh-pages")
+system.time(ghr_ls("maurolepore/ghr/reference@gh-pages"))
+# Memoised
+system.time(ghr_ls("maurolepore/ghr/reference@gh-pages"))
+
+ghr_ls("maurolepore/ghr/reference@gh-pages", regexp = "show")
+ghr_ls("maurolepore/ghr/reference@gh-pages", regexp = "show", invert = TRUE)
+
+ghr_ls("maurolepore/ghr/reference@gh-pages", regexp = "SHOW", ignore.case = FALSE)
+ghr_ls("maurolepore/ghr/reference@gh-pages", regexp = "SHOW", ignore.case = TRUE)
 ```
 
 The `path` argument to `ghr_get()` understands a syntax as `owner/repo/path@branch`
