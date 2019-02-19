@@ -1,17 +1,6 @@
 context("ghr_get")
 
-has_internet <- function() {
-  z <- try(suppressWarnings(readLines('https://www.google.com', n = 1)),
-    silent = TRUE)
-  !inherits(z, "try-error")
-}
-
-skip_if_net_down <- function() {
-  if (has_internet()) {
-    return()
-  }
-  testthat::skip("no internet")
-}
+source(test_path("skip_if_net_down.R"))
 
 test_that("ghr_get outputs the expected list object", {
  skip_if_net_down()

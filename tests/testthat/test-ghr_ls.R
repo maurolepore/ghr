@@ -1,6 +1,10 @@
 context("ghr_ls")
 
+source(test_path("skip_if_net_down.R"))
+
 test_that("ghr_ls is sensitive to all arguments", {
+  skip_if_net_down()
+
   expect_true("DESCRIPTION" %in% ghr_ls("maurolepore/ghr"))
   expect_equal(ghr_ls("maurolepore/ghr/R", regexp = "ghr_ls"), "R/ghr_ls.R")
 
