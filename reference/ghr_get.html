@@ -117,7 +117,8 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>path</th>
-      <td><p>A string formatted as "owner/repo/subdir_1/subdir_2/subdir_n".</p></td>
+      <td><p>A string formatted as "owner/repo/subdir" or
+"owner/repo/subdir@branch", e.g.: "maurolepore/ghr/reference@gh-pages".</p></td>
     </tr>
     <tr>
       <th>ref</th>
@@ -524,7 +525,7 @@
 #&gt; ] </div><div class='input'>
 <span class='co'># The request to GitHub happens only the first time you call ghr_get()</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.time'>system.time</a></span>(<span class='fu'>ghr_get</span>(<span class='st'>"r-lib/usethis/R"</span>))</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.036   0.000   0.177 </div><div class='input'><span class='co'># Later calls take no time because the first call is memoised</span>
+#&gt;   0.036   0.000   0.234 </div><div class='input'><span class='co'># Later calls take no time because the first call is memoised</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.time'>system.time</a></span>(<span class='fu'>ghr_get</span>(<span class='st'>"r-lib/usethis/R"</span>))</div><div class='output co'>#&gt;    user  system elapsed 
 #&gt;   0.000   0.000   0.001 </div><div class='input'>
 <span class='fu'><a href='ghr_show_fields.html'>ghr_pull</a></span>(<span class='fu'>ghr_get</span>(<span class='st'>"r-lib/usethis"</span>, <span class='kw'>ref</span> <span class='kw'>=</span> <span class='st'>"gh-pages"</span>), <span class='st'>"path"</span>)</div><div class='output co'>#&gt;  [1] "CNAME"                "CODE_OF_CONDUCT.html" "CONTRIBUTING.html"   
