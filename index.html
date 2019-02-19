@@ -89,7 +89,7 @@
 <p>Use <code><a href="reference/ghr_get.html">ghr_get()</a></code> to get a GitHub-API response. Notice that the call is memoised.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.time">system.time</a></span>(<span class="kw"><a href="reference/ghr_get.html">ghr_get</a></span>(<span class="st">"maurolepore/ghr"</span>))</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="co">#&gt;    user  system elapsed </span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt;   0.104   0.004   0.269</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt;   0.084   0.016   0.282</span></a>
 <a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co"># Takes no time because the first call is memoised</span></a>
 <a class="sourceLine" id="cb3-5" data-line-number="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.time">system.time</a></span>(<span class="kw"><a href="reference/ghr_get.html">ghr_get</a></span>(<span class="st">"maurolepore/ghr"</span>))</a>
 <a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt;    user  system elapsed </span></a>
@@ -112,11 +112,11 @@
 <a class="sourceLine" id="cb6-3" data-line-number="3"><span class="co"># The first call make the request</span></a>
 <a class="sourceLine" id="cb6-4" data-line-number="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.time">system.time</a></span>(<span class="kw"><a href="reference/ghr_ls.html">ghr_ls</a></span>(path))</a>
 <a class="sourceLine" id="cb6-5" data-line-number="5"><span class="co">#&gt;    user  system elapsed </span></a>
-<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="co">#&gt;   0.020   0.000   0.098</span></a>
+<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="co">#&gt;   0.020   0.000   0.119</span></a>
 <a class="sourceLine" id="cb6-7" data-line-number="7"><span class="co"># Takes no time because the first call is memoised</span></a>
 <a class="sourceLine" id="cb6-8" data-line-number="8"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.time">system.time</a></span>(<span class="kw"><a href="reference/ghr_ls.html">ghr_ls</a></span>(path))</a>
 <a class="sourceLine" id="cb6-9" data-line-number="9"><span class="co">#&gt;    user  system elapsed </span></a>
-<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="co">#&gt;   0.000   0.000   0.001</span></a>
+<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="co">#&gt;       0       0       0</span></a>
 <a class="sourceLine" id="cb6-11" data-line-number="11"></a>
 <a class="sourceLine" id="cb6-12" data-line-number="12"><span class="kw"><a href="reference/ghr_ls.html">ghr_ls</a></span>(path, <span class="dt">regexp =</span> <span class="st">"[.]csv$"</span>)</a>
 <a class="sourceLine" id="cb6-13" data-line-number="13"><span class="co">#&gt; [1] "inst/extdata/mixed/csv.csv"</span></a>
@@ -130,41 +130,48 @@
 <a class="sourceLine" id="cb6-21" data-line-number="21"><span class="kw"><a href="reference/ghr_ls.html">ghr_ls</a></span>(path, <span class="dt">regexp =</span> <span class="st">"[.]RDATA$"</span>, <span class="dt">ignore.case =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb6-22" data-line-number="22"><span class="co">#&gt; [1] "inst/extdata/mixed/lower_rdata.rdata"</span></a>
 <a class="sourceLine" id="cb6-23" data-line-number="23"><span class="co">#&gt; [2] "inst/extdata/mixed/upper_rdata.RData"</span></a></code></pre></div>
+<p>You can pass additional arguments to <code><a href="https://www.rdocumentation.org/packages/gh/topics/gh">gh::gh()</a></code> via <code>...</code>, for example, if you need more items than fit in the default <code>.limit</code> per page.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co"># Default number of items per page is 30</span></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/length">length</a></span>(<span class="kw"><a href="reference/ghr_ls.html">ghr_ls</a></span>(<span class="st">"maurolepore"</span>))</a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="co">#&gt; [1] 30</span></a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co"># All repos in of the user maurolepore</span></a>
+<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/length">length</a></span>(<span class="kw"><a href="reference/ghr_ls.html">ghr_ls</a></span>(<span class="st">"maurolepore"</span>, <span class="dt">.limit =</span> <span class="ot">Inf</span>))</a>
+<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="co">#&gt; [1] 101</span></a></code></pre></div>
 <p>The <code>path</code> argument to <code><a href="reference/ghr_get.html">ghr_get()</a></code> understands a syntax as <code>owner/repo/path@branch</code></p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="reference/ghr_show_branches.html">ghr_show_branches</a></span>(<span class="st">"maurolepore/ghr"</span>)</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="co">#&gt; [1] "gh-pages" "master"</span></a>
-<a class="sourceLine" id="cb7-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="st">"maurolepore/ghr@gh-pages"</span> <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="reference/ghr_get.html">ghr_get</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="reference/ghr_show_fields.html">ghr_pull</a></span>(<span class="st">"name"</span>)</a>
-<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="co">#&gt;  [1] "LICENSE.html"  "authors.html"  "docsearch.css" "docsearch.js" </span></a>
-<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="co">#&gt;  [5] "index.html"    "link.svg"      "pkgdown.css"   "pkgdown.js"   </span></a>
-<a class="sourceLine" id="cb7-9" data-line-number="9"><span class="co">#&gt;  [9] "pkgdown.yml"   "reference"</span></a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="reference/ghr_show_branches.html">ghr_show_branches</a></span>(<span class="st">"maurolepore/ghr"</span>)</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="co">#&gt; [1] "gh-pages" "master"</span></a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="st">"maurolepore/ghr@gh-pages"</span> <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="reference/ghr_get.html">ghr_get</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="reference/ghr_show_fields.html">ghr_pull</a></span>(<span class="st">"name"</span>)</a>
+<a class="sourceLine" id="cb8-7" data-line-number="7"><span class="co">#&gt;  [1] "LICENSE.html"  "authors.html"  "docsearch.css" "docsearch.js" </span></a>
+<a class="sourceLine" id="cb8-8" data-line-number="8"><span class="co">#&gt;  [5] "index.html"    "link.svg"      "pkgdown.css"   "pkgdown.js"   </span></a>
+<a class="sourceLine" id="cb8-9" data-line-number="9"><span class="co">#&gt;  [9] "pkgdown.yml"   "reference"</span></a></code></pre></div>
 <p>You can pull the URLs to read or browse multiple files at once.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="st">"maurolepore/tor/inst/extdata/csv"</span> <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="reference/ghr_get.html">ghr_get</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="reference/ghr_show_fields.html">ghr_pull</a></span>(<span class="st">"download_url"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/lapply">lapply</a></span>(read.csv, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="co">#&gt; [[1]]</span></a>
-<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="co">#&gt;   x</span></a>
-<a class="sourceLine" id="cb8-7" data-line-number="7"><span class="co">#&gt; 1 1</span></a>
-<a class="sourceLine" id="cb8-8" data-line-number="8"><span class="co">#&gt; 2 2</span></a>
-<a class="sourceLine" id="cb8-9" data-line-number="9"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb8-10" data-line-number="10"><span class="co">#&gt; [[2]]</span></a>
-<a class="sourceLine" id="cb8-11" data-line-number="11"><span class="co">#&gt;   y</span></a>
-<a class="sourceLine" id="cb8-12" data-line-number="12"><span class="co">#&gt; 1 a</span></a>
-<a class="sourceLine" id="cb8-13" data-line-number="13"><span class="co">#&gt; 2 b</span></a></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">html_urls &lt;-<span class="st"> "maurolepore/tor/inst/extdata/csv"</span> <span class="op">%&gt;%</span><span class="st"> </span></a>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="st">"maurolepore/tor/inst/extdata/csv"</span> <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb9-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="reference/ghr_get.html">ghr_get</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="reference/ghr_show_fields.html">ghr_pull</a></span>(<span class="st">"html_url"</span>)</a>
-<a class="sourceLine" id="cb9-4" data-line-number="4">html_urls</a>
-<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="co">#&gt; [1] "https://github.com/maurolepore/tor/blob/master/inst/extdata/csv/csv1.csv"</span></a>
-<a class="sourceLine" id="cb9-6" data-line-number="6"><span class="co">#&gt; [2] "https://github.com/maurolepore/tor/blob/master/inst/extdata/csv/csv2.csv"</span></a>
-<a class="sourceLine" id="cb9-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb9-8" data-line-number="8"><span class="cf">if</span> (<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/interactive">interactive</a></span>()) {</a>
-<a class="sourceLine" id="cb9-9" data-line-number="9">  html_urls <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb9-10" data-line-number="10"><span class="st">    </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/lapply">lapply</a></span>(utils<span class="op">::</span>browseURL)</a>
-<a class="sourceLine" id="cb9-11" data-line-number="11">}</a></code></pre></div>
+<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="reference/ghr_show_fields.html">ghr_pull</a></span>(<span class="st">"download_url"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/lapply">lapply</a></span>(read.csv, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="co">#&gt; [[1]]</span></a>
+<a class="sourceLine" id="cb9-6" data-line-number="6"><span class="co">#&gt;   x</span></a>
+<a class="sourceLine" id="cb9-7" data-line-number="7"><span class="co">#&gt; 1 1</span></a>
+<a class="sourceLine" id="cb9-8" data-line-number="8"><span class="co">#&gt; 2 2</span></a>
+<a class="sourceLine" id="cb9-9" data-line-number="9"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb9-10" data-line-number="10"><span class="co">#&gt; [[2]]</span></a>
+<a class="sourceLine" id="cb9-11" data-line-number="11"><span class="co">#&gt;   y</span></a>
+<a class="sourceLine" id="cb9-12" data-line-number="12"><span class="co">#&gt; 1 a</span></a>
+<a class="sourceLine" id="cb9-13" data-line-number="13"><span class="co">#&gt; 2 b</span></a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">html_urls &lt;-<span class="st"> "maurolepore/tor/inst/extdata/csv"</span> <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="reference/ghr_get.html">ghr_get</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="reference/ghr_show_fields.html">ghr_pull</a></span>(<span class="st">"html_url"</span>)</a>
+<a class="sourceLine" id="cb10-4" data-line-number="4">html_urls</a>
+<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="co">#&gt; [1] "https://github.com/maurolepore/tor/blob/master/inst/extdata/csv/csv1.csv"</span></a>
+<a class="sourceLine" id="cb10-6" data-line-number="6"><span class="co">#&gt; [2] "https://github.com/maurolepore/tor/blob/master/inst/extdata/csv/csv2.csv"</span></a>
+<a class="sourceLine" id="cb10-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb10-8" data-line-number="8"><span class="cf">if</span> (<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/interactive">interactive</a></span>()) {</a>
+<a class="sourceLine" id="cb10-9" data-line-number="9">  html_urls <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb10-10" data-line-number="10"><span class="st">    </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/lapply">lapply</a></span>(utils<span class="op">::</span>browseURL)</a>
+<a class="sourceLine" id="cb10-11" data-line-number="11">}</a></code></pre></div>
 <hr>
 </div>
 <div id="acknowledgements" class="section level2">
