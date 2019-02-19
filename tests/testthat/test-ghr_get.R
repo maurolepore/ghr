@@ -27,7 +27,7 @@ test_that("ghr_get is memoised", {
  expect_true(first_call[[3]] > second_call[[3]])
 })
 
-test_that("ghr_get works with syntax owner/repo@branch", {
+test_that("ghr_get understands the syntax owner/repo@branch", {
  skip_if_net_down()
  expect_is(ghr_get("r-lib/usethis", ref = "gh-pages"), "gh_response")
  expect_is(ghr_get("r-lib/usethis@gh-pages"), "gh_response")

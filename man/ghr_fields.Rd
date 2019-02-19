@@ -3,20 +3,11 @@
 \name{ghr_fields}
 \alias{ghr_fields}
 \alias{ghr_pull}
-\alias{ghr_path}
-\alias{ghr_html_url}
-\alias{ghr_download_url}
 \title{Show and pull available fields of a GitHub response.}
 \usage{
 ghr_fields(gh_response)
 
 ghr_pull(gh_response, field)
-
-ghr_path(gh_response)
-
-ghr_html_url(gh_response)
-
-ghr_download_url(gh_response)
 }
 \arguments{
 \item{gh_response}{A list object of class "gh_response".}

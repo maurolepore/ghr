@@ -34,26 +34,11 @@ ghr_fields <- function(gh_response) {
 #' @export
 ghr_pull <- function(gh_response, field) {
   stopifnot(inherits(gh_response, "gh_response"))
-  purrr::map_chr(gh_response, field)
-}
 
-with_field <- function(field) {
-  function(gh_response)
-    ghr_pull(gh_response, field = field)
-}
-#' @rdname ghr_fields
-#' @export
-ghr_path <- with_field("path")
-#' @rdname ghr_fields
-#' @export
-ghr_html_url <- with_field("html_url")
-#' @rdname ghr_fields
-#' @export
-ghr_download_url <- function(gh_response) {
   tryCatch(
-    ghr_pull(gh_response, field = "download_url"),
+    unlist(purrr::map(gh_response, field)),
     error = function(e)  {
-      stop("This `gh_response` has nothing to download.", call. = FALSE)
+      stop("Can't pull '", field, "' from this `gh_response`.", call. = FALSE)
     }
   )
 }

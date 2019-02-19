@@ -15,38 +15,38 @@ skip_if_net_down <- function() {
 
 test_that("ghr_fields and friends retun expected fields", {
   skip_if_net_down()
-  gh_response <- ghr_get("r-lib/usethis")
-  expect_true(all(c("name", "html_url") %in% ghr_fields(gh_response)))
+  response <- ghr_get("r-lib/usethis")
+  expect_true(all(c("name", "html_url") %in% ghr_fields(response)))
+})
 
-  filenames <- ghr_pull(gh_response, "name")
+context("ghr_pull")
+
+test_that("ghr_pull pulls the expected fields", {
+  skip_if_net_down()
+  response <- ghr_get("r-lib/usethis")
+
+  filenames <- ghr_pull(response, "name")
   expect_true(all(c("DESCRIPTION", "NAMESPACE") %in% filenames))
 
-  expect_true("tests/testthat" %in% ghr_path(ghr_get("r-lib/usethis/tests")))
+  expect_true(
+    "tests/testthat" %in% ghr_pull(ghr_get("r-lib/usethis/tests"), "path")
+  )
 
   expect_true(
-    all(grepl("^https://github.com", ghr_html_url(ghr_get("r-lib/usethis"))))
+    all(
+      grepl(
+        "^https://github.com",
+        ghr_pull(ghr_get("r-lib/usethis"), "html_url")
+      )
+    )
   )
+
   expect_true(
     all(
-      grepl("^https://raw.githubusercontent",
-        ghr_download_url(ghr_get("r-lib/usethis/R")))
+      grepl(
+        "^https://raw.githubusercontent",
+        ghr_pull(ghr_get("r-lib/usethis/R"), "download_url")
+      )
     )
   )
 })
-
-test_that("ghr_download_url errs with informative message", {
-  skip_if_net_down()
-  expect_error(
-    ghr_download_url(ghr_get("r-lib")), "nothing to download"
-  )
-})
-
-#' # Shortcuts
-#' ghr_path(gh_response)
-#' ghr_download_url(gh_response)
-#'
-#' # Working with non-default branches
-#' ghr_path(ghr_get("r-lib/usethis", ref = "gh-pages"))
-#' # Same
-#' ghr_path(ghr_get("r-lib/usethis@gh-pages"))
-#' ghr_path(ghr_get("r-lib/usethis/news@gh-pages"))
