@@ -89,11 +89,11 @@
 <p>Use <code><a href="reference/ghr_get.html">ghr_get()</a></code> to get a GitHub-API response. Notice that the call is memoised.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.time">system.time</a></span>(<span class="kw"><a href="reference/ghr_get.html">ghr_get</a></span>(<span class="st">"r-lib/gh"</span>))</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="co">#&gt;    user  system elapsed </span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt;   0.096   0.008   0.756</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt;   0.084   0.012   0.260</span></a>
 <a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co"># Takes no time because the first call is memoised</span></a>
 <a class="sourceLine" id="cb3-5" data-line-number="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.time">system.time</a></span>(<span class="kw"><a href="reference/ghr_get.html">ghr_get</a></span>(<span class="st">"r-lib/gh"</span>))</a>
 <a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt;    user  system elapsed </span></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt;       0       0       0</span></a></code></pre></div>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt;   0.000   0.000   0.001</span></a></code></pre></div>
 <p>Use <code><a href="reference/ghr_show_fields.html">ghr_show_fields()</a></code> to see what fields are available for a given <code>path</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">response &lt;-<span class="st"> </span><span class="kw"><a href="reference/ghr_get.html">ghr_get</a></span>(<span class="dt">path =</span> <span class="st">"r-lib/usethis/tests"</span>)</a>
 <a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/class">class</a></span>(response)</a>
@@ -103,7 +103,7 @@
 <a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt;  [1] "name"         "path"         "sha"          "size"        </span></a>
 <a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt;  [5] "url"          "html_url"     "git_url"      "download_url"</span></a>
 <a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt;  [9] "type"         "_links"</span></a></code></pre></div>
-<p>Use <code><a href="reference/ghr_show_fields.html">ghr_pull()</a></code> and its shortcuts to access specific fields of the GitHub response.</p>
+<p>Use <code><a href="reference/ghr_show_fields.html">ghr_pull()</a></code> to access specific fields of the GitHub response.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="reference/ghr_show_fields.html">ghr_pull</a></span>(response, <span class="st">"name"</span>)</a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">#&gt; [1] "manual"     "spelling.R" "testthat.R" "testthat"</span></a></code></pre></div>
 <p>The <code>path</code> argument to <code><a href="reference/ghr_get.html">ghr_get()</a></code> understands a syntax as <code>owner/repo/path@branch</code></p>
@@ -144,7 +144,7 @@
 <a class="sourceLine" id="cb6-35" data-line-number="35"><span class="co">#&gt; [51] "use_usethis.html"            "use_version.html"           </span></a>
 <a class="sourceLine" id="cb6-36" data-line-number="36"><span class="co">#&gt; [53] "use_vignette.html"           "usethis-defunct.html"       </span></a>
 <a class="sourceLine" id="cb6-37" data-line-number="37"><span class="co">#&gt; [55] "usethis-package.html"        "write-this.html"</span></a></code></pre></div>
-<p>There are some shortcuts to <code><a href="reference/ghr_show_fields.html">ghr_pull()</a></code>:</p>
+<p>You can pull the URLs to read or browse multiple files at once.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="st">"maurolepore/tor/inst/extdata/csv"</span> <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="reference/ghr_get.html">ghr_get</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb7-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="reference/ghr_show_fields.html">ghr_pull</a></span>(<span class="st">"download_url"</span>) <span class="op">%&gt;%</span></a>
