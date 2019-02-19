@@ -58,8 +58,8 @@ ghr_get <- memoise::memoise(ghr_get_impl)
 #' @export
 #'
 #' @examples
-#' ghr_branches("r-lib/usethis")
-ghr_branches <- function(path) {
+#' ghr_show_branches("r-lib/usethis")
+ghr_show_branches <- function(path) {
   owner_repo <- owner_repo(path)
   purrr::map_chr(gh::gh(glue::glue("/repos/{owner_repo}/branches")), "name")
 }

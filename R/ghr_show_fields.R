@@ -12,7 +12,7 @@
 #'
 #' @examples
 #' gh_response <- ghr_get("hadley/babynames/data-raw")
-#' ghr_fields(gh_response)
+#' ghr_show_fields(gh_response)
 #'
 #' ghr_pull(gh_response, "name")
 #' # Shortcuts
@@ -25,12 +25,12 @@
 #' # Same
 #' ghr_path(ghr_get("r-lib/usethis@gh-pages"))
 #' ghr_path(ghr_get("r-lib/usethis/news@gh-pages"))
-ghr_fields <- function(gh_response) {
+ghr_show_fields <- function(gh_response) {
   stopifnot(inherits(gh_response, "gh_response"))
   names(gh_response[[1]])
 }
 
-#' @rdname ghr_fields
+#' @rdname ghr_show_fields
 #' @export
 ghr_pull <- function(gh_response, field) {
   stopifnot(inherits(gh_response, "gh_response"))

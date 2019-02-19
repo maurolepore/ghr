@@ -33,6 +33,6 @@ ghr_path(ghr_get("r-lib/usethis/news@gh-pages"))
 \seealso{
 ghr_fields
 
-Other functions to get github responses: \code{\link{ghr_branches}}
+Other functions to get github responses: \code{\link{ghr_show_branches}}
 }
 \concept{functions to get github responses}

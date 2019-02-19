@@ -1,4 +1,4 @@
-context("ghr_fields")
+context("ghr_show_fields")
 
 has_internet <- function() {
   z <- try(suppressWarnings(readLines('https://www.google.com', n = 1)),
@@ -13,10 +13,10 @@ skip_if_net_down <- function() {
   testthat::skip("no internet")
 }
 
-test_that("ghr_fields and friends retun expected fields", {
+test_that("ghr_show_fields and friends retun expected fields", {
   skip_if_net_down()
   response <- ghr_get("r-lib/usethis")
-  expect_true(all(c("name", "html_url") %in% ghr_fields(response)))
+  expect_true(all(c("name", "html_url") %in% ghr_show_fields(response)))
 })
 
 context("ghr_pull")

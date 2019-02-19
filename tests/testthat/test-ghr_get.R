@@ -51,5 +51,7 @@ context("ghr_branches")
 
 test_that("ghr_branches outputs expected branches", {
   skip_if_net_down()
-  expect_true(all(c("master", "gh-pages") %in% ghr_branches("r-lib/usethis")))
+  expect_true(
+    all(c("master", "gh-pages") %in% ghr_show_branches("r-lib/usethis"))
+  )
 })
