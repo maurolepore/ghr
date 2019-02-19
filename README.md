@@ -40,21 +40,22 @@ memoised.
 ``` r
 system.time(ghr_get("r-lib/gh"))
 #>    user  system elapsed 
-#>    0.10    0.01    0.37
+#>    0.05    0.05    0.36
 # Takes no time because the first call is memoised
 system.time(ghr_get("r-lib/gh"))
 #>    user  system elapsed 
 #>       0       0       0
 ```
 
-Use `ghr_fields()` to see what fields are available for a given `path`.
+Use `ghr_show_fields()` to see what fields are available for a given
+`path`.
 
 ``` r
 response <- ghr_get(path = "r-lib/usethis/tests")
 class(response)
 #> [1] "gh_response" "list"
 
-ghr_fields(response)
+ghr_show_fields(response)
 #>  [1] "name"         "path"         "sha"          "size"        
 #>  [5] "url"          "html_url"     "git_url"      "download_url"
 #>  [9] "type"         "_links"
@@ -72,7 +73,7 @@ The `path` argument to `ghr_get()` understands a syntax as
 `owner/repo/path@branch`
 
 ``` r
-ghr_branches("r-lib/usethis")
+ghr_show_branches("r-lib/usethis")
 #>  [1] "clang-format"         "f-479-proj-path-prep" "gh-pages"            
 #>  [4] "logo"                 "master-clean-start"   "master"              
 #>  [7] "moar-version-menu"    "pkgdown-travis"       "pr-flow-upgrades"    
@@ -116,7 +117,7 @@ There are some shortcuts to `ghr_pull()`:
 ``` r
 "maurolepore/tor/inst/extdata/csv" %>% 
   ghr_get() %>% 
-  ghr_download_url() %>%
+  ghr_pull("download_url") %>%
   lapply(read.csv, stringsAsFactors = FALSE)
 #> [[1]]
 #>   x
@@ -132,7 +133,7 @@ There are some shortcuts to `ghr_pull()`:
 ``` r
 html_urls <- "maurolepore/tor/inst/extdata/csv" %>% 
   ghr_get() %>% 
-  ghr_html_url()
+  ghr_pull("html_url")
 html_urls
 #> [1] "https://github.com/maurolepore/tor/blob/master/inst/extdata/csv/csv1.csv"
 #> [2] "https://github.com/maurolepore/tor/blob/master/inst/extdata/csv/csv2.csv"
@@ -142,6 +143,8 @@ if (interactive()) {
     lapply(utils::browseURL)
 }
 ```
+
+-----
 
 ## Acknowledgements
 

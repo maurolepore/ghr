@@ -14,6 +14,7 @@ knitr::opts_chunk$set(
   out.width = "100%"
 )
 ```
+
 # ghr
 
 <!-- badges: start -->
@@ -47,13 +48,13 @@ system.time(ghr_get("r-lib/gh"))
 system.time(ghr_get("r-lib/gh"))
 ```
 
-Use `ghr_fields()` to see what fields are available for a given `path`.
+Use `ghr_show_fields()` to see what fields are available for a given `path`.
 
 ```{r}
 response <- ghr_get(path = "r-lib/usethis/tests")
 class(response)
 
-ghr_fields(response)
+ghr_show_fields(response)
 ```
 
 Use `ghr_pull()` and its shortcuts to access specific fields of the GitHub response.
@@ -65,7 +66,7 @@ ghr_pull(response, "name")
 The `path` argument to `ghr_get()` understands a syntax as `owner/repo/path@branch`
 
 ```{r}
-ghr_branches("r-lib/usethis")
+ghr_show_branches("r-lib/usethis")
 
 "r-lib/usethis/reference@gh-pages" %>% 
   ghr_get() %>% 
@@ -77,14 +78,14 @@ There are some shortcuts to `ghr_pull()`:
 ```{r}
 "maurolepore/tor/inst/extdata/csv" %>% 
   ghr_get() %>% 
-  ghr_download_url() %>%
+  ghr_pull("download_url") %>%
   lapply(read.csv, stringsAsFactors = FALSE)
 ```
 
 ```{r}
 html_urls <- "maurolepore/tor/inst/extdata/csv" %>% 
   ghr_get() %>% 
-  ghr_html_url()
+  ghr_pull("html_url")
 html_urls
 
 if (interactive()) {
@@ -92,6 +93,8 @@ if (interactive()) {
     lapply(utils::browseURL)
 }
 ```
+
+---
 
 ## Acknowledgements
 

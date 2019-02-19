@@ -24,18 +24,13 @@ Show and pull available fields of a GitHub response.
 \examples{
 gh_response <- ghr_get("hadley/babynames/data-raw")
 ghr_show_fields(gh_response)
-
 ghr_pull(gh_response, "name")
-# Shortcuts
-ghr_path(gh_response)
-ghr_html_url(gh_response)
-ghr_download_url(gh_response)
 
 # Working with non-default branches
-ghr_path(ghr_get("r-lib/usethis", ref = "gh-pages"))
+ghr_pull(ghr_get("r-lib/usethis", ref = "gh-pages"), "path")
 # Same
-ghr_path(ghr_get("r-lib/usethis@gh-pages"))
-ghr_path(ghr_get("r-lib/usethis/news@gh-pages"))
+ghr_pull(ghr_get("r-lib/usethis@gh-pages"), "path")
+ghr_pull(ghr_get("r-lib/usethis/news@gh-pages"), "path")
 }
 \seealso{
 ghr_get gh_branches

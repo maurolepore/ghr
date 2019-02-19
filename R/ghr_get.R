@@ -41,10 +41,11 @@ stop_invalid_ref <- function(path, ref, uses_at) {
 #' # Later calls take no time because the first call is memoised
 #' system.time(ghr_get("r-lib/usethis/R"))
 #'
-#' ghr_path(ghr_get("r-lib/usethis", ref = "gh-pages"))
+#' ghr_pull(ghr_get("r-lib/usethis", ref = "gh-pages"), "path")
 #' # Same
-#' ghr_path(ghr_get("r-lib/usethis@gh-pages"))
-#' ghr_path(ghr_get("r-lib/usethis/news@gh-pages"))
+#' ghr_pull(ghr_get("r-lib/usethis@gh-pages"), "path")
+#'
+#' ghr_pull(ghr_get("r-lib/usethis/news@gh-pages"), "path")
 ghr_get <- memoise::memoise(ghr_get_impl)
 
 #' Get the name of all branches of a GitHub repository.
