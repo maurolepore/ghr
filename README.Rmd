@@ -122,6 +122,12 @@ if (interactive()) {
 
 ---
 
-## Acknowledgements
+## Information
+
+* [Getting help](SUPPORT.md).
+* [Contributing](CONTRIBUTING.md).
+* [Contributor Code of Conduct](CODE_OF_CONDUCT.md).
+
+## Acknowledgments
 
 Thanks to Gábor Csárdi et. al for the [gh package](https://github.com/maurolepore/ghr) and to Francois Michonneau, James Balamuta, Noam Ross and Bryce Mecum for sharing their ideas and code.
