@@ -74,12 +74,13 @@ ghr_ls_field <- function(path,
     return(field_ls)
   }
 
-  if (length(field_ls) == 0L) {
-    abort(sprintf("Can't find files matching '%s' in:\n '%s'", regexp, path))
+  pick <- grep(regexp, field_ls, ignore.case = ignore.case, invert = invert)
+  out <- field_ls[pick]
+  if (length(out) == 0L) {
+    warning(sprintf("Nothing in '%s' matches '%s'", path, regexp), call. = FALSE)
   }
 
-  pick <- grep(regexp, field_ls, ignore.case = ignore.case, invert = invert)
-  field_ls[pick]
+  out
 }
 
 #' @export

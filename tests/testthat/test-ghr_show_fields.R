@@ -10,6 +10,13 @@ test_that("ghr_show_fields and friends retun expected fields", {
 
 context("ghr_pull")
 
+test_that("ghr_pull warns if pulling from a response returns NULL", {
+  expect_warning(
+    ghr_pull(ghr_get("maurolepore"), field = "download_url"),
+    "GitHub responded with a `NULL` value"
+  )
+})
+
 test_that("ghr_pull pulls the expected fields", {
   skip_if_net_down()
   response <- ghr_get("maurolepore/ghr")

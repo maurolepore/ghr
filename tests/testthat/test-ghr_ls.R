@@ -2,6 +2,13 @@ context("ghr_ls")
 
 source(test_path("skip_if_net_down.R"))
 
+test_that("ghr_ls warns if nothing matches the given `regexp`", {
+  expect_warning(
+    ghr_ls("maurolepore/ghr", regexp = "bad"),
+    "Nothing in.*matches"
+  )
+})
+
 test_that("ghr_ls is sensitive to all arguments", {
   skip_if_net_down()
 
@@ -14,9 +21,12 @@ test_that("ghr_ls is sensitive to all arguments", {
       ghr_ls("maurolepore/ghr/R", regexp = "ghr_ls", invert = TRUE)
   )
 
-  expect_false(
-    "R/ghr_ls.R" %in%
-      ghr_ls("maurolepore/ghr/R",regexp = "GHR_LS")
+  expect_warning(
+    expect_false(
+      "R/ghr_ls.R" %in%
+        ghr_ls("maurolepore/ghr/R",regexp = "GHR_LS")
+    ),
+    "Nothing.*matches"
   )
   expect_true(
     "R/ghr_ls.R" %in%

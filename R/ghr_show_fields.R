@@ -32,11 +32,17 @@ ghr_show_fields <- function(gh_response) {
 #' @export
 ghr_pull <- function(gh_response, field) {
   stopifnot(inherits(gh_response, "gh_response"))
+  out <- unlist(purrr::map(gh_response, field))
+  warn_null_result(out)
+}
 
-  tryCatch(
-    unlist(purrr::map(gh_response, field)),
-    error = function(e)  {
-      stop("Can't pull '", field, "' from this `gh_response`.", call. = FALSE)
-    }
-  )
+warn_null_result <- function(out) {
+  if (is.null(out)) {
+    warning(
+      "GitHub responded with a `NULL` value. Is this what you expect?",
+      call. = FALSE
+    )
+  }
+
+  invisible(out)
 }
