@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>List files in a GitHub 'directory'. — ghr_ls • ghr</title>
+<title>List directories, html-URLs and download-URLs in a GitHub directory. — ghr_ls • ghr</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="List files in a GitHub 'directory'. — ghr_ls" />
+<meta property="og:title" content="List directories, html-URLs and download-URLs in a GitHub directory. — ghr_ls" />
 
-<meta property="og:description" content="List files in a GitHub 'directory'." />
+<meta property="og:description" content="List directories, html-URLs and download-URLs in a GitHub directory." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -114,18 +114,24 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>List files in a GitHub 'directory'.</h1>
+    <h1>List directories, html-URLs and download-URLs in a GitHub directory.</h1>
     <small class="dont-index">Source: <a href='https://github.com/maurolepore/ghr/blob/master/R/ghr_ls.R'><code>R/ghr_ls.R</code></a></small>
     <div class="hidden name"><code>ghr_ls.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>List files in a GitHub 'directory'.</p>
+    <p>List directories, html-URLs and download-URLs in a GitHub directory.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>ghr_ls</span>(<span class='no'>path</span>, <span class='kw'>regexp</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ignore.case</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>invert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>ghr_ls</span>(<span class='no'>path</span>, <span class='no'>...</span>, <span class='kw'>regexp</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ignore.case</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>invert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+
+<span class='fu'>ghr_ls_html_url</span>(<span class='no'>path</span>, <span class='no'>...</span>, <span class='kw'>regexp</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ignore.case</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>invert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+
+<span class='fu'>ghr_ls_download_url</span>(<span class='no'>path</span>, <span class='no'>...</span>, <span class='kw'>regexp</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ignore.case</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>invert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -134,6 +140,10 @@
       <th>path</th>
       <td><p>A string formatted as "owner/repo/subdir" or
 "owner/repo/subdir@branch", e.g.: "maurolepore/ghr/reference@gh-pages".</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Arguments passed to <code><a href='https://www.rdocumentation.org/packages/gh/topics/gh'>gh::gh()</a></code> via <code><a href='ghr_get.html'>ghr_get()</a></code>.</p></td>
     </tr>
     <tr>
       <th>regexp</th>
@@ -150,10 +160,6 @@ filter paths.</p></td>
       <td><p>logical.  If <code>TRUE</code> return indices or values for
     elements that do <em>not</em> match.</p></td>
     </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Arguments passed to <code><a href='https://www.rdocumentation.org/packages/gh/topics/gh'>gh::gh()</a></code> via <code><a href='ghr_get.html'>ghr_get()</a></code>.</p></td>
-    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -166,16 +172,23 @@ filter paths.</p></td>
 
 <span class='co'># The first call make the request</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.time'>system.time</a></span>(<span class='fu'>ghr_ls</span>(<span class='no'>path</span>))</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.016   0.004   0.088 </div><div class='input'><span class='co'># Takes no time because the first call is memoised</span>
+#&gt;   0.020   0.000   0.383 </div><div class='input'><span class='co'># Takes no time because the first call is memoised</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.time'>system.time</a></span>(<span class='fu'>ghr_ls</span>(<span class='no'>path</span>))</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.000   0.000   0.001 </div><div class='input'>
+#&gt;   0.000   0.000   0.002 </div><div class='input'>
 <span class='fu'>ghr_ls</span>(<span class='no'>path</span>, <span class='kw'>regexp</span> <span class='kw'>=</span> <span class='st'>"[.]csv$"</span>)</div><div class='output co'>#&gt; [1] "inst/extdata/mixed/csv.csv"</div><div class='input'><span class='fu'>ghr_ls</span>(<span class='no'>path</span>, <span class='kw'>regexp</span> <span class='kw'>=</span> <span class='st'>"[.]csv$"</span>, <span class='kw'>invert</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] "inst/extdata/mixed/lower_rdata.rdata"
 #&gt; [2] "inst/extdata/mixed/rda.rda"          
 #&gt; [3] "inst/extdata/mixed/upper_rdata.RData"</div><div class='input'>
 <span class='fu'>ghr_ls</span>(<span class='no'>path</span>, <span class='kw'>regexp</span> <span class='kw'>=</span> <span class='st'>"[.]RDATA$"</span>, <span class='kw'>invert</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>ignore.case</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [1] "inst/extdata/mixed/csv.csv"          
 #&gt; [2] "inst/extdata/mixed/lower_rdata.rdata"
 #&gt; [3] "inst/extdata/mixed/rda.rda"          
-#&gt; [4] "inst/extdata/mixed/upper_rdata.RData"</div><div class='input'><span class='fu'>ghr_ls</span>(<span class='no'>path</span>, <span class='kw'>regexp</span> <span class='kw'>=</span> <span class='st'>"[.]RDATA$"</span>, <span class='kw'>invert</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>ignore.case</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] "inst/extdata/mixed/csv.csv" "inst/extdata/mixed/rda.rda"</div></pre>
+#&gt; [4] "inst/extdata/mixed/upper_rdata.RData"</div><div class='input'><span class='fu'>ghr_ls</span>(<span class='no'>path</span>, <span class='kw'>regexp</span> <span class='kw'>=</span> <span class='st'>"[.]RDATA$"</span>, <span class='kw'>invert</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>ignore.case</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] "inst/extdata/mixed/csv.csv" "inst/extdata/mixed/rda.rda"</div><div class='input'>
+<span class='co'># ghr_ls_download_url() and ghr_ls_html_url are similar</span>
+(<span class='no'>d_url</span> <span class='kw'>&lt;-</span> <span class='fu'>ghr_ls_download_url</span>(<span class='no'>path</span>, <span class='kw'>regexp</span> <span class='kw'>=</span> <span class='st'>"[.]csv$"</span>)<span class='kw'>[[</span><span class='fl'>1</span>]])</div><div class='output co'>#&gt; [1] "https://raw.githubusercontent.com/maurolepore/tor/master/inst/extdata/mixed/csv.csv"</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/read.table'>read.csv</a></span>(<span class='no'>d_url</span>)</div><div class='output co'>#&gt;   y
+#&gt; 1 a
+#&gt; 2 b</div><div class='input'>
+(<span class='no'>h_url</span> <span class='kw'>&lt;-</span> <span class='fu'>ghr_ls_html_url</span>(<span class='no'>path</span>, <span class='kw'>regexp</span> <span class='kw'>=</span> <span class='st'>"[.]csv$"</span>)<span class='kw'>[[</span><span class='fl'>1</span>]])</div><div class='output co'>#&gt; [1] "https://github.com/maurolepore/tor/blob/master/inst/extdata/mixed/csv.csv"</div><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/interactive'>interactive</a></span>()) {
+  <span class='kw pkg'>utils</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/browseURL'>browseURL</a></span>(<span class='no'>h_url</span>)
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
