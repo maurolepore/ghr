@@ -1,5 +1,5 @@
 Package: ghr
-Title: Get and Manipulate a GitHub API Response
+Title: Explore and Access GitHub Directories
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Mauro",
@@ -7,7 +7,8 @@ Authors@R:
            role = c("aut", "cre"),
            email = "maurolepore@gmail.com",
            comment = c(ORCID = "0000-0002-1986-7988"))
-Description: Get and manipulate a GitHub API response.
+Description: Explore and access GitHub directories using an intuitive
+    syntax of the form "owner/repository/subdirectory@branch".
 License: GPL-3
 URL: https://github.com/maurolepore/ghr
 BugReports: https://github.com/maurolepore/ghr/issues

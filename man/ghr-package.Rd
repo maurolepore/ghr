@@ -4,9 +4,10 @@
 \name{ghr-package}
 \alias{ghr}
 \alias{ghr-package}
-\title{ghr: Get and Manipulate a GitHub API Response}
+\title{ghr: Explore and Access GitHub Directories}
 \description{
-Get and manipulate a GitHub API response.
+Explore and access GitHub directories using an intuitive
+    syntax of the form "owner/repository/subdirectory@branch".
 }
 \seealso{
 Useful links:
