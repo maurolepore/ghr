@@ -86,7 +86,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/scbi-data.html">scbi-data</a>
+      <a href="../articles/scbi-data.html">SCBI data</a>
     </li>
   </ul>
 </li>
@@ -156,7 +156,12 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>gh_response</span> <span class='kw'>&lt;-</span> <span class='fu'>ghr_get</span>(<span class='st'>"maurolepore/ghr"</span>)
+    <pre class="examples"><div class='input'><span class='co'># The request to GitHub happens only the first time you call ghr_get()</span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.time'>system.time</a></span>(<span class='fu'>ghr_get</span>(<span class='st'>"maurolepore/ghr"</span>))</div><div class='output co'>#&gt;    user  system elapsed 
+#&gt;   0.028   0.004   0.184 </div><div class='input'><span class='co'># Later calls take no time because the first call is memoised</span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.time'>system.time</a></span>(<span class='fu'>ghr_get</span>(<span class='st'>"maurolepore/ghr"</span>))</div><div class='output co'>#&gt;    user  system elapsed 
+#&gt;   0.012   0.000   0.014 </div><div class='input'>
+<span class='no'>gh_response</span> <span class='kw'>&lt;-</span> <span class='fu'>ghr_get</span>(<span class='st'>"maurolepore/ghr"</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/class'>class</a></span>(<span class='no'>gh_response</span>)</div><div class='output co'>#&gt; [1] "gh_response" "list"       </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/length'>length</a></span>(<span class='no'>gh_response</span>)</div><div class='output co'>#&gt; [1] 16</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/str'>str</a></span>(<span class='no'>gh_response</span><span class='kw'>[[</span><span class='fl'>1</span>]])</div><div class='output co'>#&gt; List of 10
 #&gt;  $ name        : chr ".Rbuildignore"
 #&gt;  $ path        : chr ".Rbuildignore"
@@ -171,16 +176,9 @@
 #&gt;   ..$ self: chr "https://api.github.com/repos/maurolepore/ghr/contents/.Rbuildignore?ref=master"
 #&gt;   ..$ git : chr "https://api.github.com/repos/maurolepore/ghr/git/blobs/378f0fe22a9c4b63ac910956a99443046a43601a"
 #&gt;   ..$ html: chr "https://github.com/maurolepore/ghr/blob/master/.Rbuildignore"</div><div class='input'>
-<span class='co'># The request to GitHub happens only the first time you call ghr_get()</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.time'>system.time</a></span>(<span class='fu'>ghr_get</span>(<span class='st'>"maurolepore/ghr/R"</span>))</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.036   0.000   0.097 </div><div class='input'><span class='co'># Later calls take no time because the first call is memoised</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.time'>system.time</a></span>(<span class='fu'>ghr_get</span>(<span class='st'>"maurolepore/ghr/R"</span>))</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.000   0.000   0.001 </div><div class='input'>
 <span class='fu'><a href='ghr_show_fields.html'>ghr_pull</a></span>(<span class='fu'>ghr_get</span>(<span class='st'>"maurolepore/ghr"</span>, <span class='kw'>ref</span> <span class='kw'>=</span> <span class='st'>"gh-pages"</span>), <span class='st'>"path"</span>)
 <span class='co'># Same</span>
-<span class='fu'><a href='ghr_show_fields.html'>ghr_pull</a></span>(<span class='fu'>ghr_get</span>(<span class='st'>"maurolepore/ghr@gh-pages"</span>), <span class='st'>"path"</span>)
-
-<span class='fu'><a href='ghr_show_fields.html'>ghr_pull</a></span>(<span class='fu'>ghr_get</span>(<span class='st'>"maurolepore/ghr/reference@gh-pages"</span>), <span class='st'>"path"</span>)</div></pre>
+<span class='fu'><a href='ghr_show_fields.html'>ghr_pull</a></span>(<span class='fu'>ghr_get</span>(<span class='st'>"maurolepore/ghr@gh-pages"</span>), <span class='st'>"path"</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
