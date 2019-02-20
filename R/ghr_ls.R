@@ -84,7 +84,7 @@ ghr_ls_field <- function(path,
     return(field_ls)
   }
 
-  if (length(fields_ls) == 0L) {
+  if (length(field_ls) == 0L) {
     abort(sprintf("Can't find files matching '%s' in:\n '%s'", regexp, path))
   }
 
@@ -92,12 +92,27 @@ ghr_ls_field <- function(path,
   field_ls[pick]
 }
 
+ghr_ls_html_url <- function(path,
+                            regexp = NULL,
+                            ignore.case = FALSE,
+                            invert = FALSE,
+                            ...) {
+  ghr_ls_field(
+    path,
+    field = "html_url",
+    regexp = regexp,
+    ignore.case = ignore.case,
+    invert = invert,
+    ...
+  )
+}
+
 ghr_ls_download_url <- function(path,
-                                regexp = NULL,
-                                ignore.case = FALSE,
-                                invert = FALSE,
-                                ...) {
-  stop_invalid_path(path)
+  regexp = NULL,
+  ignore.case = FALSE,
+  invert = FALSE,
+  ...) {
+  stop_if_repo_is_missing(path)
 
   ghr_ls_field(
     path,
@@ -109,26 +124,13 @@ ghr_ls_download_url <- function(path,
   )
 }
 
-ghr_ls_html_url <- function(path,
-                            regexp = NULL,
-                            ignore.case = FALSE,
-                            invert = FALSE,
-                            ...) {
-  stop_invalid_path(path)
-
-  ghr_ls_field(
-    path,
-    field = "html_url",
-    regexp = regexp,
-    ignore.case = ignore.case,
-    invert = invert,
-    ...
-  )
-}
-
-stop_invalid_path <- function(path) {
+stop_if_repo_is_missing <- function(path) {
   if (identical(length(split_url(path)), 1L)) {
-    stop("No such url is available at ", path, ".", call. = FALSE)
+    stop(
+      "Download URLs don't exist outside GitHub repositories.\n",
+      "Did you forget to specify a GitHub repo?",
+      call. = FALSE
+    )
   }
 
   invisible(path)
