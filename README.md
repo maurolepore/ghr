@@ -15,11 +15,12 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 status](https://www.r-pkg.org/badges/version/ghr)](https://cran.r-project.org/package=ghr)
 <!-- badges: end -->
 
-The ghr (GitHub-R) package helps you to request information to the
-GitHub-API using an intuitive syntax, similar to that of
-`remotes::install_github()`. For example, this is a valid path
-`maurolepore/ghr@master`. Also this one:
-`maurolepore/ghr/reference@gh-pages`.
+The files you need are often scattered across multiple GitHub
+organizations and repositories. How can you easily find and access them
+from R?
+
+The ghr (GitHub-R) package helps you to explore and access GitHub
+directories from R, using a familiar syntax and interface.
 
 ## Installation
 
@@ -30,10 +31,42 @@ devtools::install_github("maurolepore/ghr")
 
 ## Example
 
+### Overview
+
 ``` r
 library(purrr)
 library(ghr)
+
+# Familiar syntax, similar to the `repo` argument of `remotes::install_github()`
+path <- "maurolepore/tor/inst/extdata/mixed@master"
+
+# Familiar interface, similar to `fs::dir_ls()`
+ghr_ls(path)
+#> [1] "inst/extdata/mixed/csv.csv"          
+#> [2] "inst/extdata/mixed/lower_rdata.rdata"
+#> [3] "inst/extdata/mixed/rda.rda"          
+#> [4] "inst/extdata/mixed/upper_rdata.RData"
+ghr_ls(path, regexp = "[.]csv$", invert = TRUE)
+#> [1] "inst/extdata/mixed/lower_rdata.rdata"
+#> [2] "inst/extdata/mixed/rda.rda"          
+#> [3] "inst/extdata/mixed/upper_rdata.RData"
+
+# Easily read data directly from GitHub into R
+path %>% 
+  ghr_ls_download_url(regexp = "[.]csv$") %>% 
+  readr::read_csv()
+#> Parsed with column specification:
+#> cols(
+#>   y = col_character()
+#> )
+#> # A tibble: 2 x 1
+#>   y    
+#>   <chr>
+#> 1 a    
+#> 2 b
 ```
+
+### Details
 
 Use `ghr_get()` to get a GitHub-API response. Notice that the call is
 memoised.
@@ -41,7 +74,7 @@ memoised.
 ``` r
 system.time(ghr_get("maurolepore/ghr"))
 #>    user  system elapsed 
-#>    0.08    0.02    0.20
+#>    0.01    0.00    0.08
 # Takes no time because the first call is memoised
 system.time(ghr_get("maurolepore/ghr"))
 #>    user  system elapsed 

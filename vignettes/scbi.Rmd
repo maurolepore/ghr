@@ -9,28 +9,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-## Overview
-
-The files and datasets you care about are often scattered across multiple GitHub organizations and repositories. How can you easily find and access interesting datasets when you need them?
-
-The ghr (GitHub-R) package helps you to easily explore GitHub directories and access files, directly from R and using a familiar syntax and interface.
-
-```{r}
-library(ghr)
-
-# Familiar syntax, similar to the `repo` argument of `remotes::install_github()`
-path <- "maurolepore/tor/inst/extdata/mixed@master"
-
-# Familiar interface, similar to `fs::dir_ls()`
-ghr_ls(path)
-ghr_ls(path, regexp = "[.]csv$", invert = TRUE)
-
-# Easily read data directly from GitHub into R
-readr::read_csv(
-  ghr_ls_download_url(path, regexp = "[.]csv$")
-)
-```
-
 ## Example
 
 Let's use data from the Smithsonian Conservation Biology Institute (SCBI) ForestGEO plot. They present their data at <https://scbi-forestgeo.github.io/SCBI-ForestGEO-Data/>:
