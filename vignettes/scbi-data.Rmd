@@ -1,5 +1,5 @@
 ---
-title: "scbi-data"
+title: "SCBI data"
 ---
 
 ```{r, include = FALSE}
@@ -13,49 +13,42 @@ knitr::opts_chunk$set(
 
 This article shows how the ghr (GitHub-R) package can help you explore and gather data from multiple GitHub repositories.
 
-## Motivation
-
 As a collaborative researcher, your datasets may be scattered across multiple GitHub organizations and repositories. How can you easily find and access interesting datasets when you need them?
 
-The ghr package helps you to navigate your GitHub files form R, using a syntax similar to that of `remotes::install_github()`. For example, this is a valid path to a GitHub directory: `"maurolepore/ghr/R@master"` (Notice the structure `"owner/repo/subdir@branch"`).
+The ghr package helps you explore and access GitHub files form R, using an intuitive syntax inspired by the `repo` argument to `remotes::install_github()`. For example, this is a valid path to a GitHub directory: `"maurolepore/ghr/R@master"`. Notice the structure `"owner/repo/subdir@branch"`.
 
 ## Example
 
-Here we'll use data from the Smithsonian Conservation Biology Institute (SCBI) ForestGEO plot. They present their data at <https://scbi-forestgeo.github.io/SCBI-ForestGEO-Data/>:
+Here I'll use data from the Smithsonian Conservation Biology Institute (SCBI) ForestGEO plot. They present their data at <https://scbi-forestgeo.github.io/SCBI-ForestGEO-Data/>:
 
 > This is the public data portal for the SCBI ForestGEO plot, which points to archive locations for our various data products (some in this repository, many elsewhere).
 
-SCBI datasets are scattered across multiple organizations and repositories. We'll use the ghr package to find and access some of those datasets.
+SCBI datasets are scattered across multiple organizations and repositories. I'll use the ghr package to find and access some of those datasets, and the purrr package mostly to apply functions over multiple elements of a vector.
 
 ```{r}
 library(ghr)
-```
-
-We'll also the purrr package to iterate over multiple elements of a vector.
-
-```{r}
 library(purrr)
 ```
+
+(I'll also use fs to manipulate paths, and readr to read files. I'll refer to functions from these packages using the syntax `package::function()`.)
 
 ## Climate
 
 Climate data from SCBI is stored in the GitHub organization "forestgeo", particularly in the repository "Climate". 
 
-`ghr_ls()` lists GitHub directories in a way similar to how `fs::dir_ls()` lists local directories. Here it reveals one ".md" file and two folders:
+`ghr_ls()` lists GitHub directories in a way similar to how `fs::dir_ls()` lists local directories.
 
 ```{r}
 ghr_ls("forestgeo/Climate/Met_Station_Data/SCBI")
 ```
 
-The folders contains multiple files, including some .csv files:
+I can use a regular expression (`regexp`) to focus, for example, on .csv files.
 
 ```{r}
+# All files
 ghr_ls("forestgeo/Climate/Met_Station_Data/SCBI/Front Royal weather station")
-```
 
-We can use a regular expression (`regexp`) to focus, for example, on .csv files:
-
-```{r}
+# .csv files
 ghr_ls(
   "forestgeo/Climate/Met_Station_Data/SCBI/ForestGEO_met_station-SCBI", 
   regexp = "[.]csv$"
@@ -64,37 +57,46 @@ ghr_ls(
 
 ### Species list
 
-In addition to climate data, SCBI has a number of species-list datasets. These datasets are in the GitHub organization "SCBI-ForestGEO", in the "SCBI-ForestGEO-Data" repository, and in the "species-lists" folder.
+In addition to climate data, SCBI has a number of species-list datasets. These datasets are in the GitHub organization "SCBI-ForestGEO", in the "SCBI-ForestGEO-Data" repository, and in the "species_lists" folder.
 
 ```{r}
 species_lists <- "SCBI-ForestGEO/SCBI-ForestGEO-Data/species_lists"
 # Get the last part of the path
-(subdirs <- basename(ghr_ls(species_lists)))
+(subdirs <- fs::path_file(ghr_ls(species_lists)))
 ```
 
-Let's explore the .csv files in each sub directory. To reduce duplication we first create a vector `paths` giving the path to all of the sub directories we want to explore. Then we apply `ghr_ls()` to each element in `paths` and focus on .csv files only via `regexp`.
+Let's explore the .csv files in each sub directory. To reduce duplication I first create the vector `paths` to store the path to all of the sub directories I want to explore. Then I apply `ghr_ls()` to each element in `paths` and use `regexp` to focus on .csv files only.
 
 ```{r}
-(paths <- file.path(species_lists, subdirs))
+(paths <- fs::path(species_lists, subdirs))
 
 paths %>% 
   map(~ ghr_ls(.x, regexp = "[.]csv$"))
 ```
 
-Instead of the file names we can show the first few rows of each file. We use `ghr_ls_download_url()` to get download URLs of each .csv file in each sub directory. To iterate over all sub directories we use `purrr::map()`.
+Instead of the file names I can show the first few rows of each file. I use `ghr_ls_download_url()` to get download URLs of each .csv file in each sub directory. To iterate over all sub directories I use `purrr::map()`.
 
 ```{r}
 download_urls <- paths %>% 
-  map(~ ghr_ls_download_url(.x, regexp = "[.]csv$")) %>%
-  # Just to keep clarify which subdirectory the files come from
-  set_names(subdirs)
+  map(~ ghr_ls_download_url(.x, regexp = "[.]csv$"))
 download_urls
 ```
 
-And finally we use `readr::read_csv()` to read each dataset into R. Again we use `purrr::map()` to iterate over each sub directory.
+And finally I use `readr::read_csv()` to read each dataset into R. Again I use `purrr::map()` to iterate over each sub directory.
 
 ```{r, message=FALSE}
 download_urls %>% 
   unlist() %>% 
-  map(~ head(read.csv(.x, stringsAsFactors = FALSE)))
+  map(~ head(readr::read_csv(.x)))
 ```
+
+## Scaling up 
+
+Here I showed how ghr can help to explore and access data of a real research organization. In a single document or shiny app you can now show all of your featured datasets. 
+
+* Use something like `ghr_ls(<path-to-your-GitHub-data>, regexp = "[.]csv$")` to show what your data is and where it is.
+
+* Combine `ghr_ls_download_url()` with `read.csv()` to read .csv files from GitHub into R.
+
+* Combine `ghr_ls_html_url()` with `browseURL()` to show your data on a web browser.
+
