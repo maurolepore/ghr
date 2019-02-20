@@ -173,26 +173,14 @@
 #&gt;   ..$ html: chr "https://github.com/maurolepore/ghr/blob/master/.Rbuildignore"</div><div class='input'>
 <span class='co'># The request to GitHub happens only the first time you call ghr_get()</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.time'>system.time</a></span>(<span class='fu'>ghr_get</span>(<span class='st'>"maurolepore/ghr/R"</span>))</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.036   0.000   0.122 </div><div class='input'><span class='co'># Later calls take no time because the first call is memoised</span>
+#&gt;   0.036   0.000   0.097 </div><div class='input'><span class='co'># Later calls take no time because the first call is memoised</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.time'>system.time</a></span>(<span class='fu'>ghr_get</span>(<span class='st'>"maurolepore/ghr/R"</span>))</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.004   0.000   0.001 </div><div class='input'>
-<span class='fu'><a href='ghr_show_fields.html'>ghr_pull</a></span>(<span class='fu'>ghr_get</span>(<span class='st'>"maurolepore/ghr"</span>, <span class='kw'>ref</span> <span class='kw'>=</span> <span class='st'>"gh-pages"</span>), <span class='st'>"path"</span>)</div><div class='output co'>#&gt;  [1] "CHANGELOG.html"       "CODE_OF_CONDUCT.html" "CONTRIBUTING.html"   
-#&gt;  [4] "ISSUE_TEMPLATE.html"  "LICENSE.html"         "SUPPORT.html"        
-#&gt;  [7] "articles"             "authors.html"         "docsearch.css"       
-#&gt; [10] "docsearch.js"         "index.html"           "link.svg"            
-#&gt; [13] "news"                 "pkgdown.css"          "pkgdown.js"          
-#&gt; [16] "pkgdown.yml"          "reference"           </div><div class='input'><span class='co'># Same</span>
-<span class='fu'><a href='ghr_show_fields.html'>ghr_pull</a></span>(<span class='fu'>ghr_get</span>(<span class='st'>"maurolepore/ghr@gh-pages"</span>), <span class='st'>"path"</span>)</div><div class='output co'>#&gt;  [1] "CHANGELOG.html"       "CODE_OF_CONDUCT.html" "CONTRIBUTING.html"   
-#&gt;  [4] "ISSUE_TEMPLATE.html"  "LICENSE.html"         "SUPPORT.html"        
-#&gt;  [7] "articles"             "authors.html"         "docsearch.css"       
-#&gt; [10] "docsearch.js"         "index.html"           "link.svg"            
-#&gt; [13] "news"                 "pkgdown.css"          "pkgdown.js"          
-#&gt; [16] "pkgdown.yml"          "reference"           </div><div class='input'>
-<span class='fu'><a href='ghr_show_fields.html'>ghr_pull</a></span>(<span class='fu'>ghr_get</span>(<span class='st'>"maurolepore/ghr/reference@gh-pages"</span>), <span class='st'>"path"</span>)</div><div class='output co'>#&gt;  [1] "reference/gh_branches.html"       "reference/gh_get.html"           
-#&gt;  [3] "reference/ghr-package.html"       "reference/ghr_branches.html"     
-#&gt;  [5] "reference/ghr_fields.html"        "reference/ghr_get.html"          
-#&gt;  [7] "reference/ghr_ls.html"            "reference/ghr_show_branches.html"
-#&gt;  [9] "reference/ghr_show_fields.html"   "reference/index.html"            </div></pre>
+#&gt;   0.000   0.000   0.001 </div><div class='input'>
+<span class='fu'><a href='ghr_show_fields.html'>ghr_pull</a></span>(<span class='fu'>ghr_get</span>(<span class='st'>"maurolepore/ghr"</span>, <span class='kw'>ref</span> <span class='kw'>=</span> <span class='st'>"gh-pages"</span>), <span class='st'>"path"</span>)
+<span class='co'># Same</span>
+<span class='fu'><a href='ghr_show_fields.html'>ghr_pull</a></span>(<span class='fu'>ghr_get</span>(<span class='st'>"maurolepore/ghr@gh-pages"</span>), <span class='st'>"path"</span>)
+
+<span class='fu'><a href='ghr_show_fields.html'>ghr_pull</a></span>(<span class='fu'>ghr_get</span>(<span class='st'>"maurolepore/ghr/reference@gh-pages"</span>), <span class='st'>"path"</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

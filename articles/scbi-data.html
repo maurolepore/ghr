@@ -161,38 +161,42 @@
 <a class="sourceLine" id="cb7-6" data-line-number="6"></a>
 <a class="sourceLine" id="cb7-7" data-line-number="7">paths <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb7-8" data-line-number="8"><span class="st">  </span><span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(<span class="op">~</span><span class="st"> </span><span class="kw"><a href="../reference/ghr_ls.html">ghr_ls</a></span>(.x, <span class="dt">regexp =</span> <span class="st">"[.]csv$"</span>))</a>
-<a class="sourceLine" id="cb7-9" data-line-number="9"><span class="co">#&gt; [[1]]</span></a>
-<a class="sourceLine" id="cb7-10" data-line-number="10"><span class="co">#&gt; [1] "species_lists/Full plant list/SCBI_all_sp_woody_&amp;_herb.csv"</span></a>
-<a class="sourceLine" id="cb7-11" data-line-number="11"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb7-12" data-line-number="12"><span class="co">#&gt; [[2]]</span></a>
-<a class="sourceLine" id="cb7-13" data-line-number="13"><span class="co">#&gt; character(0)</span></a>
-<a class="sourceLine" id="cb7-14" data-line-number="14"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb7-15" data-line-number="15"><span class="co">#&gt; [[3]]</span></a>
-<a class="sourceLine" id="cb7-16" data-line-number="16"><span class="co">#&gt; [1] "species_lists/Tree ecology/SCBI_ForestGEO_sp_ecology.csv"         </span></a>
-<a class="sourceLine" id="cb7-17" data-line-number="17"><span class="co">#&gt; [2] "species_lists/Tree ecology/SCBI_ForestGEO_sp_ecology_metadata.csv"</span></a>
-<a class="sourceLine" id="cb7-18" data-line-number="18"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb7-19" data-line-number="19"><span class="co">#&gt; [[4]]</span></a>
-<a class="sourceLine" id="cb7-20" data-line-number="20"><span class="co">#&gt; [1] "species_lists/insect_pests_pathogens/pest_pathogens metadata.csv"</span></a>
-<a class="sourceLine" id="cb7-21" data-line-number="21"><span class="co">#&gt; [2] "species_lists/insect_pests_pathogens/pests_pathogens.csv"</span></a></code></pre></div>
+<a class="sourceLine" id="cb7-9" data-line-number="9"><span class="co">#&gt; Warning: Nothing in 'SCBI-ForestGEO/SCBI-ForestGEO-Data/species_lists/</span></a>
+<a class="sourceLine" id="cb7-10" data-line-number="10"><span class="co">#&gt; GenBank' matches '[.]csv$'</span></a>
+<a class="sourceLine" id="cb7-11" data-line-number="11"><span class="co">#&gt; [[1]]</span></a>
+<a class="sourceLine" id="cb7-12" data-line-number="12"><span class="co">#&gt; [1] "species_lists/Full plant list/SCBI_all_sp_woody_&amp;_herb.csv"</span></a>
+<a class="sourceLine" id="cb7-13" data-line-number="13"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb7-14" data-line-number="14"><span class="co">#&gt; [[2]]</span></a>
+<a class="sourceLine" id="cb7-15" data-line-number="15"><span class="co">#&gt; character(0)</span></a>
+<a class="sourceLine" id="cb7-16" data-line-number="16"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb7-17" data-line-number="17"><span class="co">#&gt; [[3]]</span></a>
+<a class="sourceLine" id="cb7-18" data-line-number="18"><span class="co">#&gt; [1] "species_lists/Tree ecology/SCBI_ForestGEO_sp_ecology.csv"         </span></a>
+<a class="sourceLine" id="cb7-19" data-line-number="19"><span class="co">#&gt; [2] "species_lists/Tree ecology/SCBI_ForestGEO_sp_ecology_metadata.csv"</span></a>
+<a class="sourceLine" id="cb7-20" data-line-number="20"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb7-21" data-line-number="21"><span class="co">#&gt; [[4]]</span></a>
+<a class="sourceLine" id="cb7-22" data-line-number="22"><span class="co">#&gt; [1] "species_lists/insect_pests_pathogens/pest_pathogens metadata.csv"</span></a>
+<a class="sourceLine" id="cb7-23" data-line-number="23"><span class="co">#&gt; [2] "species_lists/insect_pests_pathogens/pests_pathogens.csv"</span></a></code></pre></div>
 <p>Instead of the file names we can show the first few rows of each file. We use <code><a href="../reference/ghr_ls.html">ghr_ls_download_url()</a></code> to get download URLs of each .csv file in each sub directory. To iterate over all sub directories we use <code><a href="https://purrr.tidyverse.org/reference/map.html">purrr::map()</a></code>.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">download_urls &lt;-<span class="st"> </span>paths <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb8-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(<span class="op">~</span><span class="st"> </span><span class="kw"><a href="../reference/ghr_ls.html">ghr_ls_download_url</a></span>(.x, <span class="dt">regexp =</span> <span class="st">"[.]csv$"</span>)) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb8-3" data-line-number="3"><span class="st">  </span><span class="co"># Just to keep clarify which subdirectory the files come from</span></a>
 <a class="sourceLine" id="cb8-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://purrr.tidyverse.org/reference/set_names.html">set_names</a></span>(subdirs)</a>
-<a class="sourceLine" id="cb8-5" data-line-number="5">download_urls</a>
-<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="co">#&gt; $`Full plant list`</span></a>
-<a class="sourceLine" id="cb8-7" data-line-number="7"><span class="co">#&gt; [1] "https://raw.githubusercontent.com/SCBI-ForestGEO/SCBI-ForestGEO-Data/master/species_lists/Full%20plant%20list/SCBI_all_sp_woody_%26_herb.csv"</span></a>
-<a class="sourceLine" id="cb8-8" data-line-number="8"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb8-9" data-line-number="9"><span class="co">#&gt; $GenBank</span></a>
-<a class="sourceLine" id="cb8-10" data-line-number="10"><span class="co">#&gt; character(0)</span></a>
-<a class="sourceLine" id="cb8-11" data-line-number="11"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb8-12" data-line-number="12"><span class="co">#&gt; $`Tree ecology`</span></a>
-<a class="sourceLine" id="cb8-13" data-line-number="13"><span class="co">#&gt; [1] "https://raw.githubusercontent.com/SCBI-ForestGEO/SCBI-ForestGEO-Data/master/species_lists/Tree%20ecology/SCBI_ForestGEO_sp_ecology.csv"         </span></a>
-<a class="sourceLine" id="cb8-14" data-line-number="14"><span class="co">#&gt; [2] "https://raw.githubusercontent.com/SCBI-ForestGEO/SCBI-ForestGEO-Data/master/species_lists/Tree%20ecology/SCBI_ForestGEO_sp_ecology_metadata.csv"</span></a>
-<a class="sourceLine" id="cb8-15" data-line-number="15"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb8-16" data-line-number="16"><span class="co">#&gt; $insect_pests_pathogens</span></a>
-<a class="sourceLine" id="cb8-17" data-line-number="17"><span class="co">#&gt; [1] "https://raw.githubusercontent.com/SCBI-ForestGEO/SCBI-ForestGEO-Data/master/species_lists/insect_pests_pathogens/pest_pathogens%20metadata.csv"</span></a>
-<a class="sourceLine" id="cb8-18" data-line-number="18"><span class="co">#&gt; [2] "https://raw.githubusercontent.com/SCBI-ForestGEO/SCBI-ForestGEO-Data/master/species_lists/insect_pests_pathogens/pests_pathogens.csv"</span></a></code></pre></div>
+<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="co">#&gt; Warning: Nothing in 'SCBI-ForestGEO/SCBI-ForestGEO-Data/species_lists/</span></a>
+<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="co">#&gt; GenBank' matches '[.]csv$'</span></a>
+<a class="sourceLine" id="cb8-7" data-line-number="7">download_urls</a>
+<a class="sourceLine" id="cb8-8" data-line-number="8"><span class="co">#&gt; $`Full plant list`</span></a>
+<a class="sourceLine" id="cb8-9" data-line-number="9"><span class="co">#&gt; [1] "https://raw.githubusercontent.com/SCBI-ForestGEO/SCBI-ForestGEO-Data/master/species_lists/Full%20plant%20list/SCBI_all_sp_woody_%26_herb.csv"</span></a>
+<a class="sourceLine" id="cb8-10" data-line-number="10"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb8-11" data-line-number="11"><span class="co">#&gt; $GenBank</span></a>
+<a class="sourceLine" id="cb8-12" data-line-number="12"><span class="co">#&gt; character(0)</span></a>
+<a class="sourceLine" id="cb8-13" data-line-number="13"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb8-14" data-line-number="14"><span class="co">#&gt; $`Tree ecology`</span></a>
+<a class="sourceLine" id="cb8-15" data-line-number="15"><span class="co">#&gt; [1] "https://raw.githubusercontent.com/SCBI-ForestGEO/SCBI-ForestGEO-Data/master/species_lists/Tree%20ecology/SCBI_ForestGEO_sp_ecology.csv"         </span></a>
+<a class="sourceLine" id="cb8-16" data-line-number="16"><span class="co">#&gt; [2] "https://raw.githubusercontent.com/SCBI-ForestGEO/SCBI-ForestGEO-Data/master/species_lists/Tree%20ecology/SCBI_ForestGEO_sp_ecology_metadata.csv"</span></a>
+<a class="sourceLine" id="cb8-17" data-line-number="17"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb8-18" data-line-number="18"><span class="co">#&gt; $insect_pests_pathogens</span></a>
+<a class="sourceLine" id="cb8-19" data-line-number="19"><span class="co">#&gt; [1] "https://raw.githubusercontent.com/SCBI-ForestGEO/SCBI-ForestGEO-Data/master/species_lists/insect_pests_pathogens/pest_pathogens%20metadata.csv"</span></a>
+<a class="sourceLine" id="cb8-20" data-line-number="20"><span class="co">#&gt; [2] "https://raw.githubusercontent.com/SCBI-ForestGEO/SCBI-ForestGEO-Data/master/species_lists/insect_pests_pathogens/pests_pathogens.csv"</span></a></code></pre></div>
 <p>And finally we use <code><a href="https://readr.tidyverse.org/reference/read_delim.html">readr::read_csv()</a></code> to read each dataset into R. Again we use <code><a href="https://purrr.tidyverse.org/reference/map.html">purrr::map()</a></code> to iterate over each sub directory.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">download_urls <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb9-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/unlist">unlist</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
