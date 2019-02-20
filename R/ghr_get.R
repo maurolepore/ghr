@@ -40,12 +40,12 @@ stop_invalid_ref <- function(path, ref, uses_at) {
 #' system.time(ghr_get("maurolepore/ghr"))
 #' # Later calls take no time because the first call is memoised
 #' system.time(ghr_get("maurolepore/ghr"))
-#'
+#' 
 #' gh_response <- ghr_get("maurolepore/ghr")
 #' class(gh_response)
 #' length(gh_response)
 #' str(gh_response[[1]])
-#'
+#' 
 #' ghr_pull(ghr_get("maurolepore/ghr", ref = "gh-pages"), "path")
 #' # Same
 #' ghr_pull(ghr_get("maurolepore/ghr@gh-pages"), "path")

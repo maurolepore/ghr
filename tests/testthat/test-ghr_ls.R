@@ -24,7 +24,7 @@ test_that("ghr_ls is sensitive to all arguments", {
   expect_warning(
     expect_false(
       "R/ghr_ls.R" %in%
-        ghr_ls("maurolepore/ghr/R",regexp = "GHR_LS")
+        ghr_ls("maurolepore/ghr/R", regexp = "GHR_LS")
     ),
     "Nothing.*matches"
   )
@@ -50,22 +50,21 @@ test_that("ghr_ls_download_url errs with `path` at the owner level only", {
 
 test_that("ghr_ls_download_url works with `path` at the repo level or deeper", {
   expect_true(all(grepl(
-      "https://raw.githubusercontent.com",
-      ghr_ls_download_url("maurolepore/ghr")
-    )))
+    "https://raw.githubusercontent.com",
+    ghr_ls_download_url("maurolepore/ghr")
+  )))
 
   expect_true(all(grepl(
-      "https://raw.githubusercontent.com",
-      ghr_ls_download_url("maurolepore/ghr/R")
-    )))
+    "https://raw.githubusercontent.com",
+    ghr_ls_download_url("maurolepore/ghr/R")
+  )))
 })
 
 context("ghr_ls_html_url")
 
 test_that("ghr_ls_html_url works with `path` at the repo level or deeper", {
   expect_true(all(grepl(
-      "https://github.com",
-      ghr_ls_html_url("maurolepore/ghr/R")
-    )))
+    "https://github.com",
+    ghr_ls_html_url("maurolepore/ghr/R")
+  )))
 })
-

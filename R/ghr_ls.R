@@ -11,22 +11,22 @@
 #'
 #' @examples
 #' path <- "maurolepore/tor/inst/extdata/mixed"
-#'
+#' 
 #' # The first call make the request
 #' system.time(ghr_ls(path))
 #' # Takes no time because the first call is memoised
 #' system.time(ghr_ls(path))
-#'
+#' 
 #' ghr_ls(path, regexp = "[.]csv$")
 #' ghr_ls(path, regexp = "[.]csv$", invert = TRUE)
-#'
+#' 
 #' ghr_ls(path, regexp = "[.]RDATA$", invert = TRUE, ignore.case = FALSE)
 #' ghr_ls(path, regexp = "[.]RDATA$", invert = TRUE, ignore.case = TRUE)
-#'
+#' 
 #' # ghr_ls_download_url() and ghr_ls_html_url are similar
 #' (d_url <- ghr_ls_download_url(path, regexp = "[.]csv$")[[1]])
 #' read.csv(d_url)
-#'
+#' 
 #' (h_url <- ghr_ls_html_url(path, regexp = "[.]csv$")[[1]])
 #' if (interactive()) {
 #'   utils::browseURL(h_url)

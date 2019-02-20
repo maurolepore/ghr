@@ -1,6 +1,7 @@
 has_internet <- function() {
-  z <- try(suppressWarnings(readLines('https://www.google.com', n = 1)),
-    silent = TRUE)
+  z <- try(suppressWarnings(readLines("https://www.google.com", n = 1)),
+    silent = TRUE
+  )
   !inherits(z, "try-error")
 }
 

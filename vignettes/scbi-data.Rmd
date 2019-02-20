@@ -22,7 +22,9 @@ ghr_ls(path)
 ghr_ls(path, regexp = "[.]csv$", invert = TRUE)
 
 # Easily read data directly from GitHub into R
-readr::read_csv(ghr_ls_download_url(path, regexp = "[.]csv$"))
+readr::read_csv(
+  ghr_ls_download_url(path, regexp = "[.]csv$")
+)
 ```
 
 ## Example
