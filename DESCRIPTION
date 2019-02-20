@@ -1,6 +1,6 @@
 Package: ghr
 Title: Explore and Access GitHub Directories
-Version: 0.0.0.9000
+Version: 0.0.0.9001
 Authors@R: 
     person(given = "Mauro",
            family = "Lepore",
