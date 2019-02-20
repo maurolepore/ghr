@@ -90,13 +90,13 @@ download_urls %>%
   map(~ head(readr::read_csv(.x)))
 ```
 
-## Scaling up 
+## Summary
 
-Here I showed how ghr can help to explore and access data of a real research organization. In a single document or shiny app you can now show all of your featured datasets. 
+The ghr package helps you to explore and access GitHub directories directly from R:
 
-* Use something like `ghr_ls(<path-to-your-GitHub-data>, regexp = "[.]csv$")` to show what your data is and where it is.
+* Use something of the form `ghr_ls(<path-to-your-GitHub-data>, regexp = "[.]csv$")` to explore files.
 
-* Combine `ghr_ls_download_url()` with `read.csv()` to read .csv files from GitHub into R.
+* Combine `ghr_ls_download_url()` with `read.csv()` and friends to read data from GitHub directly into R.
 
-* Combine `ghr_ls_html_url()` with `browseURL()` to show your data on a web browser.
+* Combine `ghr_ls_html_url()` with `browseURL()` to open a web browser at a particular GitHub directory.
 
