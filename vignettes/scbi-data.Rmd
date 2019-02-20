@@ -17,7 +17,7 @@ This article shows how the ghr (GitHub-R) package can help you explore and gathe
 
 As a collaborative researcher, your datasets may be scattered across multiple GitHub organizations and repositories. How can you easily find and access interesting datasets when you need them?
 
-The ghr package helps you to navigate your GitHub files form R, using a syntax similar to that of `remotes::install_github()`. For example, this is a valid path to a GitHub directory: `"maurolepore/ghr/R@master" (Notice the structure `"owner/repo/subdir@branch"`).
+The ghr package helps you to navigate your GitHub files form R, using a syntax similar to that of `remotes::install_github()`. For example, this is a valid path to a GitHub directory: `"maurolepore/ghr/R@master"` (Notice the structure `"owner/repo/subdir@branch"`).
 
 ## Example
 
@@ -25,18 +25,16 @@ Here we'll use data from the Smithsonian Conservation Biology Institute (SCBI) F
 
 > This is the public data portal for the SCBI ForestGEO plot, which points to archive locations for our various data products (some in this repository, many elsewhere).
 
-SCBI datasets are scattered across multiple organizations and repositories. Here we'll use the ghr package to find and access some of those datasets.
+SCBI datasets are scattered across multiple organizations and repositories. We'll use the ghr package to find and access some of those datasets.
 
 ```{r}
 library(ghr)
 ```
 
-We'll also use some other general purpose packages to iterate over multiple elements of a vector, to manipulate paths, and to read .csv files.
+We'll also the purrr package to iterate over multiple elements of a vector.
 
 ```{r}
 library(purrr)
-library(fs)
-library(readr)
 ```
 
 ## Climate
@@ -71,13 +69,13 @@ In addition to climate data, SCBI has a number of species-list datasets. These d
 ```{r}
 species_lists <- "SCBI-ForestGEO/SCBI-ForestGEO-Data/species_lists"
 # Get the last part of the path
-(subdirs <- path_file(ghr_ls(species_lists)))
+(subdirs <- basename(ghr_ls(species_lists)))
 ```
 
 Let's explore the .csv files in each sub directory. To reduce duplication we first create a vector `paths` giving the path to all of the sub directories we want to explore. Then we apply `ghr_ls()` to each element in `paths` and focus on .csv files only via `regexp`.
 
 ```{r}
-(paths <- path(species_lists, subdirs))
+(paths <- file.path(species_lists, subdirs))
 
 paths %>% 
   map(~ ghr_ls(.x, regexp = "[.]csv$"))
@@ -98,5 +96,5 @@ And finally we use `readr::read_csv()` to read each dataset into R. Again we use
 ```{r, message=FALSE}
 download_urls %>% 
   unlist() %>% 
-  map(~ head(read_csv(.x)))
+  map(~ head(read.csv(.x, stringsAsFactors = FALSE)))
 ```
