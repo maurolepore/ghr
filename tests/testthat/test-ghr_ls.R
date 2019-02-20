@@ -22,5 +22,6 @@ test_that("ghr_ls is sensitive to all arguments", {
 })
 
 test_that("ghr_ls finds a value in a page after the first one", {
+  skip_if_net_down()
   expect_true("ghr" %in% ghr_ls("maurolepore", .limit = 100))
 })

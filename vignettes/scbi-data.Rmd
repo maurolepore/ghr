@@ -11,74 +11,80 @@ knitr::opts_chunk$set(
 
 ## Introduction
 
-This article shows how the ghr (GitHub-R) package can help you explore and gather data scattered across multiple GitHub organizations and repositories.
+This article shows how the ghr (GitHub-R) package can help you explore and gather data from multiple GitHub repositories.
 
 ## Motivation
 
-As an open, productive, and collaborative researcher, you may have datasets scattered across multiple GitHub organizations and repositories. How can you and your collaborators easily find interesting datasets when you need them?
+As a collaborative researcher, your datasets may be scattered across multiple GitHub organizations and repositories. How can you easily find and access interesting datasets when you need them?
 
-The ghr package helps you to easily overview data (or any other file) stored on GitHub, using an intuitive syntax to express its location.
+The ghr package helps you to navigate your GitHub files form R, using a syntax similar to that of `remotes::install_github()`. For example, this is a valid path to a GitHub directory: `"maurolepore/ghr/R@master" (Notice the structure `"owner/repo/subdir@branch"`).
 
 ## Example
 
-The example data come from the Smithsonian Conservation Biology Institute (SCBI) ForestGEO plot. They present their data at <https://scbi-forestgeo.github.io/SCBI-ForestGEO-Data/>:
+Here we'll use data from the Smithsonian Conservation Biology Institute (SCBI) ForestGEO plot. They present their data at <https://scbi-forestgeo.github.io/SCBI-ForestGEO-Data/>:
 
 > This is the public data portal for the SCBI ForestGEO plot, which points to archive locations for our various data products (some in this repository, many elsewhere).
 
-As the introduction states, SCBI data is scattered across multiple organizations and repositories. Let's use ghr to explore those data:
+SCBI datasets are scattered across multiple organizations and repositories. Here we'll use the ghr package to find and access some of those datasets.
 
 ```{r}
-library(readr)
-library(purrr)
-library(fs)
 library(ghr)
 ```
 
-### Biophysical environment
+We'll also use some other general purpose packages to iterate over multiple elements of a vector, to manipulate paths, and to read .csv files.
 
-#### Climate data
+```{r}
+library(purrr)
+library(fs)
+library(readr)
+```
 
-SCBI has two directories with climate data:
+## Climate
+
+Climate data from SCBI is stored in the GitHub organization "forestgeo", particularly in the repository "Climate". 
+
+`ghr_ls()` lists GitHub directories in a way similar to how `fs::dir_ls()` lists local directories. Here it reveals one ".md" file and two folders:
 
 ```{r}
 ghr_ls("forestgeo/Climate/Met_Station_Data/SCBI")
 ```
 
-Each directory contains multiple files, including datasets stored as .csv files. `ghr_ls()` allows you to see all files or a those that match a specific pattern.
+The folders contains multiple files, including some .csv files:
 
 ```{r}
-weather <- "forestgeo/Climate/Met_Station_Data/SCBI/Front Royal weather station"
-ghr_ls(weather)
+ghr_ls("forestgeo/Climate/Met_Station_Data/SCBI/Front Royal weather station")
 ```
 
-```{r}
-met <- "forestgeo/Climate/Met_Station_Data/SCBI/ForestGEO_met_station-SCBI"
-ghr_ls(met, regexp = "[.]csv$")
+We can use a regular expression (`regexp`) to focus, for example, on .csv files:
 
-ghr_ls(met, regexp = "[.]csv$", invert = TRUE)
+```{r}
+ghr_ls(
+  "forestgeo/Climate/Met_Station_Data/SCBI/ForestGEO_met_station-SCBI", 
+  regexp = "[.]csv$"
+)
 ```
 
 ### Species list
 
-Species list data is stored in a different organization. There are multiple directories.
+In addition to climate data, SCBI has a number of species-list datasets. These datasets are in the GitHub organization "SCBI-ForestGEO", in the "SCBI-ForestGEO-Data" repository, and in the "species-lists" folder.
 
 ```{r}
 species_lists <- "SCBI-ForestGEO/SCBI-ForestGEO-Data/species_lists"
+# Get the last part of the path
 subdirs <- path_file(ghr_ls(species_lists))
 subdirs
 ```
 
-Let's explore the .csv files in each directory, as those are likely datasets that we may want to show. To reduce duplication we first create a vector giving the path to all of the directories we want to explore. Then we apply `ghr_ls()` to each path and focus on .csv files only.
+Let's explore the .csv files in each sub directory. To reduce duplication we first create a vector `paths` giving the path to all of the sub directories we want to explore. Then we apply `ghr_ls()` to each element in `paths` and focus on .csv files only via `regexp`.
 
 ```{r}
-(paths <- path(species_lists, subdirs))
+paths <- path(species_lists, subdirs)
+paths
 
-paths %>% 
-  map(ghr_ls, regexp = "[.]csv$") %>% 
-  set_names(subdirs)
+map(paths, ghr_ls, regexp = "[.]csv$")
 ```
 
-Instead of just showing the file names we could show the first few rows of each file. This is a little more challenging because we need not the name but the "download_url" of each file.
+Instead of the file names we can show the first few rows of each file. This is a little more challenging because we need not the name but the "download_url" of each file. Here we first use `ghr_get()` to get the meta-data we need from GitHub, then we specifically pull the "download_url" associated to each element of the vector `paths`. To iterate over each `paths` element we use `purrr::map()`.
 
 ```{r}
 download_urls <- paths %>% 
@@ -86,18 +92,18 @@ download_urls <- paths %>%
   map(ghr_pull, "download_url")
 ```
 
-Now we can focus on .csv files only. Lets first extract file that end in .csv, then read those files and keep only the head of each:
+Now we focus on .csv files only.
 
 ```{r}
 csv_url <- download_urls %>% 
   unlist() %>% 
   keep(~ grepl("[.]csv$", .x))
 csv_url
+```
 
+And finally we use `readr::read_csv()` to read each dataset into R.
+
+```{r}
 csv_url %>% 
   map(~ head(read_csv(.x)))
 ```
-
-## Sacling up
-
-The examples above show that you can combine the ghr package with general purpose tools such as `purrr::map()` (or `base::lapply()`) and show in a single place datasets across any number of organizations and repositories.

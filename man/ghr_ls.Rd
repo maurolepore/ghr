@@ -41,3 +41,4 @@ ghr_ls(path, regexp = "[.]csv$", invert = TRUE)
 ghr_ls(path, regexp = "[.]RDATA$", invert = TRUE, ignore.case = FALSE)
 ghr_ls(path, regexp = "[.]RDATA$", invert = TRUE, ignore.case = TRUE)
 }
+\concept{shortcuts for common tasks}
