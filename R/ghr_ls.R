@@ -28,25 +28,6 @@ ghr_ls <- function(path,
                    ignore.case = FALSE,
                    invert = FALSE,
                    ...) {
-  if (identical(length(split_url(path)), 1L)) {
-    paths <- ghr_pull(ghr_get(path, ...), "name")
-  } else {
-    paths <- ghr_pull(ghr_get(path, ...), "path")
-  }
-
-  pick <- seq_along(paths)
-  if (!is.null(regexp)) {
-    pick <- grep(regexp, paths, ignore.case = ignore.case, invert = invert)
-  }
-  paths[pick]
-}
-
-# FIXME: Replace ghr_ls()
-ghr_ls_xxx <- function(path,
-                       regexp = NULL,
-                       ignore.case = FALSE,
-                       invert = FALSE,
-                       ...) {
   if (only_owner(path)) {
     out <- ghr_ls_field(
       path,
