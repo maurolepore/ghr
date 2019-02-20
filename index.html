@@ -54,7 +54,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/scbi-data.html">UNKNOWN TITLE</a>
+      <a href="articles/scbi-data.html">SCBI data</a>
     </li>
   </ul>
 </li>
@@ -90,7 +90,8 @@
 <a href="#ghr" class="anchor"></a>ghr</h1></div>
 <!-- badges: start -->
 
-<p>The ghr (GitHub-R) package helps you to request information to the GitHub-API using an intuitive syntax, similar to that of <code><a href="https://www.rdocumentation.org/packages/remotes/topics/install_github">remotes::install_github()</a></code>. For example, this is a valid path <code>maurolepore/ghr@master</code>. Also this one: <code>maurolepore/ghr/reference@gh-pages</code>.</p>
+<p>The files you need are often scattered across multiple GitHub organizations and repositories. How can you easily find and access them from R?</p>
+<p>The ghr (GitHub-R) package helps you to explore and access GitHub directories from R, using a familiar syntax and interface.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
@@ -100,16 +101,51 @@
 <div id="example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h2>
+<div id="overview" class="section level3">
+<h3 class="hasAnchor">
+<a href="#overview" class="anchor"></a>Overview</h3>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(purrr)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(ghr)</a></code></pre></div>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(ghr)</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co"># Familiar syntax, similar to the `repo` argument of `remotes::install_github()`</span></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5">path &lt;-<span class="st"> "maurolepore/tor/inst/extdata/mixed@master"</span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co"># Familiar interface, similar to `fs::dir_ls()`</span></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="kw"><a href="reference/ghr_ls.html">ghr_ls</a></span>(path)</a>
+<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co">#&gt; [1] "inst/extdata/mixed/csv.csv"          </span></a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co">#&gt; [2] "inst/extdata/mixed/lower_rdata.rdata"</span></a>
+<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="co">#&gt; [3] "inst/extdata/mixed/rda.rda"          </span></a>
+<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="co">#&gt; [4] "inst/extdata/mixed/upper_rdata.RData"</span></a>
+<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="kw"><a href="reference/ghr_ls.html">ghr_ls</a></span>(path, <span class="dt">regexp =</span> <span class="st">"[.]csv$"</span>, <span class="dt">invert =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="co">#&gt; [1] "inst/extdata/mixed/lower_rdata.rdata"</span></a>
+<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="co">#&gt; [2] "inst/extdata/mixed/rda.rda"          </span></a>
+<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="co">#&gt; [3] "inst/extdata/mixed/upper_rdata.RData"</span></a>
+<a class="sourceLine" id="cb2-17" data-line-number="17"></a>
+<a class="sourceLine" id="cb2-18" data-line-number="18"><span class="co"># Easily read data directly from GitHub into R</span></a>
+<a class="sourceLine" id="cb2-19" data-line-number="19">path <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-20" data-line-number="20"><span class="st">  </span><span class="kw"><a href="reference/ghr_ls.html">ghr_ls_download_url</a></span>(<span class="dt">regexp =</span> <span class="st">"[.]csv$"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-21" data-line-number="21"><span class="st">  </span>readr<span class="op">::</span><span class="kw"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span>()</a>
+<a class="sourceLine" id="cb2-22" data-line-number="22"><span class="co">#&gt; Parsed with column specification:</span></a>
+<a class="sourceLine" id="cb2-23" data-line-number="23"><span class="co">#&gt; cols(</span></a>
+<a class="sourceLine" id="cb2-24" data-line-number="24"><span class="co">#&gt;   y = col_character()</span></a>
+<a class="sourceLine" id="cb2-25" data-line-number="25"><span class="co">#&gt; )</span></a>
+<a class="sourceLine" id="cb2-26" data-line-number="26"><span class="co">#&gt; # A tibble: 2 x 1</span></a>
+<a class="sourceLine" id="cb2-27" data-line-number="27"><span class="co">#&gt;   y    </span></a>
+<a class="sourceLine" id="cb2-28" data-line-number="28"><span class="co">#&gt;   &lt;chr&gt;</span></a>
+<a class="sourceLine" id="cb2-29" data-line-number="29"><span class="co">#&gt; 1 a    </span></a>
+<a class="sourceLine" id="cb2-30" data-line-number="30"><span class="co">#&gt; 2 b</span></a></code></pre></div>
+</div>
+<div id="details" class="section level3">
+<h3 class="hasAnchor">
+<a href="#details" class="anchor"></a>Details</h3>
 <p>Use <code><a href="reference/ghr_get.html">ghr_get()</a></code> to get a GitHub-API response. Notice that the call is memoised.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.time">system.time</a></span>(<span class="kw"><a href="reference/ghr_get.html">ghr_get</a></span>(<span class="st">"maurolepore/ghr"</span>))</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="co">#&gt;    user  system elapsed </span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt;   0.096   0.008   0.274</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt;   0.020   0.000   0.093</span></a>
 <a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co"># Takes no time because the first call is memoised</span></a>
 <a class="sourceLine" id="cb3-5" data-line-number="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.time">system.time</a></span>(<span class="kw"><a href="reference/ghr_get.html">ghr_get</a></span>(<span class="st">"maurolepore/ghr"</span>))</a>
 <a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt;    user  system elapsed </span></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt;       0       0       0</span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt;   0.000   0.000   0.001</span></a>
 <a class="sourceLine" id="cb3-8" data-line-number="8"></a>
 <a class="sourceLine" id="cb3-9" data-line-number="9">response &lt;-<span class="st"> </span><span class="kw"><a href="reference/ghr_get.html">ghr_get</a></span>(<span class="dt">path =</span> <span class="st">"maurolepore/ghr"</span>)</a>
 <a class="sourceLine" id="cb3-10" data-line-number="10"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/class">class</a></span>(response)</a>
@@ -187,6 +223,7 @@
 <a class="sourceLine" id="cb10-17" data-line-number="17"><span class="co">#&gt; [13] "news"                 "pkgdown.css"          "pkgdown.js"          </span></a>
 <a class="sourceLine" id="cb10-18" data-line-number="18"><span class="co">#&gt; [16] "pkgdown.yml"          "reference"</span></a></code></pre></div>
 <hr>
+</div>
 </div>
 <div id="information" class="section level2">
 <h2 class="hasAnchor">
