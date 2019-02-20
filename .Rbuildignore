@@ -1,3 +1,4 @@
+^\.github$
 ^vignettes/scbi-data\.Rmd$
 ^tmp\.R$
 ^LICENSE\.md$
