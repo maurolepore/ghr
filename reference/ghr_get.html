@@ -90,6 +90,9 @@
     </li>
   </ul>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -154,31 +157,31 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>gh_response</span> <span class='kw'>&lt;-</span> <span class='fu'>ghr_get</span>(<span class='st'>"maurolepore/ghr"</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/class'>class</a></span>(<span class='no'>gh_response</span>)</div><div class='output co'>#&gt; [1] "gh_response" "list"       </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/length'>length</a></span>(<span class='no'>gh_response</span>)</div><div class='output co'>#&gt; [1] 14</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/str'>str</a></span>(<span class='no'>gh_response</span><span class='kw'>[[</span><span class='fl'>1</span>]])</div><div class='output co'>#&gt; List of 10
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/class'>class</a></span>(<span class='no'>gh_response</span>)</div><div class='output co'>#&gt; [1] "gh_response" "list"       </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/length'>length</a></span>(<span class='no'>gh_response</span>)</div><div class='output co'>#&gt; [1] 16</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/str'>str</a></span>(<span class='no'>gh_response</span><span class='kw'>[[</span><span class='fl'>1</span>]])</div><div class='output co'>#&gt; List of 10
 #&gt;  $ name        : chr ".Rbuildignore"
 #&gt;  $ path        : chr ".Rbuildignore"
-#&gt;  $ sha         : chr "78ca3e88c549461e28429ce31e26d73411697214"
-#&gt;  $ size        : int 109
+#&gt;  $ sha         : chr "378f0fe22a9c4b63ac910956a99443046a43601a"
+#&gt;  $ size        : int 120
 #&gt;  $ url         : chr "https://api.github.com/repos/maurolepore/ghr/contents/.Rbuildignore?ref=master"
 #&gt;  $ html_url    : chr "https://github.com/maurolepore/ghr/blob/master/.Rbuildignore"
-#&gt;  $ git_url     : chr "https://api.github.com/repos/maurolepore/ghr/git/blobs/78ca3e88c549461e28429ce31e26d73411697214"
+#&gt;  $ git_url     : chr "https://api.github.com/repos/maurolepore/ghr/git/blobs/378f0fe22a9c4b63ac910956a99443046a43601a"
 #&gt;  $ download_url: chr "https://raw.githubusercontent.com/maurolepore/ghr/master/.Rbuildignore"
 #&gt;  $ type        : chr "file"
 #&gt;  $ _links      :List of 3
 #&gt;   ..$ self: chr "https://api.github.com/repos/maurolepore/ghr/contents/.Rbuildignore?ref=master"
-#&gt;   ..$ git : chr "https://api.github.com/repos/maurolepore/ghr/git/blobs/78ca3e88c549461e28429ce31e26d73411697214"
+#&gt;   ..$ git : chr "https://api.github.com/repos/maurolepore/ghr/git/blobs/378f0fe22a9c4b63ac910956a99443046a43601a"
 #&gt;   ..$ html: chr "https://github.com/maurolepore/ghr/blob/master/.Rbuildignore"</div><div class='input'>
 <span class='co'># The request to GitHub happens only the first time you call ghr_get()</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.time'>system.time</a></span>(<span class='fu'>ghr_get</span>(<span class='st'>"maurolepore/ghr/R"</span>))</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.036   0.000   0.099 </div><div class='input'><span class='co'># Later calls take no time because the first call is memoised</span>
+#&gt;   0.032   0.000   0.092 </div><div class='input'><span class='co'># Later calls take no time because the first call is memoised</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.time'>system.time</a></span>(<span class='fu'>ghr_get</span>(<span class='st'>"maurolepore/ghr/R"</span>))</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;       0       0       0 </div><div class='input'>
-<span class='fu'><a href='ghr_show_fields.html'>ghr_pull</a></span>(<span class='fu'>ghr_get</span>(<span class='st'>"maurolepore/ghr"</span>, <span class='kw'>ref</span> <span class='kw'>=</span> <span class='st'>"gh-pages"</span>), <span class='st'>"path"</span>)</div><div class='output co'>#&gt;  [1] "LICENSE.html"  "authors.html"  "docsearch.css" "docsearch.js" 
-#&gt;  [5] "index.html"    "link.svg"      "pkgdown.css"   "pkgdown.js"   
-#&gt;  [9] "pkgdown.yml"   "reference"    </div><div class='input'><span class='co'># Same</span>
-<span class='fu'><a href='ghr_show_fields.html'>ghr_pull</a></span>(<span class='fu'>ghr_get</span>(<span class='st'>"maurolepore/ghr@gh-pages"</span>), <span class='st'>"path"</span>)</div><div class='output co'>#&gt;  [1] "LICENSE.html"  "authors.html"  "docsearch.css" "docsearch.js" 
-#&gt;  [5] "index.html"    "link.svg"      "pkgdown.css"   "pkgdown.js"   
-#&gt;  [9] "pkgdown.yml"   "reference"    </div><div class='input'>
+#&gt;   0.000   0.000   0.001 </div><div class='input'>
+<span class='fu'><a href='ghr_show_fields.html'>ghr_pull</a></span>(<span class='fu'>ghr_get</span>(<span class='st'>"maurolepore/ghr"</span>, <span class='kw'>ref</span> <span class='kw'>=</span> <span class='st'>"gh-pages"</span>), <span class='st'>"path"</span>)</div><div class='output co'>#&gt;  [1] "LICENSE.html"  "articles"      "authors.html"  "docsearch.css"
+#&gt;  [5] "docsearch.js"  "index.html"    "link.svg"      "pkgdown.css"  
+#&gt;  [9] "pkgdown.js"    "pkgdown.yml"   "reference"    </div><div class='input'><span class='co'># Same</span>
+<span class='fu'><a href='ghr_show_fields.html'>ghr_pull</a></span>(<span class='fu'>ghr_get</span>(<span class='st'>"maurolepore/ghr@gh-pages"</span>), <span class='st'>"path"</span>)</div><div class='output co'>#&gt;  [1] "LICENSE.html"  "articles"      "authors.html"  "docsearch.css"
+#&gt;  [5] "docsearch.js"  "index.html"    "link.svg"      "pkgdown.css"  
+#&gt;  [9] "pkgdown.js"    "pkgdown.yml"   "reference"    </div><div class='input'>
 <span class='fu'><a href='ghr_show_fields.html'>ghr_pull</a></span>(<span class='fu'>ghr_get</span>(<span class='st'>"maurolepore/ghr/reference@gh-pages"</span>), <span class='st'>"path"</span>)</div><div class='output co'>#&gt;  [1] "reference/gh_branches.html"       "reference/gh_get.html"           
 #&gt;  [3] "reference/ghr-package.html"       "reference/ghr_branches.html"     
 #&gt;  [5] "reference/ghr_fields.html"        "reference/ghr_get.html"          

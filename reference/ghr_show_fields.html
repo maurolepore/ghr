@@ -90,6 +90,9 @@
     </li>
   </ul>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -157,12 +160,12 @@ extract from the github-response list.</p></td>
 <span class='fu'>ghr_pull</span>(<span class='no'>gh_response</span>, <span class='st'>"name"</span>)</div><div class='output co'>#&gt; [1] "ghr-package.R"     "ghr_get.R"         "ghr_ls.R"         
 #&gt; [4] "ghr_show_fields.R"</div><div class='input'>
 <span class='co'># Working with non-default branches</span>
-<span class='fu'>ghr_pull</span>(<span class='fu'><a href='ghr_get.html'>ghr_get</a></span>(<span class='st'>"maurolepore/ghr"</span>, <span class='kw'>ref</span> <span class='kw'>=</span> <span class='st'>"gh-pages"</span>), <span class='st'>"path"</span>)</div><div class='output co'>#&gt;  [1] "LICENSE.html"  "authors.html"  "docsearch.css" "docsearch.js" 
-#&gt;  [5] "index.html"    "link.svg"      "pkgdown.css"   "pkgdown.js"   
-#&gt;  [9] "pkgdown.yml"   "reference"    </div><div class='input'><span class='co'># Same</span>
-<span class='fu'>ghr_pull</span>(<span class='fu'><a href='ghr_get.html'>ghr_get</a></span>(<span class='st'>"maurolepore/ghr@gh-pages"</span>), <span class='st'>"path"</span>)</div><div class='output co'>#&gt;  [1] "LICENSE.html"  "authors.html"  "docsearch.css" "docsearch.js" 
-#&gt;  [5] "index.html"    "link.svg"      "pkgdown.css"   "pkgdown.js"   
-#&gt;  [9] "pkgdown.yml"   "reference"    </div><div class='input'>
+<span class='fu'>ghr_pull</span>(<span class='fu'><a href='ghr_get.html'>ghr_get</a></span>(<span class='st'>"maurolepore/ghr"</span>, <span class='kw'>ref</span> <span class='kw'>=</span> <span class='st'>"gh-pages"</span>), <span class='st'>"path"</span>)</div><div class='output co'>#&gt;  [1] "LICENSE.html"  "articles"      "authors.html"  "docsearch.css"
+#&gt;  [5] "docsearch.js"  "index.html"    "link.svg"      "pkgdown.css"  
+#&gt;  [9] "pkgdown.js"    "pkgdown.yml"   "reference"    </div><div class='input'><span class='co'># Same</span>
+<span class='fu'>ghr_pull</span>(<span class='fu'><a href='ghr_get.html'>ghr_get</a></span>(<span class='st'>"maurolepore/ghr@gh-pages"</span>), <span class='st'>"path"</span>)</div><div class='output co'>#&gt;  [1] "LICENSE.html"  "articles"      "authors.html"  "docsearch.css"
+#&gt;  [5] "docsearch.js"  "index.html"    "link.svg"      "pkgdown.css"  
+#&gt;  [9] "pkgdown.js"    "pkgdown.yml"   "reference"    </div><div class='input'>
 <span class='fu'>ghr_pull</span>(<span class='fu'><a href='ghr_get.html'>ghr_get</a></span>(<span class='st'>"maurolepore/ghr/reference@gh-pages"</span>), <span class='st'>"path"</span>)</div><div class='output co'>#&gt;  [1] "reference/gh_branches.html"       "reference/gh_get.html"           
 #&gt;  [3] "reference/ghr-package.html"       "reference/ghr_branches.html"     
 #&gt;  [5] "reference/ghr_fields.html"        "reference/ghr_get.html"          
