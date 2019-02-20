@@ -2,13 +2,23 @@
 % Please edit documentation in R/ghr_ls.R
 \name{ghr_ls}
 \alias{ghr_ls}
-\title{List files in a GitHub 'directory'.}
+\alias{ghr_ls_html_url}
+\alias{ghr_ls_download_url}
+\title{List directories, html-URLs and download-URLs in a GitHub directory.}
 \usage{
-ghr_ls(path, regexp = NULL, ignore.case = FALSE, invert = FALSE, ...)
+ghr_ls(path, ..., regexp = NULL, ignore.case = FALSE, invert = FALSE)
+
+ghr_ls_html_url(path, ..., regexp = NULL, ignore.case = FALSE,
+  invert = FALSE)
+
+ghr_ls_download_url(path, ..., regexp = NULL, ignore.case = FALSE,
+  invert = FALSE)
 }
 \arguments{
 \item{path}{A string formatted as "owner/repo/subdir" or
 "owner/repo/subdir@branch", e.g.: "maurolepore/ghr/reference@gh-pages".}
+
+\item{...}{Arguments passed to \code{\link[gh:gh]{gh::gh()}} via \code{\link[=ghr_get]{ghr_get()}}.}
 
 \item{regexp}{A regular expression (e.g. \code{[.]csv$}) passed on to grep() to
 filter paths.}
@@ -18,14 +28,12 @@ filter paths.}
 
 \item{invert}{logical.  If \code{TRUE} return indices or values for
     elements that do \emph{not} match.}
-
-\item{...}{Arguments passed to \code{\link[gh:gh]{gh::gh()}} via \code{\link[=ghr_get]{ghr_get()}}.}
 }
 \value{
 A character string.
 }
 \description{
-List files in a GitHub 'directory'.
+List directories, html-URLs and download-URLs in a GitHub directory.
 }
 \examples{
 path <- "maurolepore/tor/inst/extdata/mixed"
@@ -40,5 +48,14 @@ ghr_ls(path, regexp = "[.]csv$", invert = TRUE)
 
 ghr_ls(path, regexp = "[.]RDATA$", invert = TRUE, ignore.case = FALSE)
 ghr_ls(path, regexp = "[.]RDATA$", invert = TRUE, ignore.case = TRUE)
+
+# ghr_ls_download_url() and ghr_ls_html_url are similar
+(d_url <- ghr_ls_download_url(path, regexp = "[.]csv$")[[1]])
+read.csv(d_url)
+
+(h_url <- ghr_ls_html_url(path, regexp = "[.]csv$")[[1]])
+if (interactive()) {
+  utils::browseURL(h_url)
+}
 }
 \concept{shortcuts for common tasks}

@@ -1,10 +1,10 @@
-#' List files in a GitHub 'directory'.
+#' List directories, html-URLs and download-URLs in a GitHub directory.
 #'
 #' @inheritParams ghr_get
+#' @param ... Arguments passed to [gh::gh()] via [ghr_get()].
 #' @inheritParams base::grep
 #' @param regexp A regular expression (e.g. `[.]csv$`) passed on to grep() to
 #'   filter paths.
-#' @param ... Arguments passed to [gh::gh()] via [ghr_get()].
 #'
 #' @return A character string.
 #' @export
@@ -22,12 +22,21 @@
 #'
 #' ghr_ls(path, regexp = "[.]RDATA$", invert = TRUE, ignore.case = FALSE)
 #' ghr_ls(path, regexp = "[.]RDATA$", invert = TRUE, ignore.case = TRUE)
+#'
+#' # ghr_ls_download_url() and ghr_ls_html_url are similar
+#' (d_url <- ghr_ls_download_url(path, regexp = "[.]csv$")[[1]])
+#' read.csv(d_url)
+#'
+#' (h_url <- ghr_ls_html_url(path, regexp = "[.]csv$")[[1]])
+#' if (interactive()) {
+#'   utils::browseURL(h_url)
+#' }
 #' @family shortcuts for common tasks
 ghr_ls <- function(path,
+                   ...,
                    regexp = NULL,
                    ignore.case = FALSE,
-                   invert = FALSE,
-                   ...) {
+                   invert = FALSE) {
   if (only_owner(path)) {
     out <- ghr_ls_field(
       path,
@@ -73,11 +82,13 @@ ghr_ls_field <- function(path,
   field_ls[pick]
 }
 
+#' @export
+#' @rdname ghr_ls
 ghr_ls_html_url <- function(path,
+                            ...,
                             regexp = NULL,
                             ignore.case = FALSE,
-                            invert = FALSE,
-                            ...) {
+                            invert = FALSE) {
   ghr_ls_field(
     path,
     field = "html_url",
@@ -88,11 +99,13 @@ ghr_ls_html_url <- function(path,
   )
 }
 
+#' @export
+#' @rdname ghr_ls
 ghr_ls_download_url <- function(path,
-  regexp = NULL,
-  ignore.case = FALSE,
-  invert = FALSE,
-  ...) {
+                                ...,
+                                regexp = NULL,
+                                ignore.case = FALSE,
+                                invert = FALSE) {
   stop_if_repo_is_missing(path)
 
   ghr_ls_field(

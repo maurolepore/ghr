@@ -71,39 +71,32 @@ In addition to climate data, SCBI has a number of species-list datasets. These d
 ```{r}
 species_lists <- "SCBI-ForestGEO/SCBI-ForestGEO-Data/species_lists"
 # Get the last part of the path
-subdirs <- path_file(ghr_ls(species_lists))
-subdirs
+(subdirs <- path_file(ghr_ls(species_lists)))
 ```
 
 Let's explore the .csv files in each sub directory. To reduce duplication we first create a vector `paths` giving the path to all of the sub directories we want to explore. Then we apply `ghr_ls()` to each element in `paths` and focus on .csv files only via `regexp`.
 
 ```{r}
-paths <- path(species_lists, subdirs)
-paths
+(paths <- path(species_lists, subdirs))
 
-map(paths, ghr_ls, regexp = "[.]csv$")
+paths %>% 
+  map(~ ghr_ls(.x, regexp = "[.]csv$"))
 ```
 
-Instead of the file names we can show the first few rows of each file. This is a little more challenging because we need not the name but the "download_url" of each file. Here we first use `ghr_get()` to get the meta-data we need from GitHub, then we specifically pull the "download_url" associated to each element of the vector `paths`. To iterate over each `paths` element we use `purrr::map()`.
+Instead of the file names we can show the first few rows of each file. We use `ghr_ls_download_url()` to get download URLs of each .csv file in each sub directory. To iterate over all sub directories we use `purrr::map()`.
 
 ```{r}
 download_urls <- paths %>% 
-  map(ghr_get) %>% 
-  map(ghr_pull, "download_url")
+  map(~ ghr_ls_download_url(.x, regexp = "[.]csv$")) %>%
+  # Just to keep clarify which subdirectory the files come from
+  set_names(subdirs)
+download_urls
 ```
 
-Now we focus on .csv files only.
+And finally we use `readr::read_csv()` to read each dataset into R. Again we use `purrr::map()` to iterate over each sub directory.
 
-```{r}
-csv_url <- download_urls %>% 
+```{r, message=FALSE}
+download_urls %>% 
   unlist() %>% 
-  keep(~ grepl("[.]csv$", .x))
-csv_url
-```
-
-And finally we use `readr::read_csv()` to read each dataset into R.
-
-```{r}
-csv_url %>% 
   map(~ head(read_csv(.x)))
 ```
