@@ -36,21 +36,19 @@ stop_invalid_ref <- function(path, ref, uses_at) {
 #' @export
 #'
 #' @examples
+#' # The request to GitHub happens only the first time you call ghr_get()
+#' system.time(ghr_get("maurolepore/ghr"))
+#' # Later calls take no time because the first call is memoised
+#' system.time(ghr_get("maurolepore/ghr"))
+#'
 #' gh_response <- ghr_get("maurolepore/ghr")
 #' class(gh_response)
 #' length(gh_response)
 #' str(gh_response[[1]])
 #'
-#' # The request to GitHub happens only the first time you call ghr_get()
-#' system.time(ghr_get("maurolepore/ghr/R"))
-#' # Later calls take no time because the first call is memoised
-#' system.time(ghr_get("maurolepore/ghr/R"))
-#'
 #' ghr_pull(ghr_get("maurolepore/ghr", ref = "gh-pages"), "path")
 #' # Same
 #' ghr_pull(ghr_get("maurolepore/ghr@gh-pages"), "path")
-#'
-#' ghr_pull(ghr_get("maurolepore/ghr/reference@gh-pages"), "path")
 ghr_get <- memoise::memoise(ghr_get_impl)
 
 #' Get the name of all branches of a GitHub repository.
