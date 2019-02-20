@@ -263,14 +263,14 @@
 <a class="sourceLine" id="cb7-67" data-line-number="67"><span class="co">#&gt; #   SCBI_notes &lt;chr&gt;, general_notes &lt;chr&gt;, citation &lt;chr&gt;</span></a></code></pre></div>
 </div>
 </div>
-<div id="scaling-up" class="section level2">
+<div id="summary" class="section level2">
 <h2 class="hasAnchor">
-<a href="#scaling-up" class="anchor"></a>Scaling up</h2>
-<p>Here I showed how ghr can help to explore and access data of a real research organization. In a single document or shiny app you can now show all of your featured datasets.</p>
+<a href="#summary" class="anchor"></a>Summary</h2>
+<p>The ghr package helps you to explore and access GitHub directories directly from R:</p>
 <ul>
-<li><p>Use something like <code>ghr_ls(&lt;path-to-your-GitHub-data&gt;, regexp = "[.]csv$")</code> to show what your data is and where it is.</p></li>
-<li><p>Combine <code><a href="../reference/ghr_ls.html">ghr_ls_download_url()</a></code> with <code><a href="https://www.rdocumentation.org/packages/utils/topics/read.table">read.csv()</a></code> to read .csv files from GitHub into R.</p></li>
-<li><p>Combine <code><a href="../reference/ghr_ls.html">ghr_ls_html_url()</a></code> with <code><a href="https://www.rdocumentation.org/packages/utils/topics/browseURL">browseURL()</a></code> to show your data on a web browser.</p></li>
+<li><p>Use something of the form <code>ghr_ls(&lt;path-to-your-GitHub-data&gt;, regexp = "[.]csv$")</code> to explore files.</p></li>
+<li><p>Combine <code><a href="../reference/ghr_ls.html">ghr_ls_download_url()</a></code> with <code><a href="https://www.rdocumentation.org/packages/utils/topics/read.table">read.csv()</a></code> and friends to read data from GitHub directly into R.</p></li>
+<li><p>Combine <code><a href="../reference/ghr_ls.html">ghr_ls_html_url()</a></code> with <code><a href="https://www.rdocumentation.org/packages/utils/topics/browseURL">browseURL()</a></code> to open a web browser at a particular GitHub directory.</p></li>
 </ul>
 </div>
   </div>
@@ -283,7 +283,7 @@
 <li><a href="#introduction">Introduction</a></li>
       <li><a href="#example">Example</a></li>
       <li><a href="#climate">Climate</a></li>
-      <li><a href="#scaling-up">Scaling up</a></li>
+      <li><a href="#summary">Summary</a></li>
       </ul>
 </div>
       </div>
