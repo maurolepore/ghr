@@ -1,7 +1,3 @@
----
-title: "SCBI data"
----
-
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -9,17 +5,29 @@ knitr::opts_chunk$set(
 )
 ```
 
-## Introduction
+## Overview
 
-This article shows how the ghr (GitHub-R) package can help you explore and gather data from multiple GitHub repositories.
+The files and datasets you care about are often scattered across multiple GitHub organizations and repositories. How can you easily find and access interesting datasets when you need them?
 
-As a collaborative researcher, your datasets may be scattered across multiple GitHub organizations and repositories. How can you easily find and access interesting datasets when you need them?
+The ghr (GitHub-R) package helps you to easily explore GitHub directories and access files, directly from R and using a familiar syntax and interface.
 
-The ghr package helps you explore and access GitHub files form R, using an intuitive syntax inspired by the `repo` argument to `remotes::install_github()`. For example, this is a valid path to a GitHub directory: `"maurolepore/ghr/R@master"`. Notice the structure `"owner/repo/subdir@branch"`.
+```{r}
+library(ghr)
+
+# Familiar syntax, similar to the `repo` argument of `remotes::install_github()`
+path <- "maurolepore/tor/inst/extdata/mixed@master"
+
+# Familiar interface, similar to `fs::dir_ls()`
+ghr_ls(path)
+ghr_ls(path, regexp = "[.]csv$", invert = TRUE)
+
+# Easily read data directly from GitHub into R
+readr::read_csv(ghr_ls_download_url(path, regexp = "[.]csv$"))
+```
 
 ## Example
 
-Here I'll use data from the Smithsonian Conservation Biology Institute (SCBI) ForestGEO plot. They present their data at <https://scbi-forestgeo.github.io/SCBI-ForestGEO-Data/>:
+Let's use data from the Smithsonian Conservation Biology Institute (SCBI) ForestGEO plot. They present their data at <https://scbi-forestgeo.github.io/SCBI-ForestGEO-Data/>:
 
 > This is the public data portal for the SCBI ForestGEO plot, which points to archive locations for our various data products (some in this repository, many elsewhere).
 
@@ -89,14 +97,4 @@ download_urls %>%
   unlist() %>% 
   map(~ head(readr::read_csv(.x)))
 ```
-
-## Summary
-
-The ghr package helps you to explore and access GitHub directories directly from R:
-
-* Use something of the form `ghr_ls(<path-to-your-GitHub-data>, regexp = "[.]csv$")` to explore files.
-
-* Combine `ghr_ls_download_url()` with `read.csv()` and friends to read data from GitHub directly into R.
-
-* Combine `ghr_ls_html_url()` with `browseURL()` to open a web browser at a particular GitHub directory.
 
