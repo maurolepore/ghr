@@ -6,8 +6,8 @@
 \alias{ghr-package}
 \title{ghr: Explore and Access GitHub Directories}
 \description{
-Explore and access GitHub directories using an intuitive
-    syntax of the form "owner/repository/subdirectory@branch".
+Explore and access GitHub directories using an
+    intuitive syntax of the form "owner/repository/subdirectory@branch".
 }
 \seealso{
 Useful links:
