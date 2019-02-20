@@ -112,16 +112,18 @@
 <a class="sourceLine" id="cb1-15" data-line-number="15"><span class="co">#&gt; [3] "inst/extdata/mixed/upper_rdata.RData"</span></a>
 <a class="sourceLine" id="cb1-16" data-line-number="16"></a>
 <a class="sourceLine" id="cb1-17" data-line-number="17"><span class="co"># Easily read data directly from GitHub into R</span></a>
-<a class="sourceLine" id="cb1-18" data-line-number="18">readr<span class="op">::</span><span class="kw"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span>(<span class="kw"><a href="../reference/ghr_ls.html">ghr_ls_download_url</a></span>(path, <span class="dt">regexp =</span> <span class="st">"[.]csv$"</span>))</a>
-<a class="sourceLine" id="cb1-19" data-line-number="19"><span class="co">#&gt; Parsed with column specification:</span></a>
-<a class="sourceLine" id="cb1-20" data-line-number="20"><span class="co">#&gt; cols(</span></a>
-<a class="sourceLine" id="cb1-21" data-line-number="21"><span class="co">#&gt;   y = col_character()</span></a>
-<a class="sourceLine" id="cb1-22" data-line-number="22"><span class="co">#&gt; )</span></a>
-<a class="sourceLine" id="cb1-23" data-line-number="23"><span class="co">#&gt; # A tibble: 2 x 1</span></a>
-<a class="sourceLine" id="cb1-24" data-line-number="24"><span class="co">#&gt;   y    </span></a>
-<a class="sourceLine" id="cb1-25" data-line-number="25"><span class="co">#&gt;   &lt;chr&gt;</span></a>
-<a class="sourceLine" id="cb1-26" data-line-number="26"><span class="co">#&gt; 1 a    </span></a>
-<a class="sourceLine" id="cb1-27" data-line-number="27"><span class="co">#&gt; 2 b</span></a></code></pre></div>
+<a class="sourceLine" id="cb1-18" data-line-number="18">readr<span class="op">::</span><span class="kw"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span>(</a>
+<a class="sourceLine" id="cb1-19" data-line-number="19">  <span class="kw"><a href="../reference/ghr_ls.html">ghr_ls_download_url</a></span>(path, <span class="dt">regexp =</span> <span class="st">"[.]csv$"</span>)</a>
+<a class="sourceLine" id="cb1-20" data-line-number="20">)</a>
+<a class="sourceLine" id="cb1-21" data-line-number="21"><span class="co">#&gt; Parsed with column specification:</span></a>
+<a class="sourceLine" id="cb1-22" data-line-number="22"><span class="co">#&gt; cols(</span></a>
+<a class="sourceLine" id="cb1-23" data-line-number="23"><span class="co">#&gt;   y = col_character()</span></a>
+<a class="sourceLine" id="cb1-24" data-line-number="24"><span class="co">#&gt; )</span></a>
+<a class="sourceLine" id="cb1-25" data-line-number="25"><span class="co">#&gt; # A tibble: 2 x 1</span></a>
+<a class="sourceLine" id="cb1-26" data-line-number="26"><span class="co">#&gt;   y    </span></a>
+<a class="sourceLine" id="cb1-27" data-line-number="27"><span class="co">#&gt;   &lt;chr&gt;</span></a>
+<a class="sourceLine" id="cb1-28" data-line-number="28"><span class="co">#&gt; 1 a    </span></a>
+<a class="sourceLine" id="cb1-29" data-line-number="29"><span class="co">#&gt; 2 b</span></a></code></pre></div>
 </div>
 <div id="example" class="section level2">
 <h2 class="hasAnchor">
