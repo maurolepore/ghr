@@ -70,13 +70,23 @@ ghr_ls_field <- function(path,
                          ignore.case = FALSE,
                          invert = FALSE,
                          ...) {
-  field_ls <- ghr_pull(ghr_get(path, ...), field = field)
+  out <- ghr_pull(ghr_get(path, ...), field = field)
+  grep_ls(out, regexp, ignore.case = ignore.case, invert = invert)
+}
+
+grep_ls <- function(path, regexp, ignore.case, invert) {
   if (is.null(regexp)) {
-    return(field_ls)
+    return(path)
   }
 
-  pick <- grep(regexp, field_ls, ignore.case = ignore.case, invert = invert)
-  out <- field_ls[pick]
+  pick <- grep(regexp, path, ignore.case = ignore.case, invert = invert)
+  out <- path[pick]
+  warn_no_match(out, path = path, regexp = regexp)
+
+  out
+}
+
+warn_no_match <- function(out, path, regexp) {
   if (length(out) == 0L) {
     warning(
       sprintf("Nothing in '%s' matches '%s'", path, regexp),
@@ -84,7 +94,7 @@ ghr_ls_field <- function(path,
     )
   }
 
-  out
+  invisible(out)
 }
 
 #' @export
