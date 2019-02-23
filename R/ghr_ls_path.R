@@ -22,14 +22,25 @@ ghr_ls_path_impl <- function(path) {
   out
 }
 
-# recurse_path("maurolepore/tor")
-# recurse_path("maurolepore/tor/tests")
+
+
+
+
+
+
+
+#' recurse_path("maurolepore/ghr/tests/")
+#' Nothing to list
+#' recurse_path("maurolepore/ghr/R/ghr_ls.R")
 #' @importFrom rlang %||%
+#' @noRd
 recurse_path <- function(path, result = NULL) {
-  out <- suppressWarnings(unlist(purrr::map(path, ghr_ls_path_impl)))
+  out <- suppressWarnings(
+    unlist(purrr::map(path, ~ ghr_ls_path_impl(.x)))
+  )
   if (identical(out, character(0))) {
-    return(c(result))
+    return(result)
   } else {
-    recurse_path(out, result = c(result, path))
+    recurse_path(out, result = c(path, out))
   }
 }
