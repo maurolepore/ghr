@@ -11,22 +11,22 @@
 #'
 #' @examples
 #' path <- "maurolepore/tor/inst/extdata/mixed"
-#' 
+#'
 #' # The first call make the request
 #' system.time(ghr_ls(path))
 #' # Takes no time because the first call is memoised
 #' system.time(ghr_ls(path))
-#' 
+#'
 #' ghr_ls(path, regexp = "[.]csv$")
 #' ghr_ls(path, regexp = "[.]csv$", invert = TRUE)
-#' 
+#'
 #' ghr_ls(path, regexp = "[.]RDATA$", invert = TRUE, ignore.case = FALSE)
 #' ghr_ls(path, regexp = "[.]RDATA$", invert = TRUE, ignore.case = TRUE)
-#' 
+#'
 #' # ghr_ls_download_url() and ghr_ls_html_url are similar
 #' (d_url <- ghr_ls_download_url(path, regexp = "[.]csv$")[[1]])
 #' read.csv(d_url)
-#' 
+#'
 #' (h_url <- ghr_ls_html_url(path, regexp = "[.]csv$")[[1]])
 #' if (interactive()) {
 #'   utils::browseURL(h_url)
@@ -49,7 +49,7 @@ ghr_ls <- function(path,
     return(out)
   }
 
-  ghr_ls_field(
+  out <- ghr_ls_field(
     path,
     field = "path",
     regexp = regexp,
@@ -57,6 +57,7 @@ ghr_ls <- function(path,
     invert = invert,
     ...
   )
+  out
 }
 
 only_owner <- function(path) {
@@ -77,7 +78,10 @@ ghr_ls_field <- function(path,
   pick <- grep(regexp, field_ls, ignore.case = ignore.case, invert = invert)
   out <- field_ls[pick]
   if (length(out) == 0L) {
-    warning(sprintf("Nothing in '%s' matches '%s'", path, regexp), call. = FALSE)
+    warning(
+      sprintf("Nothing in '%s' matches '%s'", path, regexp),
+      call. = FALSE
+    )
   }
 
   out
@@ -90,7 +94,7 @@ ghr_ls_html_url <- function(path,
                             regexp = NULL,
                             ignore.case = FALSE,
                             invert = FALSE) {
-  ghr_ls_field(
+  out <- ghr_ls_field(
     path,
     field = "html_url",
     regexp = regexp,
@@ -98,6 +102,8 @@ ghr_ls_html_url <- function(path,
     invert = invert,
     ...
   )
+
+  out
 }
 
 #' @export
@@ -109,7 +115,7 @@ ghr_ls_download_url <- function(path,
                                 invert = FALSE) {
   stop_if_repo_is_missing(path)
 
-  ghr_ls_field(
+  out <- ghr_ls_field(
     path,
     field = "download_url",
     regexp = regexp,
@@ -117,6 +123,8 @@ ghr_ls_download_url <- function(path,
     invert = invert,
     ...
   )
+
+  out
 }
 
 stop_if_repo_is_missing <- function(path) {

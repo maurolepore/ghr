@@ -20,6 +20,8 @@ stop_invalid_ref <- function(path, ref, uses_at) {
       call. = FALSE
     )
   }
+
+  invisible(path)
 }
 
 #' Get a response from the GitHub API.
@@ -40,12 +42,12 @@ stop_invalid_ref <- function(path, ref, uses_at) {
 #' system.time(ghr_get("maurolepore/ghr"))
 #' # Later calls take no time because the first call is memoised
 #' system.time(ghr_get("maurolepore/ghr"))
-#' 
+#'
 #' gh_response <- ghr_get("maurolepore/ghr")
 #' class(gh_response)
 #' length(gh_response)
 #' str(gh_response[[1]])
-#' 
+#'
 #' ghr_pull(ghr_get("maurolepore/ghr", ref = "gh-pages"), "path")
 #' # Same
 #' ghr_pull(ghr_get("maurolepore/ghr@gh-pages"), "path")
@@ -65,7 +67,12 @@ ghr_get <- memoise::memoise(ghr_get_impl)
 #' ghr_show_branches("maurolepore/ghr")
 ghr_show_branches <- function(path) {
   owner_repo <- owner_repo(path)
-  purrr::map_chr(gh::gh(glue::glue("/repos/{owner_repo}/branches")), "name")
+  out <- purrr::map_chr(
+    gh::gh(glue::glue("/repos/{owner_repo}/branches")),
+    "name"
+  )
+
+  out
 }
 
 # Helpers -----------------------------------------------------------------
@@ -81,12 +88,14 @@ ghr_show_branches <- function(path) {
 #' @noRd
 ghr_path <- function(path) {
   n_pieces <- as.character(length(split_url(path)))
-  switch(
+  out <- switch(
     n_pieces,
     "1" = request_owner(path),
     "2" = request_repo(path),
     request_subdir(path)
   )
+
+  out
 }
 
 request_owner <- function(path) {

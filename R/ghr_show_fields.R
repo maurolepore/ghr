@@ -12,16 +12,16 @@
 #'
 #' @examples
 #' gh_response <- ghr_get("maurolepore/ghr/R")
-#' 
+#'
 #' ghr_show_fields(gh_response)
-#' 
+#'
 #' ghr_pull(gh_response, "name")
-#' 
+#'
 #' # Working with non-default branches
 #' ghr_pull(ghr_get("maurolepore/ghr", ref = "gh-pages"), "path")
 #' # Same
 #' ghr_pull(ghr_get("maurolepore/ghr@gh-pages"), "path")
-#' 
+#'
 #' ghr_pull(ghr_get("maurolepore/ghr/reference@gh-pages"), "path")
 ghr_show_fields <- function(gh_response) {
   stopifnot(inherits(gh_response, "gh_response"))
@@ -32,8 +32,10 @@ ghr_show_fields <- function(gh_response) {
 #' @export
 ghr_pull <- function(gh_response, field) {
   stopifnot(inherits(gh_response, "gh_response"))
+
   out <- unlist(purrr::map(gh_response, field))
   warn_null_result(out)
+  out
 }
 
 warn_null_result <- function(out) {
