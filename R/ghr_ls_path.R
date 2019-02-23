@@ -1,13 +1,52 @@
+# FIXME: Add ... to pass arguments to gh::gh()
+
+NULL
+
+# FIXME: Remove ghr_ls?
+
+#' @inherit ghr_ls
+#' @inheritParams fs::dir_ls
+#' @export
+#'
+#' @examples
+#' # FIXME: Can I get around this problem?
+#' ghr_ls_path(
+#'   "scbi-forestgeo/scbi-forestgeo-data/tree_main_census", recursive = TRUE
+#' )
+#' # FIXME: Nicer error message?
+#' ghr_ls_path("superbadpath")
+#'
+#' # FIXME: Should return paths, not file names
+#' ghr_ls_path("maurolepore/ghr")
+#' # FIXME: Add hint?, maybe via rise via rlang
+#' ghr_ls_path("maurolepore/ghr/DESCRIPTION")
+#'
+#' length(ghr_ls_path("maurolepore/ghr"))
+#' length(ghr_ls_path("maurolepore"))
+#' # FIXME add limit
+#' length(ghr_ls_path("maurolepore", .limit = 50))
+#'
+#' path <- "maurolepore/ghr/tests"
+#' ghr_ls_path(path)
+#' ghr_ls_path(path, regexp = "[.]R")
+#' ghr_ls_path(path, regexp = "[.]R", invert = TRUE)
+#' # FIXME: should be once
+#' ghr_ls_path(path, regexp = "[.]r")
+#' ghr_ls_path(path, regexp = "[.]r", ignore.case = TRUE)
+#'
+#' ghr_ls_path(path, recursive = TRUE, regexp = "[.]R")
+#' ghr_ls_path(path, recursive = TRUE, regexp = "[.]R", invert = TRUE)
+#' # FIXME: should be once
+#' ghr_ls_path(path, recursive = TRUE, regexp = "[.]r")
+#' ghr_ls_path(path, recursive = TRUE, regexp = "[.]r", ignore.case = TRUE)
 ghr_ls_path <- function(path,
                         regexp = NULL,
                         ignore.case = FALSE,
                         invert = FALSE,
-                        recursive = FALSE,
-                        ...)  {
+                        recursive = FALSE)  {
   if (!recursive) {
     out <- ghr_ls(
       path,
-      ...,
       regexp = regexp,
       ignore.case = ignore.case,
       invert = invert
@@ -16,8 +55,8 @@ ghr_ls_path <- function(path,
   }
 
   out <- grep_ls(
-    regexp,
     recurse_path(path),
+    regexp,
     ignore.case = ignore.case,
     invert = invert
   )
