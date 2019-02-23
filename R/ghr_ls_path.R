@@ -16,29 +16,20 @@ ghr_ls_path_impl <- function(path) {
     n_pieces,
     "1" = fs::path(owner(path), ghr_ls(path)),
     "2" = fs::path(owner(path), repo(path), ghr_ls(path)),
-    fs::path(owner(path), repo(path), ghr_pull(ghr_get(path), "path"))
+    fs::path(owner(path), repo(path), ghr_ls(path))
   )
 
   out
 }
 
-recurse_path <- function(path) {
-  sub_path <- ghr_ls_path_impl(path)
-  if (is.null(sub_path)) {
-    return(path)
-  } else {
-    tryCatch(
-      suppressWarnings(recurse_path(sub_path)),
-      error = function(e) return(path)
-    )
-  }
-}
-
+# recurse_path("maurolepore/tor")
 # recurse_path("maurolepore/tor/tests")
-
-# ghr_ls_recursive("maurolepore/tor")
-# ghr_ls_recursive("maurolepore/tor/vignettes")
-ghr_ls_recursive <- function(path) {
-  out <- suppressWarnings(purrr::map(recurse_path(path), recurse_path))
-  unlist(out)
+#' @importFrom rlang %||%
+recurse_path <- function(path, result = NULL) {
+  out <- suppressWarnings(unlist(purrr::map(path, ghr_ls_path_impl)))
+  if (identical(out, character(0))) {
+    return(c(result))
+  } else {
+    recurse_path(out, result = c(result, path))
+  }
 }
