@@ -141,11 +141,11 @@
 <p>Use <code><a href="reference/ghr_get.html">ghr_get()</a></code> to get a GitHub-API response. Notice that the call is memoised.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.time">system.time</a></span>(<span class="kw"><a href="reference/ghr_get.html">ghr_get</a></span>(<span class="st">"maurolepore/ghr"</span>))</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="co">#&gt;    user  system elapsed </span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt;   0.020   0.000   0.123</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt;   0.016   0.000   0.116</span></a>
 <a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co"># Takes no time because the first call is memoised</span></a>
 <a class="sourceLine" id="cb3-5" data-line-number="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.time">system.time</a></span>(<span class="kw"><a href="reference/ghr_get.html">ghr_get</a></span>(<span class="st">"maurolepore/ghr"</span>))</a>
 <a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt;    user  system elapsed </span></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt;       0       0       0</span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt;   0.004   0.000   0.001</span></a>
 <a class="sourceLine" id="cb3-8" data-line-number="8"></a>
 <a class="sourceLine" id="cb3-9" data-line-number="9">response &lt;-<span class="st"> </span><span class="kw"><a href="reference/ghr_get.html">ghr_get</a></span>(<span class="dt">path =</span> <span class="st">"maurolepore/ghr"</span>)</a>
 <a class="sourceLine" id="cb3-10" data-line-number="10"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/class">class</a></span>(response)</a>
@@ -156,7 +156,11 @@
 <a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co">#&gt;  [5] "url"          "html_url"     "git_url"      "download_url"</span></a>
 <a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">#&gt;  [9] "type"         "_links"</span></a></code></pre></div>
 <p>Use <code><a href="reference/ghr_show_fields.html">ghr_pull()</a></code> to access specific fields of the GitHub response.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="reference/ghr_show_fields.html">ghr_pull</a></span>(response, <span class="st">"name"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="reference/ghr_show_fields.html">ghr_pull</a></span>(response, <span class="st">"name"</span>)</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">#&gt;  [1] ".Rbuildignore" ".github"       ".gitignore"    ".travis.yml"  </span></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co">#&gt;  [5] "DESCRIPTION"   "LICENSE.md"    "NAMESPACE"     "NEWS.md"      </span></a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co">#&gt;  [9] "R"             "README.Rmd"    "README.md"     "ghr.Rproj"    </span></a>
+<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="co">#&gt; [13] "inst"          "man"           "tests"         "vignettes"</span></a></code></pre></div>
 <p>Use <code><a href="reference/ghr_ls.html">ghr_ls()</a></code>, <code><a href="reference/ghr_ls.html">ghr_ls_download_url()</a></code> and <code>ghr_ls_htrml_url()</code> are shortcuts for <code><a href="reference/ghr_show_fields.html">ghr_pull(ghr_get(path), field = "&lt;field&gt;")</a></code>. They offer an interface similar to <code><a href="http://fs.r-lib.org/reference/dir_ls.html">fs::dir_ls()</a></code>.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">path &lt;-<span class="st"> "maurolepore/tor/inst/extdata/mixed"</span></a>
 <a class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw"><a href="reference/ghr_ls.html">ghr_ls</a></span>(path, <span class="dt">regexp =</span> <span class="st">"[.]csv$"</span>)</a>
