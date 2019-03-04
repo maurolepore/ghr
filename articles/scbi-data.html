@@ -141,14 +141,13 @@
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">species_lists &lt;-<span class="st"> "SCBI-ForestGEO/SCBI-ForestGEO-Data/species_lists"</span></a>
 <a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co"># Get the last part of the path</span></a>
 <a class="sourceLine" id="cb4-3" data-line-number="3">(subdirs &lt;-<span class="st"> </span>fs<span class="op">::</span><span class="kw"><a href="http://fs.r-lib.org/reference/path_file.html">path_file</a></span>(<span class="kw"><a href="../reference/ghr_ls.html">ghr_ls</a></span>(species_lists)))</a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">#&gt; Full plant list        GenBank                Tree ecology           </span></a>
-<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co">#&gt; insect_pests_pathogens</span></a></code></pre></div>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">#&gt; Full plant list   GenBank           Tree ecology      insects_pathogens</span></a></code></pre></div>
 <p>Let’s explore the .csv files in each sub directory. To reduce duplication I first create the vector <code>paths</code> to store the path to all of the sub directories I want to explore. Then I apply <code><a href="../reference/ghr_ls.html">ghr_ls()</a></code> to each element in <code>paths</code> and use <code>regexp</code> to focus on .csv files only.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">(paths &lt;-<span class="st"> </span>fs<span class="op">::</span><span class="kw"><a href="http://fs.r-lib.org/reference/path.html">path</a></span>(species_lists, subdirs))</a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">#&gt; SCBI-ForestGEO/SCBI-ForestGEO-Data/species_lists/Full plant list</span></a>
 <a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co">#&gt; SCBI-ForestGEO/SCBI-ForestGEO-Data/species_lists/GenBank</span></a>
 <a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co">#&gt; SCBI-ForestGEO/SCBI-ForestGEO-Data/species_lists/Tree ecology</span></a>
-<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="co">#&gt; SCBI-ForestGEO/SCBI-ForestGEO-Data/species_lists/insect_pests_pathogens</span></a>
+<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="co">#&gt; SCBI-ForestGEO/SCBI-ForestGEO-Data/species_lists/insects_pathogens</span></a>
 <a class="sourceLine" id="cb5-6" data-line-number="6"></a>
 <a class="sourceLine" id="cb5-7" data-line-number="7">paths <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb5-8" data-line-number="8"><span class="st">  </span><span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(<span class="op">~</span><span class="st"> </span><span class="kw"><a href="../reference/ghr_ls.html">ghr_ls</a></span>(.x, <span class="dt">regexp =</span> <span class="st">"[.]csv$"</span>))</a>
@@ -165,8 +164,8 @@
 <a class="sourceLine" id="cb5-19" data-line-number="19"><span class="co">#&gt; [2] "species_lists/Tree ecology/SCBI_ForestGEO_sp_ecology_metadata.csv"</span></a>
 <a class="sourceLine" id="cb5-20" data-line-number="20"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb5-21" data-line-number="21"><span class="co">#&gt; [[4]]</span></a>
-<a class="sourceLine" id="cb5-22" data-line-number="22"><span class="co">#&gt; [1] "species_lists/insect_pests_pathogens/pest_pathogens metadata.csv"</span></a>
-<a class="sourceLine" id="cb5-23" data-line-number="23"><span class="co">#&gt; [2] "species_lists/insect_pests_pathogens/pests_pathogens.csv"</span></a></code></pre></div>
+<a class="sourceLine" id="cb5-22" data-line-number="22"><span class="co">#&gt; [1] "species_lists/insects_pathogens/insects_pathogens metadata.csv"</span></a>
+<a class="sourceLine" id="cb5-23" data-line-number="23"><span class="co">#&gt; [2] "species_lists/insects_pathogens/insects_pathogens.csv"</span></a></code></pre></div>
 <p>Instead of the file names I can show the first few rows of each file. I use <code><a href="../reference/ghr_ls.html">ghr_ls_download_url()</a></code> to get download URLs of each .csv file in each sub directory. To iterate over all sub directories I use <code><a href="https://purrr.tidyverse.org/reference/map.html">purrr::map()</a></code>.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">download_urls &lt;-<span class="st"> </span>paths <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(<span class="op">~</span><span class="st"> </span><span class="kw"><a href="../reference/ghr_ls.html">ghr_ls_download_url</a></span>(.x, <span class="dt">regexp =</span> <span class="st">"[.]csv$"</span>))</a>
@@ -184,8 +183,8 @@
 <a class="sourceLine" id="cb6-14" data-line-number="14"><span class="co">#&gt; [2] "https://raw.githubusercontent.com/SCBI-ForestGEO/SCBI-ForestGEO-Data/master/species_lists/Tree%20ecology/SCBI_ForestGEO_sp_ecology_metadata.csv"</span></a>
 <a class="sourceLine" id="cb6-15" data-line-number="15"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb6-16" data-line-number="16"><span class="co">#&gt; [[4]]</span></a>
-<a class="sourceLine" id="cb6-17" data-line-number="17"><span class="co">#&gt; [1] "https://raw.githubusercontent.com/SCBI-ForestGEO/SCBI-ForestGEO-Data/master/species_lists/insect_pests_pathogens/pest_pathogens%20metadata.csv"</span></a>
-<a class="sourceLine" id="cb6-18" data-line-number="18"><span class="co">#&gt; [2] "https://raw.githubusercontent.com/SCBI-ForestGEO/SCBI-ForestGEO-Data/master/species_lists/insect_pests_pathogens/pests_pathogens.csv"</span></a></code></pre></div>
+<a class="sourceLine" id="cb6-17" data-line-number="17"><span class="co">#&gt; [1] "https://raw.githubusercontent.com/SCBI-ForestGEO/SCBI-ForestGEO-Data/master/species_lists/insects_pathogens/insects_pathogens%20metadata.csv"</span></a>
+<a class="sourceLine" id="cb6-18" data-line-number="18"><span class="co">#&gt; [2] "https://raw.githubusercontent.com/SCBI-ForestGEO/SCBI-ForestGEO-Data/master/species_lists/insects_pathogens/insects_pathogens.csv"</span></a></code></pre></div>
 <p>And finally I use <code><a href="https://readr.tidyverse.org/reference/read_delim.html">readr::read_csv()</a></code> to read each dataset into R. Again I use <code><a href="https://purrr.tidyverse.org/reference/map.html">purrr::map()</a></code> to iterate over each sub directory.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">download_urls <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/unlist">unlist</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
