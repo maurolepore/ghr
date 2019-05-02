@@ -141,7 +141,8 @@
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">species_lists &lt;-<span class="st"> "SCBI-ForestGEO/SCBI-ForestGEO-Data/species_lists"</span></a>
 <a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co"># Get the last part of the path</span></a>
 <a class="sourceLine" id="cb4-3" data-line-number="3">(subdirs &lt;-<span class="st"> </span>fs<span class="op">::</span><span class="kw"><a href="http://fs.r-lib.org/reference/path_file.html">path_file</a></span>(<span class="kw"><a href="../reference/ghr_ls.html">ghr_ls</a></span>(species_lists)))</a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">#&gt; Full plant list   GenBank           Tree ecology      insects_pathogens</span></a></code></pre></div>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">#&gt; [1] "Full plant list"   "GenBank"           "Tree ecology"     </span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co">#&gt; [4] "insects_pathogens"</span></a></code></pre></div>
 <p>Let’s explore the .csv files in each sub directory. To reduce duplication I first create the vector <code>paths</code> to store the path to all of the sub directories I want to explore. Then I apply <code><a href="../reference/ghr_ls.html">ghr_ls()</a></code> to each element in <code>paths</code> and use <code>regexp</code> to focus on .csv files only.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">(paths &lt;-<span class="st"> </span>fs<span class="op">::</span><span class="kw"><a href="http://fs.r-lib.org/reference/path.html">path</a></span>(species_lists, subdirs))</a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">#&gt; SCBI-ForestGEO/SCBI-ForestGEO-Data/species_lists/Full plant list</span></a>
