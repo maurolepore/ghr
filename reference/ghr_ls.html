@@ -172,9 +172,9 @@ filter paths.</p></td>
 
 <span class='co'># The first call make the request</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.time'>system.time</a></span>(<span class='fu'>ghr_ls</span>(<span class='no'>path</span>))</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.020   0.000   0.094 </div><div class='input'><span class='co'># Takes no time because the first call is memoised</span>
+#&gt;   0.020   0.000   0.101 </div><div class='input'><span class='co'># Takes no time because the first call is memoised</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.time'>system.time</a></span>(<span class='fu'>ghr_ls</span>(<span class='no'>path</span>))</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.004   0.000   0.001 </div><div class='input'>
+#&gt;   0.000   0.000   0.001 </div><div class='input'>
 <span class='fu'>ghr_ls</span>(<span class='no'>path</span>, <span class='kw'>regexp</span> <span class='kw'>=</span> <span class='st'>"[.]csv$"</span>)</div><div class='output co'>#&gt; [1] "inst/extdata/mixed/csv.csv"</div><div class='input'><span class='fu'>ghr_ls</span>(<span class='no'>path</span>, <span class='kw'>regexp</span> <span class='kw'>=</span> <span class='st'>"[.]csv$"</span>, <span class='kw'>invert</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] "inst/extdata/mixed/lower_rdata.rdata"
 #&gt; [2] "inst/extdata/mixed/rda.rda"          
 #&gt; [3] "inst/extdata/mixed/upper_rdata.RData"</div><div class='input'>
